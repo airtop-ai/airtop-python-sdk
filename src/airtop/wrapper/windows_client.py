@@ -77,7 +77,7 @@ class AirtopWindows(WindowsClient):
         """
         options_with_defaults = {**{"timeout_in_seconds": 600}, **(request_options if request_options else {})}
         request_options = RequestOptions(**options_with_defaults)
-        return super().prompt_content(session_id, window_id, prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     def scrape_content(
         self,
@@ -339,7 +339,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         """
         options_with_defaults = {**{"timeout_in_seconds": 600}, **(request_options if request_options else {})}
         request_options = RequestOptions(**options_with_defaults)
-        return super().prompt_content(session_id, window_id, prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     async def scrape_content(
         self,
