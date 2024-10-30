@@ -19,7 +19,7 @@ from ..core.jsonable_encoder import jsonable_encoder
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
-RUNNINNG_STATUS = "running"
+RUNNING_STATUS = "running"
 
 class SessionConfig(SessionConfigV1):
     """
@@ -30,7 +30,6 @@ class SessionConfig(SessionConfigV1):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)  # Ensure base class is initialized
 
-# ... existing code ...
 class AirtopSessions(SessionsClient):
     """
     AirtopSessions client functionality.
@@ -39,14 +38,13 @@ class AirtopSessions(SessionsClient):
     def create(
             self,
             *,
-            configuration: typing.Optional[SessionConfigV1] = None, 
+            configuration: typing.Optional[SessionConfigV1] = None,
             request_options: typing.Optional[RequestOptions] = None,
         ) -> SessionResponse:
             skip_wait_session_ready = False
             if hasattr(configuration, 'skip_wait_session_ready'):
                 skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
             session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.__fields__}) if configuration else None
-            print(f" createSession configuration: {skip_wait_session_ready} - {configuration}")
             session_data = super().create(configuration=session_config_v1, request_options=request_options)
             if not skip_wait_session_ready:
                 self.wait_for_session_ready(session_data.data.id)
@@ -80,7 +78,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
     async def create(
         self,
         *,
-        configuration: typing.Optional[SessionConfigV1] = None, 
+        configuration: typing.Optional[SessionConfigV1] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SessionResponse:
         """
@@ -119,7 +117,6 @@ class AsyncAirtopSessions(AsyncSessionsClient):
             skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
 
         session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.__fields__}) if configuration else None
-        print(f" createSession configuration: {skip_wait_session_ready} - {configuration}")
 
         session_data = await super().create(configuration=session_config_v1, request_options=request_options)
         if not skip_wait_session_ready:
@@ -128,7 +125,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
 
     async def wait_for_session_ready(self, session_id: str, timeout_seconds: int = 60):
         initial_status = "UNINITIALIZED"
-        desired_status = RUNNINNG_STATUS
+        desired_status = RUNNING_STATUS
         status = initial_status
         start_time = time.time()
 

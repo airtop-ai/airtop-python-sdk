@@ -20,7 +20,7 @@ class Airtop(BaseClient):
 
 
 
-    api_key : typing.Optional[typing.Union[str, typing.Callable[[], str]]]
+    api_key : typing.Union[str, typing.Callable[[], str]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -64,7 +64,7 @@ class AsyncAirtop(AsyncBaseClient):
 
 
 
-    api_key : typing.Optional[typing.Union[str, typing.Callable[[], str]]]
+    api_key : typing.Union[str, typing.Callable[[], str]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
