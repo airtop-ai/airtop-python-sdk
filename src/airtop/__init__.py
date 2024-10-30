@@ -58,6 +58,9 @@ from .sessions import (
 )
 from .version import __version__
 from .windows import CreateWindowInputV1BodyWaitUntil, WindowLoadUrlV1BodyWaitUntil
+from .wrapper.sessions_client import SessionConfig
+from .core import RequestOptions
+
 
 __all__ = [
     "AiPromptResponse",
@@ -90,10 +93,12 @@ __all__ = [
     "PromptContentConfig",
     "PromptContentExperimentalConfig",
     "Proxy",
+    "RequestOptions",
     "ScrapeResponse",
     "ScrapeResponseContent",
     "ScrapeResponseEnvelope",
     "ScrapeResponseOutput",
+    "SessionConfig",
     "SessionConfigV1",
     "SessionConfigV1Proxy",
     "SessionConfigV1ProxyItem",
