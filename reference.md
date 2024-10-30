@@ -902,14 +902,6 @@ client.windows.prompt_content(
 <dl>
 <dd>
 
-**configuration:** `typing.Optional[PromptContentConfig]` — Request configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
     
 </dd>
@@ -1097,14 +1089,6 @@ client.windows.summarize_content(
 <dd>
 
 **client_request_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**configuration:** `typing.Optional[SummaryConfig]` — Request configuration
     
 </dd>
 </dl>

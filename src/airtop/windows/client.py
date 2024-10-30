@@ -12,11 +12,8 @@ from ..core.api_error import ApiError
 from ..types.window_response import WindowResponse
 from .types.window_load_url_v1body_wait_until import WindowLoadUrlV1BodyWaitUntil
 from ..types.empty_response import EmptyResponse
-from ..types.prompt_content_config import PromptContentConfig
 from ..types.ai_prompt_response import AiPromptResponse
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..types.scrape_response import ScrapeResponse
-from ..types.summary_config import SummaryConfig
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -305,7 +302,6 @@ class WindowsClient:
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[PromptContentConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -324,9 +320,6 @@ class WindowsClient:
             The prompt to submit about the content in the browser window.
 
         client_request_id : typing.Optional[str]
-
-        configuration : typing.Optional[PromptContentConfig]
-            Request configuration
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -365,9 +358,6 @@ class WindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": convert_and_respect_annotation_metadata(
-                    object_=configuration, annotation=PromptContentConfig, direction="write"
-                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "followPaginationLinks": follow_pagination_links,
                 "prompt": prompt,
@@ -470,7 +460,6 @@ class WindowsClient:
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[SummaryConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -486,9 +475,6 @@ class WindowsClient:
             The Airtop window id of the browser window to summarize.
 
         client_request_id : typing.Optional[str]
-
-        configuration : typing.Optional[SummaryConfig]
-            Request configuration
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -526,9 +512,6 @@ class WindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": convert_and_respect_annotation_metadata(
-                    object_=configuration, annotation=SummaryConfig, direction="write"
-                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "prompt": prompt,
                 "timeThresholdSeconds": time_threshold_seconds,
@@ -865,7 +848,6 @@ class AsyncWindowsClient:
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[PromptContentConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -884,9 +866,6 @@ class AsyncWindowsClient:
             The prompt to submit about the content in the browser window.
 
         client_request_id : typing.Optional[str]
-
-        configuration : typing.Optional[PromptContentConfig]
-            Request configuration
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -933,9 +912,6 @@ class AsyncWindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": convert_and_respect_annotation_metadata(
-                    object_=configuration, annotation=PromptContentConfig, direction="write"
-                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "followPaginationLinks": follow_pagination_links,
                 "prompt": prompt,
@@ -1046,7 +1022,6 @@ class AsyncWindowsClient:
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[SummaryConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -1062,9 +1037,6 @@ class AsyncWindowsClient:
             The Airtop window id of the browser window to summarize.
 
         client_request_id : typing.Optional[str]
-
-        configuration : typing.Optional[SummaryConfig]
-            Request configuration
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1110,9 +1082,6 @@ class AsyncWindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": convert_and_respect_annotation_metadata(
-                    object_=configuration, annotation=SummaryConfig, direction="write"
-                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "prompt": prompt,
                 "timeThresholdSeconds": time_threshold_seconds,
