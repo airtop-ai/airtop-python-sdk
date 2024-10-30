@@ -52,7 +52,7 @@ class AirtopSessions(SessionsClient):
 
     def wait_for_session_ready(self, session_id: str, timeout_seconds: int = 60):
         initial_status = ""
-        desired_status = RUNNINNG_STATUS
+        desired_status = RUNNING_STATUS
         status = initial_status
         start_time = time.time()
 
