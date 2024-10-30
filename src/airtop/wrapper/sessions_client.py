@@ -44,7 +44,7 @@ class AirtopSessions(SessionsClient):
         ) -> SessionResponse:
             skip_wait_session_ready = False
             if hasattr(configuration, 'skip_wait_session_ready'):
-                skip_wait_session_ready = configuration.skip_wait_session_ready
+                skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
             session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.__fields__}) if configuration else None
             session_data = super().create(configuration=session_config_v1, request_options=request_options)
             if not skip_wait_session_ready:
@@ -115,7 +115,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
         """
         skip_wait_session_ready = False
         if hasattr(configuration, 'skip_wait_session_ready'):
-            skip_wait_session_ready = configuration.skip_wait_session_ready
+            skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
         session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.__fields__}) if configuration else None
 
         session_data = await super().create(configuration=session_config_v1, request_options=request_options)

@@ -75,8 +75,10 @@ class AirtopWindows(WindowsClient):
             prompt="What is the main idea of this page?",
         )
         """
-        options_with_defaults = {**{"timeout_in_seconds": 600}, **(request_options if request_options else {})}
-        request_options = RequestOptions(**options_with_defaults)
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
         return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     def scrape_content(
@@ -128,8 +130,10 @@ class AirtopWindows(WindowsClient):
             window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
         )
         """
-        options_with_defaults = {**{"timeout_in_seconds": 600}, **(request_options if request_options else {})}
-        request_options = RequestOptions(**options_with_defaults)
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
         return super().scrape_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     def summarize_content(
@@ -189,8 +193,10 @@ class AirtopWindows(WindowsClient):
             window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
         )
         """
-        options_with_defaults = {**{"timeout_in_seconds": 600}, **(request_options if request_options else {})}
-        request_options = RequestOptions(**options_with_defaults)
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
         return super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
@@ -337,9 +343,11 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
         asyncio.run(main())
         """
-        options_with_defaults = {**{"timeout_in_seconds": 600}, **(request_options if request_options else {})}
-        request_options = RequestOptions(**options_with_defaults)
-        return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return await super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     async def scrape_content(
         self,
@@ -398,9 +406,11 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
         asyncio.run(main())
         """
-        options_with_defaults = {**{"timeout_in_seconds": 600}, **(request_options if request_options else {})}
-        request_options = RequestOptions(**options_with_defaults)
-        return super().scrape_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return await super().scrape_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     async def summarize_content(
         self,
@@ -467,9 +477,11 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
         asyncio.run(main())
         """
-        options_with_defaults = {**{"timeout_in_seconds": 600}, **(request_options if request_options else {})}
-        request_options = RequestOptions(**options_with_defaults)
-        return super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return await super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
     async def _get_playwright_target_id(self, playwright_page):
