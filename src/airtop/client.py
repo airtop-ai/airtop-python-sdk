@@ -1,3 +1,6 @@
+import typing
+import httpx
+from .environment import AirtopEnvironment
 from .base_client import BaseClient, AsyncBaseClient
 from .wrapper.windows_client import AirtopWindows, AsyncAirtopWindows
 from .wrapper.sessions_client import AirtopSessions, AsyncAirtopSessions
@@ -39,8 +42,17 @@ class Airtop(BaseClient):
     )
     """
 
-    def __init__(self, *, api_key: str, **kwargs):
-        super().__init__(api_key=api_key, **kwargs)
+    def __init__(
+        self,
+        *,
+        base_url: typing.Optional[str] = None,
+        environment: AirtopEnvironment = AirtopEnvironment.DEFAULT,
+        api_key: typing.Union[str, typing.Callable[[], str]],
+        timeout: typing.Optional[float] = None,
+        follow_redirects: typing.Optional[bool] = True,
+        httpx_client: typing.Optional[httpx.Client] = None,
+    ):
+        super().__init__(api_key=api_key, base_url=base_url, environment=environment, timeout=timeout, follow_redirects=follow_redirects, httpx_client=httpx_client)
         self.windows = AirtopWindows(client_wrapper=self._client_wrapper)
         self.sessions = AirtopSessions(client_wrapper=self._client_wrapper)
 
@@ -82,9 +94,17 @@ class AsyncAirtop(AsyncBaseClient):
         api_key="YOUR_API_KEY",
     )
     """
-
-
-    def __init__(self, *, api_key: str, **kwargs):
-        super().__init__(api_key=api_key, **kwargs)
+    
+    def __init__(
+        self,
+        *,
+        base_url: typing.Optional[str] = None,
+        environment: AirtopEnvironment = AirtopEnvironment.DEFAULT,
+        api_key: typing.Union[str, typing.Callable[[], str]],
+        timeout: typing.Optional[float] = None,
+        follow_redirects: typing.Optional[bool] = True,
+        httpx_client: typing.Optional[httpx.AsyncClient] = None,
+    ):
+        super().__init__(api_key=api_key, base_url=base_url, environment=environment, timeout=timeout, follow_redirects=follow_redirects, httpx_client=httpx_client)
         self.windows = AsyncAirtopWindows(client_wrapper=self._client_wrapper)
         self.sessions = AsyncAirtopSessions(client_wrapper=self._client_wrapper)

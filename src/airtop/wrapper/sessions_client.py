@@ -41,6 +41,29 @@ class AirtopSessions(SessionsClient):
             configuration: typing.Optional[SessionConfigV1] = None,
             request_options: typing.Optional[RequestOptions] = None,
         ) -> SessionResponse:
+            """
+            Parameters
+            ----------
+            configuration : typing.Optional[SessionConfigV1]
+                Session configuration
+
+            request_options : typing.Optional[RequestOptions]
+                Request-specific configuration.
+
+            Returns
+            -------
+            SessionResponse
+                Created
+
+            Examples
+            --------
+            from airtop import Airtop
+
+            client = Airtop(
+                api_key="YOUR_API_KEY",
+            )
+            client.sessions.create()
+            """
             skip_wait_session_ready = False
             if hasattr(configuration, 'skip_wait_session_ready'):
                 skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
