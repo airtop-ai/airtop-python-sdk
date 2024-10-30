@@ -202,11 +202,39 @@ class AirtopWindows(WindowsClient):
 
 
     def _get_playwright_target_id(self, playwright_page):
+        """
+        Gets the Chrome DevTools Protocol target ID for a Playwright page.
+
+        Parameters
+        ----------
+        playwright_page : Page
+            The Playwright page object to get the target ID for.
+
+        Returns
+        -------
+        str
+            The CDP target ID for the page.
+        """
         cdp_session = playwright_page.context.new_cdp_session(playwright_page)
         target_info = cdp_session.send("Target.getTargetInfo")
         return target_info["targetInfo"]["targetId"]
 
     def _get_selenium_target_id(self, selenium_driver, session: ExternalSessionWithConnectionInfo):
+        """
+        Gets the Chrome DevTools Protocol target ID for a Selenium WebDriver.
+
+        Parameters
+        ----------
+        selenium_driver : WebDriver
+            The Selenium WebDriver instance to get the target ID for.
+        session : ExternalSessionWithConnectionInfo
+            The session information containing the ChromeDriver URL and other connection details.
+
+        Returns
+        -------
+        str
+            The CDP target ID for the WebDriver's current page.
+        """
         airtop_api_key = self._client_wrapper._api_key
         chromedriver_session_url = f"{session.chromedriver_url}/session/{selenium_driver.session_id}/chromium/send_command_and_get_result"
         response = requests.post(
@@ -232,6 +260,29 @@ class AirtopWindows(WindowsClient):
         screen_resolution: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ):
+        """
+        Gets window information for a Playwright page.
+
+        Parameters
+        ----------
+        session : ExternalSessionWithConnectionInfo
+            The session information containing connection details.
+        playwright_page : Page
+            The Playwright page object to get window info for.
+        include_navigation_bar : typing.Optional[bool], optional
+            Whether to include the navigation bar in the live view client, by default None
+        disable_resize : typing.Optional[bool], optional
+            Whether to disable window resizing in the live view client, by default None
+        screen_resolution : typing.Optional[str], optional
+            The screen resolution to use in the live view client, by default None
+        request_options : typing.Optional[RequestOptions], optional
+            Additional request options, by default None
+
+        Returns
+        -------
+        WindowInfo
+            Information about the window associated with the Playwright page.
+        """
         target_id = self._get_playwright_target_id(playwright_page)
         return self.get_window_info(
             session_id=session.id,
@@ -252,6 +303,29 @@ class AirtopWindows(WindowsClient):
         screen_resolution: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ):
+        """
+        Gets window information for a Selenium WebDriver.
+
+        Parameters
+        ----------
+        session : ExternalSessionWithConnectionInfo
+            The session information containing connection details.
+        selenium_driver : WebDriver
+            The Selenium WebDriver object to get window info for.
+        include_navigation_bar : typing.Optional[bool], optional
+            Whether to include the navigation bar in the live view client, by default None
+        disable_resize : typing.Optional[bool], optional
+            Whether to disable window resizing in the live view client, by default None
+        screen_resolution : typing.Optional[str], optional
+            The screen resolution to use in the live view client, by default None
+        request_options : typing.Optional[RequestOptions], optional
+            Additional request options, by default None
+
+        Returns
+        -------
+        WindowInfo
+            Information about the window associated with the Selenium WebDriver.
+        """
         target_id = self._get_selenium_target_id(selenium_driver, session)
         return self.get_window_info(
             session_id=session.id,
@@ -515,6 +589,30 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         screen_resolution: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ):
+        """
+        Get window information for a Playwright page.
+
+        Parameters
+        ----------
+        session : ExternalSessionWithConnectionInfo
+            The session containing connection information
+        playwright_page : Page
+            The Playwright page to get window info for
+        include_navigation_bar : typing.Optional[bool]
+            Whether to include the navigation bar in the live view client window
+        disable_resize : typing.Optional[bool] 
+            Whether to disable window resizing in the live view client
+        screen_resolution : typing.Optional[str]
+            The screen resolution to use in the live view client
+        request_options : typing.Optional[RequestOptions]
+            Additional options for the request
+
+        Returns
+        -------
+        WindowInfo
+            Information about the window
+
+        """
         target_id = await self._get_playwright_target_id(playwright_page)
         return await self.get_window_info(
             session_id=session.id,
@@ -535,6 +633,29 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         screen_resolution: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ):
+        """
+        Get window information for a Selenium WebDriver.
+
+        Parameters
+        ----------
+        session : ExternalSessionWithConnectionInfo
+            The session containing connection information
+        selenium_driver : WebDriver
+            The Selenium WebDriver to get window info for
+        include_navigation_bar : typing.Optional[bool]
+            Whether to include the navigation bar in the live view client window
+        disable_resize : typing.Optional[bool] 
+            Whether to disable window resizing in the live view client
+        screen_resolution : typing.Optional[str]
+            The screen resolution to use in the live view client
+        request_options : typing.Optional[RequestOptions]
+            Additional options for the request
+
+        Returns
+        -------
+        WindowInfo
+            Information about the window
+        """
         target_id = await self._get_selenium_target_id(selenium_driver, session)
         return await self.get_window_info(
             session_id=session.id,
