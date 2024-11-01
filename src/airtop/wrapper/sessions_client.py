@@ -1,19 +1,9 @@
 import time
 import typing
 from ..sessions.client import SessionsClient, AsyncSessionsClient
-from ..core.client_wrapper import SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.sessions_response import SessionsResponse
-from ..core.pydantic_utilities import parse_obj_as
-from ..errors.not_found_error import NotFoundError
-from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..errors.internal_server_error import InternalServerError
-from json.decoder import JSONDecodeError
-from ..core.api_error import ApiError
 from ..types.session_config_v1 import SessionConfigV1
 from ..types.session_response import SessionResponse
-from ..core.serialization import convert_and_respect_annotation_metadata
-from ..core.jsonable_encoder import jsonable_encoder
 
 
 # this is used as the default value for optional parameters
@@ -67,11 +57,16 @@ class AirtopSessions(SessionsClient):
             skip_wait_session_ready = False
             if hasattr(configuration, 'skip_wait_session_ready'):
                 skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
-            session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.__fields__}) if configuration else None
-            session_data = super().create(configuration=session_config_v1, request_options=request_options)
-            if not skip_wait_session_ready:
-                self.wait_for_session_ready(session_data.data.id)
-            return session_data
+            session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.model_fields}) if configuration else None
+            session_res = super().create(configuration=session_config_v1, request_options=request_options)
+            if (skip_wait_session_ready):
+                return session_res
+            
+            self.wait_for_session_ready(session_res.data.id)
+            updated_session_res = self.getinfo(id=session_res.data.id)
+            merged_session_data = session_res.data.model_copy(update={"status": updated_session_res.data.status})
+            merged_session_res = session_res.model_copy(update={"data": merged_session_data})
+            return merged_session_res
 
     def wait_for_session_ready(self, session_id: str, timeout_seconds: int = 60):
         initial_status = ""
@@ -139,12 +134,18 @@ class AsyncAirtopSessions(AsyncSessionsClient):
         if hasattr(configuration, 'skip_wait_session_ready'):
             skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
 
-        session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.__fields__}) if configuration else None
+        session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.model_fields}) if configuration else None
 
-        session_data = await super().create(configuration=session_config_v1, request_options=request_options)
-        if not skip_wait_session_ready:
-            await self.wait_for_session_ready(session_data.data.id)
-        return session_data
+        session_res = await super().create(configuration=session_config_v1, request_options=request_options)
+        if (skip_wait_session_ready):
+            return session_res
+        
+        await self.wait_for_session_ready(session_res.data.id)
+        updated_session_res = await self.getinfo(id=session_res.data.id)
+
+        merged_session_data = session_res.data.model_copy(update={"status": updated_session_res.data.status})
+        merged_session_res = session_res.model_copy(update={"data": merged_session_data})
+        return merged_session_res
 
     async def wait_for_session_ready(self, session_id: str, timeout_seconds: int = 60):
         initial_status = "UNINITIALIZED"
