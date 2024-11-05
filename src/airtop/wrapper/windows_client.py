@@ -1,6 +1,6 @@
 import typing
 import requests
-from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse
+from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, PromptContentConfig, SummaryConfig
 from ..core.request_options import RequestOptions
 from ..types import ExternalSessionWithConnectionInfo
 
@@ -20,6 +20,7 @@ class AirtopWindows(WindowsClient):
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PromptContentConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -38,6 +39,9 @@ class AirtopWindows(WindowsClient):
             The prompt to submit about the content in the browser window.
 
         client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PromptContentConfig]
+            Request configuration
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -75,7 +79,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     def scrape_content(
         self,
@@ -138,6 +142,7 @@ class AirtopWindows(WindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[SummaryConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -153,6 +158,9 @@ class AirtopWindows(WindowsClient):
             The Airtop window id of the browser window to summarize.
 
         client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[SummaryConfig]
+            Request configuration
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -189,7 +197,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().summarize_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
 
@@ -344,6 +352,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PromptContentConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -362,6 +371,9 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             The prompt to submit about the content in the browser window.
 
         client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PromptContentConfig]
+            Request configuration
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -478,6 +490,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[SummaryConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -493,6 +506,9 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             The Airtop window id of the browser window to summarize.
 
         client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[SummaryConfig]
+            Request configuration
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -537,7 +553,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().summarize_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
     async def _get_playwright_target_id(self, playwright_page):
