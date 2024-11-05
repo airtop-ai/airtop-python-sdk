@@ -63,7 +63,7 @@ class AirtopSessions(SessionsClient):
                 return session_res
             
             self.wait_for_session_ready(session_res.data.id)
-            updated_session_res = self.getinfo(id=session_res.data.id)
+            updated_session_res = self.get_info(id=session_res.data.id)
             merged_session_data = session_res.data.model_copy(update={"status": updated_session_res.data.status})
             merged_session_res = session_res.model_copy(update={"data": merged_session_data})
             return merged_session_res
@@ -75,7 +75,7 @@ class AirtopSessions(SessionsClient):
         start_time = time.time()
 
         while status != desired_status:
-            status = self.getinfo(id=session_id).data.status
+            status = self.get_info(id=session_id).data.status
             if status == desired_status:
                 break
 
@@ -141,7 +141,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
             return session_res
         
         await self.wait_for_session_ready(session_res.data.id)
-        updated_session_res = await self.getinfo(id=session_res.data.id)
+        updated_session_res = await self.get_info(id=session_res.data.id)
 
         merged_session_data = session_res.data.model_copy(update={"status": updated_session_res.data.status})
         merged_session_res = session_res.model_copy(update={"data": merged_session_data})
@@ -154,7 +154,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
         start_time = time.time()
 
         while status != desired_status:
-            status = (await self.getinfo(id=session_id)).data.status
+            status = (await self.get_info(id=session_id)).data.status
             if status == desired_status:
                 break
 
