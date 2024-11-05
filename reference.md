@@ -286,7 +286,7 @@ client.sessions.create()
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">getinfo</a>(...)</code></summary>
+<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">get_info</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -318,7 +318,7 @@ from airtop import Airtop
 client = Airtop(
     api_key="YOUR_API_KEY",
 )
-client.sessions.getinfo(
+client.sessions.get_info(
     id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
 )
 
@@ -902,6 +902,14 @@ client.windows.prompt_content(
 <dl>
 <dd>
 
+**configuration:** `typing.Optional[PromptContentConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
     
 </dd>
@@ -1089,6 +1097,14 @@ client.windows.summarize_content(
 <dd>
 
 **client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[SummaryConfig]` — Request configuration
     
 </dd>
 </dl>
