@@ -1,7 +1,7 @@
 import typing
 import typing_extensions
 import requests
-from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, SummaryConfig
+from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse
 from ..core.request_options import RequestOptions
 from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
 from ..core.serialization import FieldMetadata
@@ -10,10 +10,12 @@ import pydantic
 
 OMIT = typing.cast(typing.Any, ...)
 
+# Disable assignment error for the following classes
+# mypy: disable-error-code="assignment"
 class SummaryConfig(SummaryConfigBase):
-    output_schema: typing_extensions.Annotated[typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")] = (
+    output_schema: typing_extensions.Annotated[typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")] = (  
         pydantic.Field(default=None)
-    )
+    ) 
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs) 
@@ -21,7 +23,7 @@ class SummaryConfig(SummaryConfigBase):
 class PageQueryConfig(PageQueryConfigBase):
     output_schema: typing_extensions.Annotated[typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")] = (
         pydantic.Field(default=None)
-    )
+    ) 
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -277,7 +279,7 @@ class AirtopWindows(WindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[SummaryConfig] = OMIT,
+        configuration: typing.Optional[SummaryConfigBase] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -708,7 +710,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[SummaryConfig] = OMIT,
+        configuration: typing.Optional[SummaryConfigBase] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
