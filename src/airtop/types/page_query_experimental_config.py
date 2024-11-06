@@ -8,7 +8,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class PromptContentExperimentalConfig(UniversalBaseModel):
+class PageQueryExperimentalConfig(UniversalBaseModel):
     include_visual_analysis: typing_extensions.Annotated[
         typing.Optional[str], FieldMetadata(alias="includeVisualAnalysis")
     ] = pydantic.Field(default=None)

@@ -19,10 +19,10 @@ from .external_session_ai_response_metadata_usage import ExternalSessionAiRespon
 from .external_session_config import ExternalSessionConfig
 from .external_session_with_connection_info import ExternalSessionWithConnectionInfo
 from .issue import Issue
+from .page_query_config import PageQueryConfig
+from .page_query_experimental_config import PageQueryExperimentalConfig
 from .pagination import Pagination
 from .profiles_response import ProfilesResponse
-from .prompt_content_config import PromptContentConfig
-from .prompt_content_experimental_config import PromptContentExperimentalConfig
 from .proxy import Proxy
 from .scrape_response import ScrapeResponse
 from .scrape_response_content import ScrapeResponseContent
@@ -31,6 +31,7 @@ from .scrape_response_output import ScrapeResponseOutput
 from .session_config_v1 import SessionConfigV1
 from .session_config_v1proxy import SessionConfigV1Proxy
 from .session_config_v1proxy_item import SessionConfigV1ProxyItem
+from .session_page_query_handler_request_body import SessionPageQueryHandlerRequestBody
 from .session_response import SessionResponse
 from .sessions_response import SessionsResponse
 from .sessions_with_pagination import SessionsWithPagination
@@ -63,10 +64,10 @@ __all__ = [
     "ExternalSessionConfig",
     "ExternalSessionWithConnectionInfo",
     "Issue",
+    "PageQueryConfig",
+    "PageQueryExperimentalConfig",
     "Pagination",
     "ProfilesResponse",
-    "PromptContentConfig",
-    "PromptContentExperimentalConfig",
     "Proxy",
     "ScrapeResponse",
     "ScrapeResponseContent",
@@ -75,6 +76,7 @@ __all__ = [
     "SessionConfigV1",
     "SessionConfigV1Proxy",
     "SessionConfigV1ProxyItem",
+    "SessionPageQueryHandlerRequestBody",
     "SessionResponse",
     "SessionsResponse",
     "SessionsWithPagination",

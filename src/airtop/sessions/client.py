@@ -184,7 +184,7 @@ class SessionsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def getinfo(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SessionResponse:
+    def get_info(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SessionResponse:
         """
         Get a session by ID
 
@@ -208,7 +208,7 @@ class SessionsClient:
         client = Airtop(
             api_key="YOUR_API_KEY",
         )
-        client.sessions.getinfo(
+        client.sessions.get_info(
             id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
         )
         """
@@ -565,7 +565,7 @@ class AsyncSessionsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def getinfo(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SessionResponse:
+    async def get_info(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SessionResponse:
         """
         Get a session by ID
 
@@ -594,7 +594,7 @@ class AsyncSessionsClient:
 
 
         async def main() -> None:
-            await client.sessions.getinfo(
+            await client.sessions.get_info(
                 id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
             )
 
