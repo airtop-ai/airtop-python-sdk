@@ -30,7 +30,7 @@ class PageQueryConfig(PageQueryConfigBase):
 
     
 
-def convert_page_query_output_schema_to_str(config_object: typing.Optional[PageQueryConfigBase]) -> any:
+def convert_page_query_output_schema_to_str(config_object: typing.Optional[PageQueryConfigBase]) -> typing.Any:
     if not config_object:
         return config_object
     if isinstance(config_object, dict):
@@ -50,7 +50,7 @@ def convert_page_query_output_schema_to_str(config_object: typing.Optional[PageQ
     # We assume that the output schema is an object, and convert it to a string JSON string
     return config_object.model_copy(update={"output_schema": json.dumps(output_schema)})
 
-def convert_summary_output_schema_to_str(config_object: typing.Optional[SummaryConfigBase]) -> any:
+def convert_summary_output_schema_to_str(config_object: typing.Optional[SummaryConfigBase]) -> typing.Any:
     if not config_object:
         return config_object
     if isinstance(config_object, dict):
