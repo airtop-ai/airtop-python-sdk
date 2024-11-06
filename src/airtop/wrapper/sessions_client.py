@@ -63,7 +63,7 @@ class AirtopSessions(SessionsClient):
                 return session_res
             
             self.wait_for_session_ready(session_res.data.id)
-            updated_session_res = self.getinfo(id=session_res.data.id)
+            updated_session_res = self.get_info(id=session_res.data.id)
             merged_session_data = session_res.data.model_copy(update={"status": updated_session_res.data.status})
             merged_session_res = session_res.model_copy(update={"data": merged_session_data})
             return merged_session_res
@@ -75,7 +75,7 @@ class AirtopSessions(SessionsClient):
         start_time = time.time()
 
         while status != desired_status:
-            status = self.getinfo(id=session_id).data.status
+            status = self.get_info(id=session_id).data.status
             if status == desired_status:
                 break
 
@@ -85,6 +85,40 @@ class AirtopSessions(SessionsClient):
 
             time.sleep(1)
         return status
+    
+    def getinfo(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SessionResponse:
+        """
+        Get a session by ID
+
+        .. deprecated:: 0.0.22
+           Use :meth:`get_info` instead.
+
+        Parameters
+        ----------
+        id : str
+            Id of the session to get
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SessionResponse
+            OK
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        # This method is deprecated, use get_info instead:
+        client.sessions.get_info(
+            id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+        )
+        """
+        return super().get_info(id=id, request_options=request_options)
 
 
 
@@ -141,7 +175,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
             return session_res
         
         await self.wait_for_session_ready(session_res.data.id)
-        updated_session_res = await self.getinfo(id=session_res.data.id)
+        updated_session_res = await self.get_info(id=session_res.data.id)
 
         merged_session_data = session_res.data.model_copy(update={"status": updated_session_res.data.status})
         merged_session_res = session_res.model_copy(update={"data": merged_session_data})
@@ -154,7 +188,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
         start_time = time.time()
 
         while status != desired_status:
-            status = (await self.getinfo(id=session_id)).data.status
+            status = (await self.get_info(id=session_id)).data.status
             if status == desired_status:
                 break
 
@@ -164,5 +198,47 @@ class AsyncAirtopSessions(AsyncSessionsClient):
 
             time.sleep(1)
         return status
+    
+    async def getinfo(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SessionResponse:
+        """
+        Get a session by ID
+
+        .. deprecated:: 0.0.22
+           Use :meth:`get_info` instead.
+
+        Parameters
+        ----------
+        id : str
+            Id of the session to get
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SessionResponse
+            OK
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            # This method is deprecated, use get_info instead:
+            await client.sessions.get_info(
+                id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            )
+
+
+        asyncio.run(main())
+        """
+        return await super().get_info(id=id, request_options=request_options)
 
 

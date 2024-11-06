@@ -21,9 +21,8 @@ from .types import (
     ExternalSessionWithConnectionInfo,
     Issue,
     Pagination,
+    PageQueryExperimentalConfig,
     ProfilesResponse,
-    PromptContentConfig,
-    PromptContentExperimentalConfig,
     Proxy,
     ScrapeResponse,
     ScrapeResponseContent,
@@ -37,7 +36,6 @@ from .types import (
     SessionsWithPagination,
     StatusMessage,
     StatusMessageStatus,
-    SummaryConfig,
     SummaryExperimentalConfig,
     Window,
     WindowId,
@@ -59,6 +57,7 @@ from .sessions import (
 from .version import __version__
 from .windows import CreateWindowInputV1BodyWaitUntil, WindowLoadUrlV1BodyWaitUntil
 from .wrapper.sessions_client import SessionConfig
+from .wrapper.windows_client import SummaryConfig, PageQueryConfig
 from .core import RequestOptions
 
 
@@ -88,10 +87,10 @@ __all__ = [
     "InternalServerError",
     "Issue",
     "NotFoundError",
+    'PageQueryConfig',
+    "PageQueryExperimentalConfig",
     "Pagination",
     "ProfilesResponse",
-    "PromptContentConfig",
-    "PromptContentExperimentalConfig",
     "Proxy",
     "RequestOptions",
     "ScrapeResponse",
