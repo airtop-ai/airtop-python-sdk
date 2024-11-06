@@ -1,10 +1,18 @@
 [tool.poetry]
 name = "airtop"
-version = "0.0.22"
-description = ""
+version = "0.0.23"
+description = "SDK for Airtop cloud browsers"
 readme = "README.md"
 authors = []
-keywords = []
+keywords = [
+    "airtop",
+    "ai",
+    "cloud",
+    "browser",
+    "automation",
+    "agent",
+    "python",
+]
 license = "MIT"
 classifiers = [
     "Intended Audience :: Developers",
