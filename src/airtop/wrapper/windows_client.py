@@ -2,9 +2,21 @@ import typing
 import requests
 from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse
 from ..core.request_options import RequestOptions
-from ..types import ExternalSessionWithConnectionInfo
+from ..types import ExternalSessionWithConnectionInfo, SummaryConfig, PageQueryConfig
 
 OMIT = typing.cast(typing.Any, ...)
+
+class SummaryConfigWrapper(SummaryConfig):
+    output_schema: typing.Union[str, typing.Any, None]  # Updated to allow string, object, or undefined
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  # Call the parent constructor
+
+class PageQueryConfigWrapper(PageQueryConfig):
+    output_schema: typing.Union[str, typing.Any, None]  # Updated to allow string, object, or undefined
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  # Call the parent constructor
 
 # ... existing code ...
 class AirtopWindows(WindowsClient):
@@ -20,6 +32,7 @@ class AirtopWindows(WindowsClient):
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PageQueryConfigWrapper] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -75,7 +88,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     def scrape_content(
         self,
@@ -138,6 +151,7 @@ class AirtopWindows(WindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[SummaryConfigWrapper] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -189,7 +203,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().summarize_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
 
