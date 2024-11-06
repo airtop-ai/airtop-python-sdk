@@ -1,35 +1,72 @@
 import typing
+import typing_extensions
 import requests
 from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, SummaryConfig
 from ..core.request_options import RequestOptions
-from ..types import ExternalSessionWithConnectionInfo, SummaryConfig, PageQueryConfig
+from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
+from ..core.serialization import FieldMetadata
 import json
+import pydantic
 
 OMIT = typing.cast(typing.Any, ...)
 
-class SummaryConfigWrapper(SummaryConfig):
-    output_schema: typing.Union[str, typing.Any, None]  # Updated to allow string, object, or undefined
+class SummaryConfig(SummaryConfigBase):
+    output_schema: typing_extensions.Annotated[typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")] = (
+        pydantic.Field(default=None)
+    )
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)  # Call the parent constructor
+        super().__init__(*args, **kwargs) 
 
-class PageQueryConfigWrapper(PageQueryConfig):
-    output_schema: typing.Union[str, typing.Any, None]  # Updated to allow string, object, or undefined
+class PageQueryConfig(PageQueryConfigBase):
+    output_schema: typing_extensions.Annotated[typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")] = (
+        pydantic.Field(default=None)
+    )
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)  # Call the parent constructor
+        super().__init__(*args, **kwargs)
 
-def convert_output_schema_to_str(config_object: typing.Union[SummaryConfigWrapper, PageQueryConfigWrapper]) -> typing.Union[SummaryConfigWrapper, PageQueryConfigWrapper]:
+    
+
+def convert_page_query_output_schema_to_str(config_object: typing.Optional[PageQueryConfigBase]) -> typing.Optional[PageQueryConfigBase]:
     if not config_object:
         return config_object
-    if not config_object.output_schema:
-        return config_object
+    if isinstance(config_object, dict):
+        output_schema = config_object.get("output_schema")
+        if not output_schema:
+            return config_object
+        if isinstance(output_schema, str):
+            return config_object
+        if isinstance(config_object, dict):
+            return {**config_object, "output_schema": json.dumps(output_schema)}
+    # Assumed to be a PageQueryConfig object    
     output_schema = config_object.output_schema
+    if not output_schema:
+        return config_object
     if isinstance(output_schema, str):
         return config_object
     # We assume that the output schema is an object, and convert it to a string JSON string
-    config_object.output_schema = json.dumps(output_schema)
-    return config_object
+    return config_object.model_copy(update={"output_schema": json.dumps(output_schema)})
+
+def convert_summary_output_schema_to_str(config_object: typing.Optional[SummaryConfigBase]) -> typing.Optional[SummaryConfigBase]:
+    if not config_object:
+        return config_object
+    if isinstance(config_object, dict):
+        output_schema = config_object.get("output_schema")
+        if not output_schema:
+            return config_object
+        if isinstance(output_schema, str):
+            return config_object
+        if isinstance(config_object, dict):
+            return {**config_object, "output_schema": json.dumps(output_schema)}
+    # Assumed to be a SummaryConfig object    
+    output_schema = config_object.output_schema
+    if not output_schema:
+        return config_object
+    if isinstance(output_schema, str):
+        return config_object
+    # We assume that the output schema is an object, and convert it to a string JSON string
+    return config_object.model_copy(update={"output_schema": json.dumps(output_schema)})
 
 # ... existing code ...
 class AirtopWindows(WindowsClient):
@@ -45,7 +82,7 @@ class AirtopWindows(WindowsClient):
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[PageQueryConfigWrapper] = OMIT,
+        configuration: typing.Optional[PageQueryConfigBase] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -104,7 +141,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        configuration = convert_output_schema_to_str(configuration)
+        configuration = convert_page_query_output_schema_to_str(configuration)
         return super().page_query(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
         
 
@@ -115,7 +152,7 @@ class AirtopWindows(WindowsClient):
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[PageQueryConfigWrapper] = OMIT,
+        configuration: typing.Optional[PageQueryConfigBase] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -176,7 +213,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        configuration = convert_output_schema_to_str(configuration)
+        configuration = convert_page_query_output_schema_to_str(configuration)
         return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     def scrape_content(
@@ -240,7 +277,7 @@ class AirtopWindows(WindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[SummaryConfigWrapper] = OMIT,
+        configuration: typing.Optional[SummaryConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -295,7 +332,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        configuration = convert_output_schema_to_str(configuration)
+        configuration = convert_summary_output_schema_to_str(configuration)
         return super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
@@ -451,7 +488,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[PageQueryConfigWrapper] = OMIT,
+        configuration: typing.Optional[PageQueryConfigBase] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -518,7 +555,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        configuration = convert_output_schema_to_str(configuration)
+        configuration = convert_page_query_output_schema_to_str(configuration)
         return await super().page_query(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
@@ -530,7 +567,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         *,
         prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[PageQueryConfigWrapper] = OMIT,
+        configuration: typing.Optional[PageQueryConfigBase] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         follow_pagination_links: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -599,7 +636,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        configuration = convert_output_schema_to_str(configuration)
+        configuration = convert_page_query_output_schema_to_str(configuration)
         return await super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     async def scrape_content(
@@ -671,7 +708,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[SummaryConfigWrapper] = OMIT,
+        configuration: typing.Optional[SummaryConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -734,7 +771,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        configuration = convert_output_schema_to_str(configuration)
+        configuration = convert_summary_output_schema_to_str(configuration)
         return await super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
