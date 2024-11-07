@@ -59,6 +59,7 @@ from .windows import CreateWindowInputV1BodyWaitUntil, WindowLoadUrlV1BodyWaitUn
 from .wrapper.sessions_client import SessionConfig
 from .wrapper.windows_client import SummaryConfig, PageQueryConfig
 from .core import RequestOptions
+from .core.api_error import ApiError
 
 
 __all__ = [
@@ -67,6 +68,7 @@ __all__ = [
     "Airtop",
     "AirtopEnvironment",
     "AsyncAirtop",
+    "ApiError",
     "ClientProvidedResponseMetadata",
     "CreateWindowInputV1BodyWaitUntil",
     "CustomProxy",
