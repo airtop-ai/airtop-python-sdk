@@ -832,6 +832,225 @@ client.windows.close(
 </dl>
 </details>
 
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">click</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.click(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    element_description="The login button",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**element_description:** `str` — A natural language description of the element to click.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[ClickConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">hover</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.hover(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[ClickConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**element_description:** `typing.Optional[str]` — A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.windows.<a href="src/airtop/windows/client.py">page_query</a>(...)</code></summary>
 <dl>
 <dd>
@@ -1267,6 +1486,132 @@ client.windows.summarize_content(
 <dd>
 
 **prompt:** `typing.Optional[str]` — An optional prompt providing the Airtop AI model with additional direction or constraints about the summary (such as desired length).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">type</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.type(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    text="Example text",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**text:** `str` — The text to type into the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[ClickConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**element_description:** `typing.Optional[str]` — A natural language description of where to type (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**press_enter_key:** `typing.Optional[bool]` — If true, simulates pressing the Enter key after typing the text.
     
 </dd>
 </dl>

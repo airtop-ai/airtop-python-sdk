@@ -2,6 +2,7 @@
 
 from .ai_prompt_response import AiPromptResponse
 from .ai_response_envelope import AiResponseEnvelope
+from .click_config import ClickConfig
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
 from .custom_proxy import CustomProxy
 from .empty_response import EmptyResponse
@@ -47,6 +48,7 @@ from .window_response import WindowResponse
 __all__ = [
     "AiPromptResponse",
     "AiResponseEnvelope",
+    "ClickConfig",
     "ClientProvidedResponseMetadata",
     "CustomProxy",
     "EmptyResponse",

@@ -12,8 +12,9 @@ from ..core.api_error import ApiError
 from ..types.window_response import WindowResponse
 from .types.window_load_url_v1body_wait_until import WindowLoadUrlV1BodyWaitUntil
 from ..types.empty_response import EmptyResponse
-from ..types.page_query_config import PageQueryConfig
+from ..types.click_config import ClickConfig
 from ..types.ai_prompt_response import AiPromptResponse
+from ..types.page_query_config import PageQueryConfig
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..types.scrape_response import ScrapeResponse
 from ..types.summary_config import SummaryConfig
@@ -290,6 +291,175 @@ class WindowsClient:
                     WindowIdResponse,
                     parse_obj_as(
                         type_=WindowIdResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def click(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        element_description: str,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ClickConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        element_description : str
+            A natural language description of the element to click.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ClickConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.click(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            element_description="The login button",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def hover(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ClickConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        element_description: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ClickConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        element_description : typing.Optional[str]
+            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.hover(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -646,6 +816,101 @@ class WindowsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def type(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        text: str,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ClickConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        element_description: typing.Optional[str] = OMIT,
+        press_enter_key: typing.Optional[bool] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        text : str
+            The text to type into the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ClickConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        element_description : typing.Optional[str]
+            A natural language description of where to type (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
+        press_enter_key : typing.Optional[bool]
+            If true, simulates pressing the Enter key after typing the text.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.type(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            text="Example text",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "pressEnterKey": press_enter_key,
+                "text": text,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncWindowsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -946,6 +1211,191 @@ class AsyncWindowsClient:
                     WindowIdResponse,
                     parse_obj_as(
                         type_=WindowIdResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def click(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        element_description: str,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ClickConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        element_description : str
+            A natural language description of the element to click.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ClickConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.click(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                element_description="The login button",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def hover(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ClickConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        element_description: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ClickConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        element_description : typing.Optional[str]
+            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.hover(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1315,6 +1765,109 @@ class AsyncWindowsClient:
                 ),
                 "costThresholdCredits": cost_threshold_credits,
                 "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def type(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        text: str,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ClickConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        element_description: typing.Optional[str] = OMIT,
+        press_enter_key: typing.Optional[bool] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        text : str
+            The text to type into the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ClickConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        element_description : typing.Optional[str]
+            A natural language description of where to type (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
+        press_enter_key : typing.Optional[bool]
+            If true, simulates pressing the Enter key after typing the text.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.type(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                text="Example text",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "pressEnterKey": press_enter_key,
+                "text": text,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
             request_options=request_options,
