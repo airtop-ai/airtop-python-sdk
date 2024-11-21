@@ -61,7 +61,7 @@ class AirtopSessions(SessionsClient):
             if configuration:
                 session_config_dict = {
                     field: getattr(configuration, field)
-                    for field in SessionConfigV1.model_fields
+                    for field in SessionConfigV1.__fields__
                     if hasattr(configuration, field)
                 }
                 configuration = SessionConfigV1(**session_config_dict)
@@ -178,7 +178,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
         if configuration:
             session_config_dict = {
                 field: getattr(configuration, field)
-                for field in SessionConfigV1.model_fields
+                for field in SessionConfigV1.__fields__
                 if hasattr(configuration, field)
             }
             configuration = SessionConfigV1(**session_config_dict)
