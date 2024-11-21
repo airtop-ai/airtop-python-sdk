@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "airtop"
-version = "0.0.26"
+version = "0.0.27"
 description = "SDK for Airtop cloud browsers"
 readme = "README.md"
 authors = []
@@ -11,7 +11,7 @@ keywords = [
     "browser",
     "automation",
     "agent",
-    "python",
+    "python"
 ]
 license = "MIT"
 classifiers = [
@@ -37,6 +37,8 @@ packages = [
 ]
 
 [project.urls]
+Documentation = 'https://docs.airtop.ai/'
+Homepage = 'https://www.airtop.ai'
 Repository = 'https://github.com/airtop-ai/airtop-python-sdk'
 
 [tool.poetry.dependencies]
