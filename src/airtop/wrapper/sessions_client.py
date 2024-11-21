@@ -57,11 +57,18 @@ class AirtopSessions(SessionsClient):
             skip_wait_session_ready = False
             if hasattr(configuration, 'skip_wait_session_ready'):
                 skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
-            session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.model_fields}) if configuration else None
-            session_res = super().create(configuration=session_config_v1, request_options=request_options)
+
+            if configuration:
+                session_config_dict = {
+                    field: getattr(configuration, field)
+                    for field in SessionConfigV1.model_fields
+                    if hasattr(configuration, field)
+                }
+                configuration = SessionConfigV1(**session_config_dict)
+            session_res = super().create(configuration=configuration, request_options=request_options)
             if (skip_wait_session_ready):
                 return session_res
-            
+
             self.wait_for_session_ready(session_res.data.id)
             updated_session_res = self.get_info(id=session_res.data.id)
             merged_session_data = session_res.data.model_copy(update={"status": updated_session_res.data.status})
@@ -85,7 +92,7 @@ class AirtopSessions(SessionsClient):
 
             time.sleep(1)
         return status
-    
+
     def getinfo(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SessionResponse:
         """
         Get a session by ID
@@ -168,12 +175,18 @@ class AsyncAirtopSessions(AsyncSessionsClient):
         if hasattr(configuration, 'skip_wait_session_ready'):
             skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
 
-        session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.model_fields}) if configuration else None
+        if configuration:
+            session_config_dict = {
+                field: getattr(configuration, field)
+                for field in SessionConfigV1.model_fields
+                if hasattr(configuration, field)
+            }
+            configuration = SessionConfigV1(**session_config_dict)
 
-        session_res = await super().create(configuration=session_config_v1, request_options=request_options)
+        session_res = await super().create(configuration=configuration, request_options=request_options)
         if (skip_wait_session_ready):
             return session_res
-        
+
         await self.wait_for_session_ready(session_res.data.id)
         updated_session_res = await self.get_info(id=session_res.data.id)
 
@@ -198,7 +211,7 @@ class AsyncAirtopSessions(AsyncSessionsClient):
 
             time.sleep(1)
         return status
-    
+
     async def getinfo(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SessionResponse:
         """
         Get a session by ID
