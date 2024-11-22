@@ -58,14 +58,9 @@ class AirtopSessions(SessionsClient):
             if hasattr(configuration, 'skip_wait_session_ready'):
                 skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
 
-            if configuration:
-                session_config_dict = {
-                    field: getattr(configuration, field)
-                    for field in SessionConfigV1.__fields__
-                    if hasattr(configuration, field)
-                }
-                configuration = SessionConfigV1(**session_config_dict)
-            session_res = super().create(configuration=configuration, request_options=request_options)
+            session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.__fields__}) if configuration else None
+            
+            session_res = super().create(configuration=session_config_v1, request_options=request_options)
             if (skip_wait_session_ready):
                 return session_res
 
@@ -175,15 +170,9 @@ class AsyncAirtopSessions(AsyncSessionsClient):
         if hasattr(configuration, 'skip_wait_session_ready'):
             skip_wait_session_ready = typing.cast(SessionConfig, configuration).skip_wait_session_ready
 
-        if configuration:
-            session_config_dict = {
-                field: getattr(configuration, field)
-                for field in SessionConfigV1.__fields__
-                if hasattr(configuration, field)
-            }
-            configuration = SessionConfigV1(**session_config_dict)
+        session_config_v1 = SessionConfigV1(**{k: v for k, v in configuration.__dict__.items() if k in SessionConfigV1.__fields__}) if configuration else None
+        session_res = await super().create(configuration=session_config_v1, request_options=request_options)
 
-        session_res = await super().create(configuration=configuration, request_options=request_options)
         if (skip_wait_session_ready):
             return session_res
 
