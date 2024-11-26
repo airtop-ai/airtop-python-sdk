@@ -271,6 +271,10 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
+
+        if time_threshold_seconds is None:
+            time_threshold_seconds = 300
+            
         return super().scrape_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
     def summarize_content(
