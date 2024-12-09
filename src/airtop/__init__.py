@@ -60,6 +60,7 @@ from .wrapper.sessions_client import SessionConfig
 from .wrapper.windows_client import SummaryConfig, PageQueryConfig
 from .core import RequestOptions
 from .core.api_error import ApiError
+from .utils import batch_operate, BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperationError, BatchOperateConfig
 
 
 __all__ = [
@@ -126,4 +127,10 @@ __all__ = [
     "profiles",
     "sessions",
     "windows",
+    "batch_operate",
+    "BatchOperationUrl",
+    "BatchOperationInput",
+    "BatchOperationResponse",
+    "BatchOperationError",
+    "BatchOperateConfig",
 ]
