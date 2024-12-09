@@ -113,8 +113,7 @@ class WindowQueue:
                 window_id=window_id,
                 session_id=self.session_id,
                 live_view_url=get_info_response.data.live_view_url,
-                url=url_data.url,
-                context=url_data.context
+                operation_url=url_data
             ))
             self.client.log("User operation completed")
 

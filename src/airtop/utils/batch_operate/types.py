@@ -15,8 +15,7 @@ class BatchOperationInput:
     window_id: str
     session_id: str
     live_view_url: str
-    url: str
-    context: Optional[Dict[str, Any]] = None
+    operation_url: BatchOperationUrl
 
 @dataclass
 class BatchOperationResponse:
