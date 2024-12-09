@@ -4,7 +4,6 @@ from asyncio import Queue
 from airtop import AsyncAirtop, types
 from pyee import EventEmitter
 import json
-import logging
 from .types import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperationError
 
 class WindowQueue:
@@ -15,7 +14,8 @@ class WindowQueue:
         session_id: str,
         operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]],
         on_error: Optional[Callable[[BatchOperationError], None]] = None,
-        run_emitter: Optional[EventEmitter] = None
+        run_emitter: Optional[EventEmitter] = None,
+        is_halted: Optional[bool] = False
     ):
         if not isinstance(max_windows_per_session, int) or max_windows_per_session <= 0:
             raise ValueError("max_windows_per_session must be a positive integer")
@@ -31,18 +31,19 @@ class WindowQueue:
         self.url_queue_mutex = asyncio.Lock()
         self.run_emitter = run_emitter
         self.results: List[Any] = []
-        self.is_halted = False
+        self.is_halted = is_halted
 
     async def add_url_to_queue(self, url: BatchOperationUrl):
         async with self.url_queue_mutex:
             await self.url_queue.put(url)
 
     async def process_in_batches(self, urls: List[BatchOperationUrl]) -> List[Any]:
+
         # Set up halt listener
-        async def halt_listener():
+        def halt_listener():
             self.is_halted = True
 
-        self.run_emitter.once("halt", halt_listener)
+        self.run_emitter.on("halt", halt_listener)
 
         # Add all urls to the queue
         for url in urls:

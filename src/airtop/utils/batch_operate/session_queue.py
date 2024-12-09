@@ -39,6 +39,11 @@ class SessionQueue:
         self.session_pool: List[str] = []
         self.session_pool_mutex = asyncio.Lock()
         self.initial_batches = initial_batches
+        self.is_halted = False
+
+    def handle_halt(self):
+        self.is_halted = True
+        self.client.log("Halt received, halting processing")
 
     async def add_urls_to_batch_queue(self, new_batch: List[BatchOperationUrl]):
         self.client.log(f"Adding {len(new_batch)} URLs to batch queue")
@@ -56,6 +61,7 @@ class SessionQueue:
                 await self.batch_queue.put(batch)
 
         self.processing_promises_count += 1
+        self.run_emitter.on("halt", self.handle_halt)
         await self.process_pending_batches()
 
     async def process_pending_batches(self):
@@ -82,11 +88,16 @@ class SessionQueue:
 
     async def wait_for_processing_to_complete(self):
         while self.processing_promises_count > 0:
-            await asyncio.wait(self.active_promises, return_when=asyncio.ALL_COMPLETED)
+            if self.active_promises:
+                await asyncio.wait(self.active_promises, return_when=asyncio.ALL_COMPLETED)
+            else:
+                self.client.log("No active promises to wait for")
+                break
         
         self.client.log("Processing complete")
         await self.terminate_all_sessions()
         self.client.log("All sessions terminated")
+        self.run_emitter.remove_listener("halt", self.handle_halt)
         return self.results
 
     async def terminate_all_sessions(self):
@@ -95,6 +106,10 @@ class SessionQueue:
             await self._safely_terminate_session(session_id)
 
     async def _process_batch(self, batch: List[BatchOperationUrl]):
+        if self.is_halted:
+            self.client.log("Processing halted, skipping batch")
+            return
+
         session_id = None
         try:
             async with self.session_pool_mutex:
@@ -120,7 +135,8 @@ class SessionQueue:
                 session_id=session_id,
                 operation=self.operation,
                 on_error=self.on_error,
-                run_emitter=self.run_emitter
+                run_emitter=self.run_emitter,
+                is_halted=self.is_halted
             )
             result = await queue.process_in_batches(batch)
             self.results.append(result)
