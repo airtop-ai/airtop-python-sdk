@@ -4,6 +4,10 @@ from .environment import AirtopEnvironment
 from .base_client import BaseClient, AsyncBaseClient
 from .wrapper.windows_client import AirtopWindows, AsyncAirtopWindows
 from .wrapper.sessions_client import AirtopSessions, AsyncAirtopSessions
+from .utils import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperateConfig, batch_operate
+from typing import Callable, List, Awaitable, Any, Optional
+import logging
+import asyncio
 
 class Airtop(BaseClient):
     """
@@ -33,6 +37,9 @@ class Airtop(BaseClient):
     httpx_client : typing.Optional[httpx.Client]
         The httpx client to use for making requests, a preconfigured client is used by default, however this is useful should you want to pass in any custom httpx configuration.
 
+    debug : typing.Optional[bool]
+        Whether to enable debug logging.
+
     Examples
     --------
     from airtop import Airtop
@@ -51,11 +58,26 @@ class Airtop(BaseClient):
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
+        debug: typing.Optional[bool] = False,
     ):
         super().__init__(api_key=api_key, base_url=base_url, environment=environment, timeout=timeout, follow_redirects=follow_redirects, httpx_client=httpx_client)
         self.windows = AirtopWindows(client_wrapper=self._client_wrapper)
         self.sessions = AirtopSessions(client_wrapper=self._client_wrapper)
+        self.debug = debug
 
+    def log(self, message: str):
+        if self.debug:
+            print(message)
+
+    def warn(self, message: str):
+        logging.warning(message)
+    
+    def error(self, message: str):
+        logging.error(message)
+
+    # Synchronous batch operate
+    def batch_operate(self, urls: List[BatchOperationUrl], operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]], config: Optional[BatchOperateConfig]) -> List[Any]:
+        return asyncio.run(self.batch_operate(urls, operation, config))
 
 
 class AsyncAirtop(AsyncBaseClient):
@@ -86,6 +108,9 @@ class AsyncAirtop(AsyncBaseClient):
     httpx_client : typing.Optional[httpx.AsyncClient]
         The httpx client to use for making requests, a preconfigured client is used by default, however this is useful should you want to pass in any custom httpx configuration.
 
+    debug : typing.Optional[bool]
+        Whether to enable debug logging.
+
     Examples
     --------
     from airtop import AsyncAirtop
@@ -104,7 +129,22 @@ class AsyncAirtop(AsyncBaseClient):
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
+        debug: typing.Optional[bool] = False,
     ):
         super().__init__(api_key=api_key, base_url=base_url, environment=environment, timeout=timeout, follow_redirects=follow_redirects, httpx_client=httpx_client)
         self.windows = AsyncAirtopWindows(client_wrapper=self._client_wrapper)
         self.sessions = AsyncAirtopSessions(client_wrapper=self._client_wrapper)
+        self.debug = debug
+
+    def log(self, message: str):
+        if self.debug:
+            print(message)
+
+    def warn(self, message: str):
+        logging.warning(message)
+    
+    def error(self, message: str):
+        logging.error(message)
+
+    async def batch_operate(self, urls: List[BatchOperationUrl], operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]], config: Optional[BatchOperateConfig]) -> List[Any]:
+        return await batch_operate(urls, operation, self, config)

@@ -3,3 +3,4 @@ src/airtop/wrapper/windows_client.py
 src/airtop/wrapper/sessions_client.py
 src/airtop/client.py
 src/airtop/__init__.py
+src/airtop/utils/
