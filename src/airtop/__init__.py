@@ -5,11 +5,12 @@ from .types import (
     AiResponseEnvelope,
     ClientProvidedResponseMetadata,
     CustomProxy,
-    EmptyResponse,
-    EmptyResponseJson,
+    OperationOutcome,
+    OperationOutcomeResponse,
+    VisualAnalysisConfig,
+    VisualAnalysisConfigPartitionDirection,
+    VisualAnalysisConfigScope,
     EnvelopeDefaultMeta,
-    EnvelopeStatusDefaultMeta,
-    EnvelopeStatusDefaultMetaStatus,
     ErrorDetail,
     ErrorMessage,
     ErrorModel,
@@ -60,6 +61,7 @@ from .wrapper.sessions_client import SessionConfig
 from .wrapper.windows_client import SummaryConfig, PageQueryConfig
 from .core import RequestOptions
 from .core.api_error import ApiError
+from .utils import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperationError, BatchOperateConfig
 
 
 __all__ = [
@@ -89,6 +91,8 @@ __all__ = [
     "InternalServerError",
     "Issue",
     "NotFoundError",
+    "OperationOutcome",
+    "OperationOutcomeResponse",
     'PageQueryConfig',
     "PageQueryExperimentalConfig",
     "Pagination",
@@ -117,6 +121,9 @@ __all__ = [
     "SummaryConfig",
     "SummaryExperimentalConfig",
     "UnprocessableEntityError",
+    "VisualAnalysisConfig",
+    "VisualAnalysisConfigPartitionDirection",
+    "VisualAnalysisConfigScope",
     "Window",
     "WindowId",
     "WindowIdResponse",
@@ -126,4 +133,9 @@ __all__ = [
     "profiles",
     "sessions",
     "windows",
+    "BatchOperationUrl",
+    "BatchOperationInput",
+    "BatchOperationResponse",
+    "BatchOperationError",
+    "BatchOperateConfig",
 ]

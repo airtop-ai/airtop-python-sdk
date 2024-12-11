@@ -11,11 +11,11 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..types.window_response import WindowResponse
 from .types.window_load_url_v1body_wait_until import WindowLoadUrlV1BodyWaitUntil
-from ..types.empty_response import EmptyResponse
+from ..types.operation_outcome_response import OperationOutcomeResponse
 from ..types.click_config import ClickConfig
 from ..types.ai_prompt_response import AiPromptResponse
-from ..types.page_query_config import PageQueryConfig
 from ..core.serialization import convert_and_respect_annotation_metadata
+from ..types.page_query_config import PageQueryConfig
 from ..types.scrape_response import ScrapeResponse
 from ..types.summary_config import SummaryConfig
 from ..core.client_wrapper import AsyncClientWrapper
@@ -51,7 +51,7 @@ class WindowsClient:
             Initial url to navigate to
 
         wait_until : typing.Optional[CreateWindowInputV1BodyWaitUntil]
-            Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, and 'complete' will wait until the page and all it's iframes have loaded it's dom and assets.
+            Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, 'complete' will wait until the page and all it's iframes have loaded it's dom and assets. 'noWait' will not wait for any loading event and will return immediately.
 
         wait_until_timeout_seconds : typing.Optional[int]
             Maximum time in seconds to wait for the specified loading event to occur before timing out.
@@ -183,7 +183,7 @@ class WindowsClient:
         wait_until: typing.Optional[WindowLoadUrlV1BodyWaitUntil] = OMIT,
         wait_until_timeout_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> EmptyResponse:
+    ) -> OperationOutcomeResponse:
         """
         Parameters
         ----------
@@ -197,7 +197,7 @@ class WindowsClient:
             Url to navigate to
 
         wait_until : typing.Optional[WindowLoadUrlV1BodyWaitUntil]
-            Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, and 'complete' will wait until the page and all it's iframes have loaded it's dom and assets.
+            Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, 'complete' will wait until the page and all it's iframes have loaded it's dom and assets. 'noWait' will not wait for any loading event and will return immediately.
 
         wait_until_timeout_seconds : typing.Optional[int]
             Maximum time in seconds to wait for the specified loading event to occur before timing out.
@@ -207,7 +207,7 @@ class WindowsClient:
 
         Returns
         -------
-        EmptyResponse
+        OperationOutcomeResponse
             Created
 
         Examples
@@ -237,9 +237,9 @@ class WindowsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    EmptyResponse,
+                    OperationOutcomeResponse,
                     parse_obj_as(
-                        type_=EmptyResponse,  # type: ignore
+                        type_=OperationOutcomeResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -362,7 +362,9 @@ class WindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": configuration,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ClickConfig, direction="write"
+                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
@@ -446,7 +448,9 @@ class WindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": configuration,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ClickConfig, direction="write"
+                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
@@ -488,7 +492,7 @@ class WindowsClient:
             The session id for the window.
 
         window_id : str
-            The Airtop window id of the browser window to target with an Airtop AI prompt.
+            The Airtop window id of the browser window.
 
         prompt : str
             The prompt to submit about the content in the browser window.
@@ -582,7 +586,7 @@ class WindowsClient:
             The session id for the window.
 
         window_id : str
-            The Airtop window id of the browser window to target with an Airtop AI prompt.
+            The Airtop window id of the browser window.
 
         prompt : str
             The prompt to submit about the content in the browser window.
@@ -887,7 +891,9 @@ class WindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": configuration,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ClickConfig, direction="write"
+                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "pressEnterKey": press_enter_key,
@@ -939,7 +945,7 @@ class AsyncWindowsClient:
             Initial url to navigate to
 
         wait_until : typing.Optional[CreateWindowInputV1BodyWaitUntil]
-            Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, and 'complete' will wait until the page and all it's iframes have loaded it's dom and assets.
+            Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, 'complete' will wait until the page and all it's iframes have loaded it's dom and assets. 'noWait' will not wait for any loading event and will return immediately.
 
         wait_until_timeout_seconds : typing.Optional[int]
             Maximum time in seconds to wait for the specified loading event to occur before timing out.
@@ -1087,7 +1093,7 @@ class AsyncWindowsClient:
         wait_until: typing.Optional[WindowLoadUrlV1BodyWaitUntil] = OMIT,
         wait_until_timeout_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> EmptyResponse:
+    ) -> OperationOutcomeResponse:
         """
         Parameters
         ----------
@@ -1101,7 +1107,7 @@ class AsyncWindowsClient:
             Url to navigate to
 
         wait_until : typing.Optional[WindowLoadUrlV1BodyWaitUntil]
-            Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, and 'complete' will wait until the page and all it's iframes have loaded it's dom and assets.
+            Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, 'complete' will wait until the page and all it's iframes have loaded it's dom and assets. 'noWait' will not wait for any loading event and will return immediately.
 
         wait_until_timeout_seconds : typing.Optional[int]
             Maximum time in seconds to wait for the specified loading event to occur before timing out.
@@ -1111,7 +1117,7 @@ class AsyncWindowsClient:
 
         Returns
         -------
-        EmptyResponse
+        OperationOutcomeResponse
             Created
 
         Examples
@@ -1149,9 +1155,9 @@ class AsyncWindowsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    EmptyResponse,
+                    OperationOutcomeResponse,
                     parse_obj_as(
-                        type_=EmptyResponse,  # type: ignore
+                        type_=OperationOutcomeResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1290,7 +1296,9 @@ class AsyncWindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": configuration,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ClickConfig, direction="write"
+                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
@@ -1382,7 +1390,9 @@ class AsyncWindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": configuration,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ClickConfig, direction="write"
+                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
@@ -1424,7 +1434,7 @@ class AsyncWindowsClient:
             The session id for the window.
 
         window_id : str
-            The Airtop window id of the browser window to target with an Airtop AI prompt.
+            The Airtop window id of the browser window.
 
         prompt : str
             The prompt to submit about the content in the browser window.
@@ -1526,7 +1536,7 @@ class AsyncWindowsClient:
             The session id for the window.
 
         window_id : str
-            The Airtop window id of the browser window to target with an Airtop AI prompt.
+            The Airtop window id of the browser window.
 
         prompt : str
             The prompt to submit about the content in the browser window.
@@ -1863,7 +1873,9 @@ class AsyncWindowsClient:
             method="POST",
             json={
                 "clientRequestId": client_request_id,
-                "configuration": configuration,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ClickConfig, direction="write"
+                ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "pressEnterKey": press_enter_key,
