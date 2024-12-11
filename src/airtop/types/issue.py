@@ -22,6 +22,11 @@ class Issue(UniversalBaseModel):
     Message describing the issue.
     """
 
+    reason: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Underlying reason for the issue.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

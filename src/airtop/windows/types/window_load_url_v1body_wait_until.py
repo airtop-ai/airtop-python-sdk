@@ -2,4 +2,6 @@
 
 import typing
 
-WindowLoadUrlV1BodyWaitUntil = typing.Union[typing.Literal["load", "domContentLoaded", "complete"], typing.Any]
+WindowLoadUrlV1BodyWaitUntil = typing.Union[
+    typing.Literal["load", "domContentLoaded", "complete", "noWait"], typing.Any
+]

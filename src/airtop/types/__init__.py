@@ -5,11 +5,7 @@ from .ai_response_envelope import AiResponseEnvelope
 from .click_config import ClickConfig
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
 from .custom_proxy import CustomProxy
-from .empty_response import EmptyResponse
-from .empty_response_json import EmptyResponseJson
 from .envelope_default_meta import EnvelopeDefaultMeta
-from .envelope_status_default_meta import EnvelopeStatusDefaultMeta
-from .envelope_status_default_meta_status import EnvelopeStatusDefaultMetaStatus
 from .error_detail import ErrorDetail
 from .error_message import ErrorMessage
 from .error_model import ErrorModel
@@ -20,6 +16,8 @@ from .external_session_ai_response_metadata_usage import ExternalSessionAiRespon
 from .external_session_config import ExternalSessionConfig
 from .external_session_with_connection_info import ExternalSessionWithConnectionInfo
 from .issue import Issue
+from .operation_outcome import OperationOutcome
+from .operation_outcome_response import OperationOutcomeResponse
 from .page_query_config import PageQueryConfig
 from .page_query_experimental_config import PageQueryExperimentalConfig
 from .pagination import Pagination
@@ -40,6 +38,9 @@ from .status_message import StatusMessage
 from .status_message_status import StatusMessageStatus
 from .summary_config import SummaryConfig
 from .summary_experimental_config import SummaryExperimentalConfig
+from .visual_analysis_config import VisualAnalysisConfig
+from .visual_analysis_config_partition_direction import VisualAnalysisConfigPartitionDirection
+from .visual_analysis_config_scope import VisualAnalysisConfigScope
 from .window import Window
 from .window_id import WindowId
 from .window_id_response import WindowIdResponse
@@ -51,11 +52,7 @@ __all__ = [
     "ClickConfig",
     "ClientProvidedResponseMetadata",
     "CustomProxy",
-    "EmptyResponse",
-    "EmptyResponseJson",
     "EnvelopeDefaultMeta",
-    "EnvelopeStatusDefaultMeta",
-    "EnvelopeStatusDefaultMetaStatus",
     "ErrorDetail",
     "ErrorMessage",
     "ErrorModel",
@@ -66,6 +63,8 @@ __all__ = [
     "ExternalSessionConfig",
     "ExternalSessionWithConnectionInfo",
     "Issue",
+    "OperationOutcome",
+    "OperationOutcomeResponse",
     "PageQueryConfig",
     "PageQueryExperimentalConfig",
     "Pagination",
@@ -86,6 +85,9 @@ __all__ = [
     "StatusMessageStatus",
     "SummaryConfig",
     "SummaryExperimentalConfig",
+    "VisualAnalysisConfig",
+    "VisualAnalysisConfigPartitionDirection",
+    "VisualAnalysisConfigScope",
     "Window",
     "WindowId",
     "WindowIdResponse",

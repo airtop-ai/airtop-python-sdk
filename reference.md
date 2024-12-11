@@ -1,4 +1,1149 @@
 # Reference
+## Windows
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.create(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — ID of the session that owns the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**screen_resolution:** `typing.Optional[str]` — Affects the live view configuration. By default, a live view will fill the parent frame (or local window if loaded directly) when initially loaded, causing the browser window to be resized to match. This parameter can be used to instead configure the returned liveViewUrl so that the live view is loaded with fixed dimensions (e.g. 1280x720), resizing the browser window to match, and then disallows any further resizing from the live view.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**url:** `typing.Optional[str]` — Initial url to navigate to
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wait_until:** `typing.Optional[CreateWindowInputV1BodyWaitUntil]` — Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, 'complete' will wait until the page and all it's iframes have loaded it's dom and assets. 'noWait' will not wait for any loading event and will return immediately.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wait_until_timeout_seconds:** `typing.Optional[int]` — Maximum time in seconds to wait for the specified loading event to occur before timing out.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">get_window_info</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.get_window_info(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="7334da2a-91b0-42c5-6156-76a5eba87430",
+    screen_resolution="1280x720",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — ID of the session that owns the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — ID of the browser window, which can either be a normal AirTop windowId or a [CDP TargetId](https://chromedevtools.github.io/devtools-protocol/tot/Target/#type-TargetID) from a browser automation library like Puppeteer (typically associated with the page or main frame). Our SDKs will handle retrieving a TargetId for you from various popular browser automation libraries, but we also have details in our guides on how to do it manually.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_navigation_bar:** `typing.Optional[bool]` — Affects the live view configuration. A navigation bar is not shown in the live view of a browser by default. Set this to true to configure the returned liveViewUrl so that a navigation bar is rendered, allowing users to easily navigate the browser to other pages from the live view.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**disable_resize:** `typing.Optional[bool]` — Affects the live view configuration. Set to true to configure the returned liveViewUrl so that the ability to resize the browser window from the live view is disabled (resizing is allowed by default). Note that, at initial load, the live view will automatically fill the parent frame (or local window if loaded directly) and cause the browser window to be resized to match. This parameter does not affect that initial load behavior. See screenResolution for a way to set a fixed size for the live view.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**screen_resolution:** `typing.Optional[str]` — Affects the live view configuration. By default, a live view will fill the parent frame (or local window if loaded directly) when initially loaded, causing the browser window to be resized to match. This parameter can be used to instead configure the returned liveViewUrl so that the live view is loaded with fixed dimensions (e.g. 1280x720), resizing the browser window to match, and then disallows any further resizing from the live view.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">load_url</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.load_url(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="7334da2a-91b0-42c5-6156-76a5eba87430",
+    url="https://www.airtop.ai",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — ID of the session that owns the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — Airtop window ID of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**url:** `str` — Url to navigate to
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wait_until:** `typing.Optional[WindowLoadUrlV1BodyWaitUntil]` — Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, 'complete' will wait until the page and all it's iframes have loaded it's dom and assets. 'noWait' will not wait for any loading event and will return immediately.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**wait_until_timeout_seconds:** `typing.Optional[int]` — Maximum time in seconds to wait for the specified loading event to occur before timing out.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">close</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.close(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="7334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — ID of the session that owns the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — Airtop window ID of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">click</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.click(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    element_description="The login button",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**element_description:** `str` — A natural language description of the element to click.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[ClickConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">hover</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.hover(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[ClickConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**element_description:** `typing.Optional[str]` — A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">page_query</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.page_query(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    prompt="What is the main idea of this page?",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prompt:** `str` — The prompt to submit about the content in the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[PageQueryConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**follow_pagination_links:** `typing.Optional[bool]` — Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">prompt_content</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint is deprecated. Please use the `pageQuery` endpoint instead.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.prompt_content(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    prompt="What is the main idea of this page?",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prompt:** `str` — The prompt to submit about the content in the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[PageQueryConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**follow_pagination_links:** `typing.Optional[bool]` — Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">scrape_content</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.scrape_content(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window to scrape.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">summarize_content</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This endpoint is deprecated. Please use the `pageQuery` endpoint and ask for a summary in the prompt instead.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.summarize_content(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window to summarize.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[SummaryConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prompt:** `typing.Optional[str]` — An optional prompt providing the Airtop AI model with additional direction or constraints about the summary (such as desired length).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">type</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.type(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    text="Example text",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**text:** `str` — The text to type into the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[ClickConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**element_description:** `typing.Optional[str]` — A natural language description of where to type (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**press_enter_key:** `typing.Optional[bool]` — If true, simulates pressing the Enter key after typing the text.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Profiles
 <details><summary><code>client.profiles.<a href="src/airtop/profiles/client.py">get</a>(...)</code></summary>
 <dl>
@@ -479,1151 +1624,6 @@ for chunk in response:
 <dd>
 
 **id:** `str` — ID of the session to get status info for
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Windows
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.create(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — ID of the session that owns the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**screen_resolution:** `typing.Optional[str]` — Affects the live view configuration. By default, a live view will fill the parent frame (or local window if loaded directly) when initially loaded, causing the browser window to be resized to match. This parameter can be used to instead configure the returned liveViewUrl so that the live view is loaded with fixed dimensions (e.g. 1280x720), resizing the browser window to match, and then disallows any further resizing from the live view.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**url:** `typing.Optional[str]` — Initial url to navigate to
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**wait_until:** `typing.Optional[CreateWindowInputV1BodyWaitUntil]` — Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, and 'complete' will wait until the page and all it's iframes have loaded it's dom and assets.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**wait_until_timeout_seconds:** `typing.Optional[int]` — Maximum time in seconds to wait for the specified loading event to occur before timing out.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">get_window_info</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.get_window_info(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="7334da2a-91b0-42c5-6156-76a5eba87430",
-    screen_resolution="1280x720",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — ID of the session that owns the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — ID of the browser window, which can either be a normal AirTop windowId or a [CDP TargetId](https://chromedevtools.github.io/devtools-protocol/tot/Target/#type-TargetID) from a browser automation library like Puppeteer (typically associated with the page or main frame). Our SDKs will handle retrieving a TargetId for you from various popular browser automation libraries, but we also have details in our guides on how to do it manually.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_navigation_bar:** `typing.Optional[bool]` — Affects the live view configuration. A navigation bar is not shown in the live view of a browser by default. Set this to true to configure the returned liveViewUrl so that a navigation bar is rendered, allowing users to easily navigate the browser to other pages from the live view.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**disable_resize:** `typing.Optional[bool]` — Affects the live view configuration. Set to true to configure the returned liveViewUrl so that the ability to resize the browser window from the live view is disabled (resizing is allowed by default). Note that, at initial load, the live view will automatically fill the parent frame (or local window if loaded directly) and cause the browser window to be resized to match. This parameter does not affect that initial load behavior. See screenResolution for a way to set a fixed size for the live view.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**screen_resolution:** `typing.Optional[str]` — Affects the live view configuration. By default, a live view will fill the parent frame (or local window if loaded directly) when initially loaded, causing the browser window to be resized to match. This parameter can be used to instead configure the returned liveViewUrl so that the live view is loaded with fixed dimensions (e.g. 1280x720), resizing the browser window to match, and then disallows any further resizing from the live view.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">load_url</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.load_url(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="7334da2a-91b0-42c5-6156-76a5eba87430",
-    url="https://www.airtop.ai",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — ID of the session that owns the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — Airtop window ID of the browser window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**url:** `str` — Url to navigate to
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**wait_until:** `typing.Optional[WindowLoadUrlV1BodyWaitUntil]` — Wait until the specified loading event occurs. Defaults to 'load', which waits until the page dom and it's assets have loaded. 'domContentLoaded' will wait until the dom has loaded, and 'complete' will wait until the page and all it's iframes have loaded it's dom and assets.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**wait_until_timeout_seconds:** `typing.Optional[int]` — Maximum time in seconds to wait for the specified loading event to occur before timing out.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">close</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.close(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="7334da2a-91b0-42c5-6156-76a5eba87430",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — ID of the session that owns the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — Airtop window ID of the browser window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">click</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.click(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-    element_description="The login button",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — The session id for the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — The Airtop window id of the browser window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**element_description:** `str` — A natural language description of the element to click.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_request_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**configuration:** `typing.Optional[ClickConfig]` — Request configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_threshold_seconds:** `typing.Optional[int]` 
-
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-This setting does not extend the maximum session duration provided at the time of session creation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">hover</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.hover(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — The session id for the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — The Airtop window id of the browser window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_request_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**configuration:** `typing.Optional[ClickConfig]` — Request configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**element_description:** `typing.Optional[str]` — A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_threshold_seconds:** `typing.Optional[int]` 
-
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-This setting does not extend the maximum session duration provided at the time of session creation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">page_query</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.page_query(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-    prompt="What is the main idea of this page?",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — The session id for the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — The Airtop window id of the browser window to target with an Airtop AI prompt.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**prompt:** `str` — The prompt to submit about the content in the browser window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_request_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**configuration:** `typing.Optional[PageQueryConfig]` — Request configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**follow_pagination_links:** `typing.Optional[bool]` — Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_threshold_seconds:** `typing.Optional[int]` 
-
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-This setting does not extend the maximum session duration provided at the time of session creation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">prompt_content</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-This endpoint is deprecated. Please use the `pageQuery` endpoint instead.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.prompt_content(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-    prompt="What is the main idea of this page?",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — The session id for the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — The Airtop window id of the browser window to target with an Airtop AI prompt.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**prompt:** `str` — The prompt to submit about the content in the browser window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_request_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**configuration:** `typing.Optional[PageQueryConfig]` — Request configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**follow_pagination_links:** `typing.Optional[bool]` — Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_threshold_seconds:** `typing.Optional[int]` 
-
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-This setting does not extend the maximum session duration provided at the time of session creation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">scrape_content</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.scrape_content(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — The session id for the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — The Airtop window id of the browser window to scrape.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_request_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_threshold_seconds:** `typing.Optional[int]` 
-
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-This setting does not extend the maximum session duration provided at the time of session creation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">summarize_content</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-This endpoint is deprecated. Please use the `pageQuery` endpoint and ask for a summary in the prompt instead.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.summarize_content(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — The session id for the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — The Airtop window id of the browser window to summarize.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_request_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**configuration:** `typing.Optional[SummaryConfig]` — Request configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**prompt:** `typing.Optional[str]` — An optional prompt providing the Airtop AI model with additional direction or constraints about the summary (such as desired length).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_threshold_seconds:** `typing.Optional[int]` 
-
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-This setting does not extend the maximum session duration provided at the time of session creation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">type</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.windows.type(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-    text="Example text",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — The session id for the window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**window_id:** `str` — The Airtop window id of the browser window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**text:** `str` — The text to type into the browser window.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**client_request_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**configuration:** `typing.Optional[ClickConfig]` — Request configuration
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**element_description:** `typing.Optional[str]` — A natural language description of where to type (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**press_enter_key:** `typing.Optional[bool]` — If true, simulates pressing the Enter key after typing the text.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**time_threshold_seconds:** `typing.Optional[int]` 
-
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-This setting does not extend the maximum session duration provided at the time of session creation.
     
 </dd>
 </dl>
