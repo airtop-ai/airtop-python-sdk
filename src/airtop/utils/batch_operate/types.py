@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional, Awaitable
+from typing import Any, Callable, Dict, List, Optional, Awaitable, Union
 from airtop import types
 
 @dataclass
@@ -25,7 +25,7 @@ class BatchOperationResponse:
 
 @dataclass
 class BatchOperationError:
-    error: Exception | str
+    error: Union[Exception, str]
     operation_urls: List[BatchOperationUrl]
     session_id: Optional[str] = None  # Optional in case of error before session was created
     window_id: Optional[str] = None  # Optional in case of error before window was opened
