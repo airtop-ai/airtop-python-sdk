@@ -210,7 +210,7 @@ class SessionQueue:
         if not warnings and not errors:
             return
 
-        details = {
+        details: dict[str, Union[str, None, BatchOperationUrl, List[types.Issue]]] = {
             "sessionId": session_id,
             "url": url
         }
