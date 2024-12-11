@@ -1,6 +1,8 @@
 import typing
 import typing_extensions
 import requests
+
+from airtop.types.click_config import ClickConfig
 from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse
 from ..core.request_options import RequestOptions
 from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
