@@ -4,13 +4,13 @@ import typing
 from .environment import AirtopEnvironment
 import httpx
 from .core.client_wrapper import SyncClientWrapper
+from .windows.client import WindowsClient
 from .profiles.client import ProfilesClient
 from .sessions.client import SessionsClient
-from .windows.client import WindowsClient
 from .core.client_wrapper import AsyncClientWrapper
+from .windows.client import AsyncWindowsClient
 from .profiles.client import AsyncProfilesClient
 from .sessions.client import AsyncSessionsClient
-from .windows.client import AsyncWindowsClient
 
 
 class BaseClient:
@@ -71,9 +71,9 @@ class BaseClient:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.windows = WindowsClient(client_wrapper=self._client_wrapper)
         self.profiles = ProfilesClient(client_wrapper=self._client_wrapper)
         self.sessions = SessionsClient(client_wrapper=self._client_wrapper)
-        self.windows = WindowsClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncBaseClient:
@@ -134,9 +134,9 @@ class AsyncBaseClient:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.windows = AsyncWindowsClient(client_wrapper=self._client_wrapper)
         self.profiles = AsyncProfilesClient(client_wrapper=self._client_wrapper)
         self.sessions = AsyncSessionsClient(client_wrapper=self._client_wrapper)
-        self.windows = AsyncWindowsClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: AirtopEnvironment) -> str:
