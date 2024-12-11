@@ -47,7 +47,6 @@ pydantic = ">= 1.9.2"
 pydantic-core = "^2.18.2"
 requests = "2.32.3"
 typing_extensions = ">= 4.0.0"
-pyee = "12.1.1"
 
 [tool.poetry.dev-dependencies]
 mypy = "1.0.1"
