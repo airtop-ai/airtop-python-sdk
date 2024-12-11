@@ -6,7 +6,7 @@ def distribute_urls_to_batches(max_concurrent_sessions: int, urls: List[BatchOpe
         return []
 
     batch_count = min(max_concurrent_sessions, len(urls))
-    batches = [[] for _ in range(batch_count)]
+    batches: List[List[BatchOperationUrl]] = [[] for _ in range(batch_count)]
     for i, url in enumerate(urls):
         batches[i % batch_count].append(url)
     return batches

@@ -1,10 +1,14 @@
+from __future__ import annotations
 import asyncio
-from typing import Any, Callable, List, Optional, Awaitable
+from typing import Any, Callable, List, Optional, Awaitable, Union, TYPE_CHECKING
 from asyncio import Queue
-from airtop import AsyncAirtop, types
+from airtop import types
 from pyee import EventEmitter
 import json
 from .types import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperationError
+
+if TYPE_CHECKING:
+    from airtop.client import AsyncAirtop
 
 class WindowQueue:
     def __init__(
@@ -13,9 +17,9 @@ class WindowQueue:
         client: AsyncAirtop,
         session_id: str,
         operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]],
-        on_error: Optional[Callable[[BatchOperationError], None]] = None,
+        on_error: Optional[Callable[[BatchOperationError], Awaitable[None]]] = None,
         run_emitter: Optional[EventEmitter] = None,
-        is_halted: Optional[bool] = False
+        is_halted: bool = False
     ):
         if not isinstance(max_windows_per_session, int) or max_windows_per_session <= 0:
             raise ValueError("max_windows_per_session must be a positive integer")
@@ -38,12 +42,12 @@ class WindowQueue:
             await self.url_queue.put(url)
 
     async def process_in_batches(self, urls: List[BatchOperationUrl]) -> List[Any]:
-
         # Set up halt listener
         def halt_listener():
             self.is_halted = True
 
-        self.run_emitter.on("halt", halt_listener)
+        if self.run_emitter is not None:
+            self.run_emitter.on("halt", halt_listener)
 
         # Add all urls to the queue
         for url in urls:
@@ -73,7 +77,8 @@ class WindowQueue:
         await asyncio.wait(self.active_promises, return_when=asyncio.ALL_COMPLETED)
 
         # Remove halt listener
-        self.run_emitter.remove_listener("halt", halt_listener)
+        if self.run_emitter is not None:
+            self.run_emitter.remove_listener("halt", halt_listener)
 
         return self.results
 
@@ -83,10 +88,11 @@ class WindowQueue:
             return
 
         window_id = None
+        live_view_url = None
         try:
             self.client.log(f"Creating window for {url_data.url} in session {self.session_id}")
             create_response = await self.client.windows.create(session_id=self.session_id, url=url_data.url)
-            window_id = create_response.data.window_id
+            window_id = create_response.data.window_id if create_response.data else None
 
             self._handle_error_and_warning_responses(
                 warnings=create_response.warnings,
@@ -97,7 +103,7 @@ class WindowQueue:
             )
 
             if not window_id:
-                error_messages = [str(error) for error in create_response.errors]
+                error_messages = [str(error) for error in (create_response.errors or [])]
                 raise RuntimeError(f"WindowId not found, errors: {json.dumps(error_messages)}")
 
             get_info_response = await self.client.windows.get_window_info(session_id=self.session_id, window_id=window_id)
@@ -109,19 +115,22 @@ class WindowQueue:
                 operation="window info"
             )
 
+            if get_info_response.data:
+                live_view_url = get_info_response.data.live_view_url
+
             self.client.log("Executing user operation")
             result = await self.operation(BatchOperationInput(
                 window_id=window_id,
                 session_id=self.session_id,
-                live_view_url=get_info_response.data.live_view_url,
+                live_view_url=live_view_url or "",
                 operation_url=url_data
             ))
             self.client.log("User operation completed")
 
-            if result.should_halt_batch:
+            if result.should_halt_batch and self.run_emitter is not None:
                 self.run_emitter.emit("halt")
 
-            if result.additional_urls:
+            if result.additional_urls and self.run_emitter is not None:
                 self.run_emitter.emit("addUrls", result.additional_urls)
 
             if result.data:
@@ -129,7 +138,7 @@ class WindowQueue:
 
         except Exception as e:
             if self.on_error:
-                await self._handle_error_with_callback(e, url_data, window_id, create_response.data.live_view_url, self.on_error)
+                await self._handle_error_with_callback(e, url_data, window_id, live_view_url)
             else:
                 self.client.error(self._format_error(e))
         finally:
@@ -152,27 +161,35 @@ class WindowQueue:
     
     async def _handle_error_with_callback(
         self,
-        original_error: Exception | str,
+        original_error: Union[Exception, str],
         url: BatchOperationUrl,
-        window_id: Optional[str],
-        live_view_url: Optional[str], 
-        callback: Callable[[BatchOperationError], Awaitable[None]]
+        window_id: Optional[str] = None,
+        live_view_url: Optional[str] = None
     ):
+        if not self.on_error:
+            return
+            
         try:
-            await callback(BatchOperationError(error=self._format_error(original_error), operation_urls=[url], session_id=self.session_id, window_id=window_id, live_view_url=live_view_url))
+            await self.on_error(BatchOperationError(
+                error=self._format_error(original_error),
+                operation_urls=[url],
+                session_id=self.session_id,
+                window_id=window_id,
+                live_view_url=live_view_url
+            ))
         except Exception as e:
             self.client.error(f"Error in onError callback: {self._format_error(e)}. Original error: {self._format_error(original_error)}")
 
-    def _format_error(self, error: Exception | str):
+    def _format_error(self, error: Union[Exception, str]) -> str:
         return str(error) if isinstance(error, Exception) else str(error)
 
     def _handle_error_and_warning_responses(
         self,
         warnings: Optional[List[types.Issue]] = None,
         errors: Optional[List[types.Issue]] = None,
-        session_id: str = None,
-        url: BatchOperationUrl = None,
-        operation: str = None
+        session_id: Optional[str] = None,
+        url: Optional[BatchOperationUrl] = None,
+        operation: Optional[str] = None
     ) -> None:
         if not warnings and not errors:
             return

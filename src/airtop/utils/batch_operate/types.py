@@ -19,8 +19,8 @@ class BatchOperationInput:
 
 @dataclass
 class BatchOperationResponse:
-    should_halt_batch: Optional[bool] = False
-    additional_urls: Optional[List[BatchOperationUrl]] = field(default_factory=list)
+    should_halt_batch: bool = False
+    additional_urls: List[BatchOperationUrl] = field(default_factory=list)
     data: Optional[Any] = None
 
 @dataclass

@@ -4,10 +4,10 @@ from .environment import AirtopEnvironment
 from .base_client import BaseClient, AsyncBaseClient
 from .wrapper.windows_client import AirtopWindows, AsyncAirtopWindows
 from .wrapper.sessions_client import AirtopSessions, AsyncAirtopSessions
-from .utils import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperateConfig, batch_operate
+from .utils import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperateConfig
+from .utils.batch_operate.batch_util import batch_operate as batch_operate_util
 from typing import Callable, List, Awaitable, Any, Optional
 import logging
-import asyncio
 
 class Airtop(BaseClient):
     """
@@ -21,11 +21,7 @@ class Airtop(BaseClient):
     environment : AirtopEnvironment
         The environment to use for requests from the client. from .environment import AirtopEnvironment
 
-
-
         Defaults to AirtopEnvironment.DEFAULT
-
-
 
     api_key : typing.Union[str, typing.Callable[[], str]]
     timeout : typing.Optional[float]
@@ -74,10 +70,6 @@ class Airtop(BaseClient):
     
     def error(self, message: str):
         logging.error(message)
-
-    # Synchronous batch operate
-    def batch_operate(self, urls: List[BatchOperationUrl], operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]], config: Optional[BatchOperateConfig]) -> List[Any]:
-        return asyncio.run(self.batch_operate(urls, operation, config))
 
 
 class AsyncAirtop(AsyncBaseClient):
@@ -146,5 +138,5 @@ class AsyncAirtop(AsyncBaseClient):
     def error(self, message: str):
         logging.error(message)
 
-    async def batch_operate(self, urls: List[BatchOperationUrl], operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]], config: Optional[BatchOperateConfig]) -> List[Any]:
-        return await batch_operate(urls, operation, self, config)
+    async def batch_operate(self, urls: List[BatchOperationUrl], operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]], config: Optional[BatchOperateConfig] = None) -> List[Any]:
+        return await batch_operate_util(urls, operation, self, config)

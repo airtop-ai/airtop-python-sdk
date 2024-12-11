@@ -1,12 +1,16 @@
+from __future__ import annotations
 import asyncio
-from typing import Any, Callable, Dict, List, Optional, Awaitable
+from typing import Any, Callable, List, Optional, Awaitable, Union, TYPE_CHECKING
 from asyncio import Queue
-from airtop import AsyncAirtop, types
+from airtop import types
 from pyee import EventEmitter
 import json
 from .types import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperationError
 from .helpers import distribute_urls_to_batches
 from .window_queue import WindowQueue
+
+if TYPE_CHECKING:
+    from airtop.client import AsyncAirtop
 
 class SessionQueue:
     def __init__(
@@ -16,8 +20,8 @@ class SessionQueue:
         max_windows_per_session: int,
         operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]],
         initial_batches: List[List[BatchOperationUrl]],
-        session_config: Optional[Dict[str, Any]] = None,
-        on_error: Optional[Callable[[BatchOperationError], None]] = None,
+        session_config: Optional[types.SessionConfigV1] = None,
+        on_error: Optional[Callable[[BatchOperationError], Awaitable[None]]] = None,
         run_emitter: Optional[EventEmitter] = None
     ):
         if not isinstance(max_concurrent_sessions, int) or max_concurrent_sessions <= 0:
@@ -61,7 +65,8 @@ class SessionQueue:
                 await self.batch_queue.put(batch)
 
         self.processing_promises_count += 1
-        self.run_emitter.on("halt", self.handle_halt)
+        if self.run_emitter:
+            self.run_emitter.on("halt", self.handle_halt)
         await self.process_pending_batches()
 
     async def process_pending_batches(self):
@@ -97,7 +102,8 @@ class SessionQueue:
         self.client.log("Processing complete")
         await self.terminate_all_sessions()
         self.client.log("All sessions terminated")
-        self.run_emitter.remove_listener("halt", self.handle_halt)
+        if self.run_emitter:
+            self.run_emitter.remove_listener("halt", self.handle_halt)
         return self.results
 
     async def terminate_all_sessions(self):
@@ -124,10 +130,13 @@ class SessionQueue:
                     warnings=session_response.warnings,
                     errors=session_response.errors,
                     session_id=session_id,
-                    url=batch[0],
+                    url=batch[0] if batch else None,
                     operation="session creation"
                 )
-                session_id = session_response.data.id
+                if session_response.data:
+                    session_id = session_response.data.id
+                else:
+                    raise RuntimeError("Session creation failed: no session ID returned")
 
             queue = WindowQueue(
                 max_windows_per_session=self.max_windows_per_session,
@@ -139,14 +148,15 @@ class SessionQueue:
                 is_halted=self.is_halted
             )
             result = await queue.process_in_batches(batch)
-            self.results.append(result)
+            if result:
+                self.results.extend(result)
 
             # Return the session to the pool
             async with self.session_pool_mutex:
                 self.session_pool.append(session_id)
         except Exception as e:
             if self.on_error:
-                await self._handle_error_with_callback(e, batch, session_id, None, self.on_error)
+                await self._handle_error_with_callback(e, batch, session_id)
             else:
                 self.client.error(f"Error processing batch {batch}: {self._format_error(e)}")
 
@@ -168,22 +178,34 @@ class SessionQueue:
         except Exception as error:
             self.client.error(f"Error terminating session {session_id}: {self._format_error(error)}")
 
-    async def _handle_error_with_callback(self, error: Exception | str, batch: List[BatchOperationUrl], session_id: Optional[str], callback: Callable[[BatchOperationError], Awaitable[None]]):
+    async def _handle_error_with_callback(
+        self,
+        error: Union[Exception, str],
+        batch: List[BatchOperationUrl],
+        session_id: Optional[str] = None
+    ):
+        if not self.on_error:
+            return
+            
         try:
-            await callback(BatchOperationError(error=self._format_error(error), operation_urls=batch, session_id=session_id))
+            await self.on_error(BatchOperationError(
+                error=self._format_error(error),
+                operation_urls=batch,
+                session_id=session_id
+            ))
         except Exception as e:
             self.client.error(f"Error in onError callback: {self._format_error(e)}. Original error: {self._format_error(error)}")
 
-    def _format_error(self, error: Exception | str):
+    def _format_error(self, error: Union[Exception, str]) -> str:
         return str(error) if isinstance(error, Exception) else str(error)
     
     def _handle_error_and_warning_responses(
         self,
         warnings: Optional[List[types.Issue]] = None,
         errors: Optional[List[types.Issue]] = None,
-        session_id: str = None,
-        url: BatchOperationUrl = None,
-        operation: str = None
+        session_id: Optional[str] = None,
+        url: Optional[BatchOperationUrl] = None,
+        operation: Optional[str] = None
     ) -> None:
         if not warnings and not errors:
             return
