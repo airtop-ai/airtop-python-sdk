@@ -1,13 +1,14 @@
 import typing
 import httpx
 from .environment import AirtopEnvironment
-from .base_client import BaseClient, AsyncBaseClient
+from .base_client import BaseClient, AsyncBaseClient, _get_base_url as construct_base_url
 from .wrapper.windows_client import AirtopWindows, AsyncAirtopWindows
 from .wrapper.sessions_client import AirtopSessions, AsyncAirtopSessions
 from .utils import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperateConfig
 from .utils.batch_operate.batch_util import batch_operate as batch_operate_util
 from typing import Callable, List, Awaitable, Any, Optional
 import logging
+import asyncio
 
 class Airtop(BaseClient):
     """
@@ -70,6 +71,14 @@ class Airtop(BaseClient):
     
     def error(self, message: str):
         logging.error(message)
+
+    def set_api_key(self, api_key: str):
+        self._client_wrapper._api_key = api_key
+
+    def set_environment(self, environment: AirtopEnvironment):
+        new_base_url = construct_base_url(base_url=self._client_wrapper._base_url, environment=environment)
+        print("Setting base URL from", self._client_wrapper._base_url, "to", new_base_url)
+        self._client_wrapper._base_url = new_base_url
 
 
 class AsyncAirtop(AsyncBaseClient):
@@ -137,6 +146,14 @@ class AsyncAirtop(AsyncBaseClient):
     
     def error(self, message: str):
         logging.error(message)
+
+    def set_api_key(self, api_key: str):
+        self._client_wrapper._api_key = api_key
+
+    def set_environment(self, environment: AirtopEnvironment):
+        new_base_url = construct_base_url(base_url=self._client_wrapper._base_url, environment=environment)
+        print("Setting base URL from", self._client_wrapper._base_url, "to", new_base_url)
+        self._client_wrapper._base_url = new_base_url
 
     async def batch_operate(self, urls: List[BatchOperationUrl], operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]], config: Optional[BatchOperateConfig] = None) -> List[Any]:
         return await batch_operate_util(urls, operation, self, config)

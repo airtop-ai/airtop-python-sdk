@@ -34,6 +34,7 @@ class BaseClientWrapper:
             return self._api_key()
 
     def get_base_url(self) -> str:
+        print("*****", self._base_url)
         return self._base_url
 
     def get_timeout(self) -> typing.Optional[float]:
