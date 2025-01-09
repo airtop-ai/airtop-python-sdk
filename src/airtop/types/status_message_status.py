@@ -2,4 +2,6 @@
 
 import typing
 
-StatusMessageStatus = typing.Union[typing.Literal["awaitingCapacity", "initializing", "running", "ended"], typing.Any]
+StatusMessageStatus = typing.Union[
+    typing.Literal["awaitingCapacity", "initializing", "running", "ended", "error", "disconnected"], typing.Any
+]

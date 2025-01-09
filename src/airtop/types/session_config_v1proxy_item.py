@@ -11,7 +11,7 @@ import typing
 
 class SessionConfigV1ProxyItem(UniversalBaseModel):
     """
-    You can set multiple proxies. You associate each proxy with a domain pattern. If the domain matches the pattern, the proxy is used. Pattern can contain '?' to match any single character, and '_' to match any sequence of characters. For example, '_.example.com' will match 'www.example.com' and 'sub.example.com'
+    You can set multiple proxies. You associate each proxy with a domain pattern. If the domain matches the pattern, the proxy is used. Pattern can contain '?' to match any single character, and '*' to match any sequence of characters. For example, '*.example.com' will match 'www.example.com' and 'sub.example.com'
     """
 
     domain_pattern: typing_extensions.Annotated[str, FieldMetadata(alias="domainPattern")]

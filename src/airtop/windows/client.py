@@ -16,6 +16,7 @@ from ..types.click_config import ClickConfig
 from ..types.ai_prompt_response import AiPromptResponse
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..types.page_query_config import PageQueryConfig
+from ..types.paginated_extraction_config import PaginatedExtractionConfig
 from ..types.scrape_response import ScrapeResponse
 from ..types.summary_config import SummaryConfig
 from ..core.client_wrapper import AsyncClientWrapper
@@ -208,7 +209,7 @@ class WindowsClient:
         Returns
         -------
         OperationOutcomeResponse
-            Created
+            OK
 
         Examples
         --------
@@ -503,13 +504,13 @@ class WindowsClient:
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
-            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
         follow_pagination_links : typing.Optional[bool]
             Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
 
         time_threshold_seconds : typing.Optional[int]
-            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
 
@@ -564,6 +565,92 @@ class WindowsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def paginated_extraction(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        prompt: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PaginatedExtractionConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        prompt : typing.Optional[str]
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.paginated_extraction(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=PaginatedExtractionConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def prompt_content(
         self,
         session_id: str,
@@ -597,13 +684,13 @@ class WindowsClient:
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
-            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
         follow_pagination_links : typing.Optional[bool]
             Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
 
         time_threshold_seconds : typing.Optional[int]
-            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
 
@@ -1118,7 +1205,7 @@ class AsyncWindowsClient:
         Returns
         -------
         OperationOutcomeResponse
-            Created
+            OK
 
         Examples
         --------
@@ -1445,13 +1532,13 @@ class AsyncWindowsClient:
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
-            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
         follow_pagination_links : typing.Optional[bool]
             Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
 
         time_threshold_seconds : typing.Optional[int]
-            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
 
@@ -1514,6 +1601,100 @@ class AsyncWindowsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def paginated_extraction(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        prompt: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PaginatedExtractionConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        prompt : typing.Optional[str]
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.paginated_extraction(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=PaginatedExtractionConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def prompt_content(
         self,
         session_id: str,
@@ -1547,13 +1728,13 @@ class AsyncWindowsClient:
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
-            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
         follow_pagination_links : typing.Optional[bool]
             Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
 
         time_threshold_seconds : typing.Optional[int]
-            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
 

@@ -17,6 +17,13 @@ class SessionConfigV1(UniversalBaseModel):
     Id of a profile to load into the session.
     """
 
+    extension_ids: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="extensionIds")
+    ] = pydantic.Field(default=None)
+    """
+    -
+    """
+
     persist_profile: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="persistProfile")] = (
         pydantic.Field(default=None)
     )

@@ -319,19 +319,6 @@ class SessionsClient:
         ------
         typing.Iterator[SessionsEventsResponse]
             OK
-
-        Examples
-        --------
-        from airtop import Airtop
-
-        client = Airtop(
-            api_key="YOUR_API_KEY",
-        )
-        response = client.sessions.events(
-            id="string",
-        )
-        for chunk in response:
-            yield chunk
         """
         with self._client_wrapper.httpx_client.stream(
             f"sessions/{jsonable_encoder(id)}/events",
@@ -388,6 +375,50 @@ class SessionsClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def save_profile_on_termination(
+        self, session_id: str, profile_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Parameters
+        ----------
+        session_id : str
+            ID of the session that owns the window.
+
+        profile_name : str
+            Name under which to save the profile.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.sessions.save_profile_on_termination(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            profile_name="myProfile",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/save-profile-on-termination/{jsonable_encoder(profile_name)}",
+            method="PUT",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
 class AsyncSessionsClient:
@@ -716,27 +747,6 @@ class AsyncSessionsClient:
         ------
         typing.AsyncIterator[SessionsEventsResponse]
             OK
-
-        Examples
-        --------
-        import asyncio
-
-        from airtop import AsyncAirtop
-
-        client = AsyncAirtop(
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            response = await client.sessions.events(
-                id="string",
-            )
-            async for chunk in response:
-                yield chunk
-
-
-        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"sessions/{jsonable_encoder(id)}/events",
@@ -793,3 +803,55 @@ class AsyncSessionsClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def save_profile_on_termination(
+        self, session_id: str, profile_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Parameters
+        ----------
+        session_id : str
+            ID of the session that owns the window.
+
+        profile_name : str
+            Name under which to save the profile.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.sessions.save_profile_on_termination(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                profile_name="myProfile",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/save-profile-on-termination/{jsonable_encoder(profile_name)}",
+            method="PUT",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
