@@ -16,7 +16,7 @@ class ExternalProfileV1(UniversalBaseModel):
 
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Status of the profile.
+    DEPRECATED.
     """
 
     if IS_PYDANTIC_V2:

@@ -630,7 +630,7 @@ client.windows.page_query(
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
     
 </dd>
 </dl>
@@ -648,7 +648,116 @@ client.windows.page_query(
 
 **time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">paginated_extraction</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.paginated_extraction(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[PaginatedExtractionConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prompt:** `typing.Optional[str]` — A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
     
@@ -762,7 +871,7 @@ client.windows.prompt_content(
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
     
 </dd>
 </dl>
@@ -780,7 +889,7 @@ client.windows.prompt_content(
 
 **time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
     
@@ -1571,23 +1680,9 @@ client.sessions.terminate(
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">events</a>(...)</code></summary>
+<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">save_profile_on_termination</a>(...)</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a session event stream for a given session ID
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1603,11 +1698,10 @@ from airtop import Airtop
 client = Airtop(
     api_key="YOUR_API_KEY",
 )
-response = client.sessions.events(
-    id="string",
+client.sessions.save_profile_on_termination(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    profile_name="myProfile",
 )
-for chunk in response:
-    yield chunk
 
 ```
 </dd>
@@ -1623,7 +1717,15 @@ for chunk in response:
 <dl>
 <dd>
 
-**id:** `str` — ID of the session to get status info for
+**session_id:** `str` — ID of the session that owns the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**profile_name:** `str` — Name under which to save the profile.
     
 </dd>
 </dl>

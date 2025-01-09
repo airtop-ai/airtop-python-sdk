@@ -8,7 +8,7 @@ from .utils import BatchOperationUrl, BatchOperationInput, BatchOperationRespons
 from .utils.batch_operate.batch_util import batch_operate as batch_operate_util
 from typing import Callable, List, Awaitable, Any, Optional
 import logging
-
+from .version import __version__
 class Airtop(BaseClient):
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
@@ -57,6 +57,7 @@ class Airtop(BaseClient):
         debug: typing.Optional[bool] = False,
     ):
         super().__init__(api_key=api_key, base_url=base_url, environment=environment, timeout=timeout, follow_redirects=follow_redirects, httpx_client=httpx_client)
+        self._client_wrapper.httpx_client.base_headers = self.get_headers
         self.windows = AirtopWindows(client_wrapper=self._client_wrapper)
         self.sessions = AirtopSessions(client_wrapper=self._client_wrapper)
         self.debug = debug
@@ -70,6 +71,12 @@ class Airtop(BaseClient):
     
     def error(self, message: str):
         logging.error(message)
+
+    def get_headers(self) -> typing.Dict[str, str]:
+        headers = self._client_wrapper.get_headers()
+        headers["x-airtop-sdk-source"] = "python"
+        headers["x-airtop-sdk-version"] = __version__
+        return headers
 
 
 class AsyncAirtop(AsyncBaseClient):
@@ -124,6 +131,7 @@ class AsyncAirtop(AsyncBaseClient):
         debug: typing.Optional[bool] = False,
     ):
         super().__init__(api_key=api_key, base_url=base_url, environment=environment, timeout=timeout, follow_redirects=follow_redirects, httpx_client=httpx_client)
+        self._client_wrapper.httpx_client.base_headers = self.get_headers
         self.windows = AsyncAirtopWindows(client_wrapper=self._client_wrapper)
         self.sessions = AsyncAirtopSessions(client_wrapper=self._client_wrapper)
         self.debug = debug
@@ -140,3 +148,9 @@ class AsyncAirtop(AsyncBaseClient):
 
     async def batch_operate(self, urls: List[BatchOperationUrl], operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]], config: Optional[BatchOperateConfig] = None) -> List[Any]:
         return await batch_operate_util(urls, operation, self, config)
+
+    def get_headers(self) -> typing.Dict[str, str]:
+        headers = self._client_wrapper.get_headers()
+        headers["x-airtop-sdk-source"] = "python"
+        headers["x-airtop-sdk-version"] = __version__
+        return headers

@@ -20,7 +20,7 @@ class SessionPageQueryHandlerRequestBody(UniversalBaseModel):
         typing.Optional[int], FieldMetadata(alias="costThresholdCredits")
     ] = pydantic.Field(default=None)
     """
-    A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
     """
 
     follow_pagination_links: typing_extensions.Annotated[
@@ -39,7 +39,7 @@ class SessionPageQueryHandlerRequestBody(UniversalBaseModel):
         typing.Optional[int], FieldMetadata(alias="timeThresholdSeconds")
     ] = pydantic.Field(default=None)
     """
-    A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
     
     This setting does not extend the maximum session duration provided at the time of session creation.
     """

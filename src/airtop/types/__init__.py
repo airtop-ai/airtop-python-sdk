@@ -20,6 +20,7 @@ from .operation_outcome import OperationOutcome
 from .operation_outcome_response import OperationOutcomeResponse
 from .page_query_config import PageQueryConfig
 from .page_query_experimental_config import PageQueryExperimentalConfig
+from .paginated_extraction_config import PaginatedExtractionConfig
 from .pagination import Pagination
 from .profiles_response import ProfilesResponse
 from .proxy import Proxy
@@ -67,6 +68,7 @@ __all__ = [
     "OperationOutcomeResponse",
     "PageQueryConfig",
     "PageQueryExperimentalConfig",
+    "PaginatedExtractionConfig",
     "Pagination",
     "ProfilesResponse",
     "Proxy",
