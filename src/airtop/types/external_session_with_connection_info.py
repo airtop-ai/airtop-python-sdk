@@ -67,7 +67,7 @@ class ExternalSessionWithConnectionInfo(UniversalBaseModel):
         default=None
     )
     """
-    Id of a newly persisted profile.
+    Id of a newly persisted profile. DEPRECATED: Use profileName.
     """
 
     status: str = pydantic.Field()

@@ -431,6 +431,14 @@ This setting does not extend the maximum session duration provided at the time o
 <dl>
 <dd>
 
+**wait_for_navigation:** `typing.Optional[bool]` — If true, Airtop AI will wait for the navigation to complete after clicking the element.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -1241,6 +1249,14 @@ This setting does not extend the maximum session duration provided at the time o
 <dl>
 <dd>
 
+**wait_for_navigation:** `typing.Optional[bool]` — If true, Airtop AI will wait for the navigation to complete after clicking the element.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -1302,7 +1318,15 @@ client.profiles.get()
 <dl>
 <dd>
 
-**profile_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — A comma-separated list of profile ids.
+**profile_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — DEPRECATED. Use profileNames.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**profile_names:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — A comma-separated list of profile names.
     
 </dd>
 </dl>
@@ -1370,7 +1394,15 @@ client.profiles.delete()
 <dl>
 <dd>
 
-**profile_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — A comma-separated list of profile ids.
+**profile_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — DEPRECATED. Use profileNames.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**profile_names:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — A comma-separated list of profile names.
     
 </dd>
 </dl>
@@ -1717,7 +1749,7 @@ client.sessions.save_profile_on_termination(
 <dl>
 <dd>
 
-**session_id:** `str` — ID of the session that owns the window.
+**session_id:** `str` — ID of the session.
     
 </dd>
 </dl>

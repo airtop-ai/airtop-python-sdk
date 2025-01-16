@@ -2,10 +2,13 @@
 
 from .ai_prompt_response import AiPromptResponse
 from .ai_response_envelope import AiResponseEnvelope
+from .browser_wait_navigation_config import BrowserWaitNavigationConfig
+from .browser_wait_navigation_config_wait_until import BrowserWaitNavigationConfigWaitUntil
 from .click_config import ClickConfig
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
 from .custom_proxy import CustomProxy
 from .envelope_default_meta import EnvelopeDefaultMeta
+from .error_body import ErrorBody
 from .error_detail import ErrorDetail
 from .error_message import ErrorMessage
 from .error_model import ErrorModel
@@ -31,6 +34,7 @@ from .scrape_response_output import ScrapeResponseOutput
 from .session_config_v1 import SessionConfigV1
 from .session_config_v1proxy import SessionConfigV1Proxy
 from .session_config_v1proxy_item import SessionConfigV1ProxyItem
+from .session_event_message import SessionEventMessage
 from .session_page_query_handler_request_body import SessionPageQueryHandlerRequestBody
 from .session_response import SessionResponse
 from .sessions_response import SessionsResponse
@@ -43,6 +47,7 @@ from .visual_analysis_config import VisualAnalysisConfig
 from .visual_analysis_config_partition_direction import VisualAnalysisConfigPartitionDirection
 from .visual_analysis_config_scope import VisualAnalysisConfigScope
 from .window import Window
+from .window_event_message import WindowEventMessage
 from .window_id import WindowId
 from .window_id_response import WindowIdResponse
 from .window_response import WindowResponse
@@ -50,10 +55,13 @@ from .window_response import WindowResponse
 __all__ = [
     "AiPromptResponse",
     "AiResponseEnvelope",
+    "BrowserWaitNavigationConfig",
+    "BrowserWaitNavigationConfigWaitUntil",
     "ClickConfig",
     "ClientProvidedResponseMetadata",
     "CustomProxy",
     "EnvelopeDefaultMeta",
+    "ErrorBody",
     "ErrorDetail",
     "ErrorMessage",
     "ErrorModel",
@@ -79,6 +87,7 @@ __all__ = [
     "SessionConfigV1",
     "SessionConfigV1Proxy",
     "SessionConfigV1ProxyItem",
+    "SessionEventMessage",
     "SessionPageQueryHandlerRequestBody",
     "SessionResponse",
     "SessionsResponse",
@@ -91,6 +100,7 @@ __all__ = [
     "VisualAnalysisConfigPartitionDirection",
     "VisualAnalysisConfigScope",
     "Window",
+    "WindowEventMessage",
     "WindowId",
     "WindowIdResponse",
     "WindowResponse",

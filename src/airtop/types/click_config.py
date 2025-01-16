@@ -6,6 +6,7 @@ import typing
 from .visual_analysis_config import VisualAnalysisConfig
 from ..core.serialization import FieldMetadata
 import pydantic
+from .browser_wait_navigation_config import BrowserWaitNavigationConfig
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -15,6 +16,13 @@ class ClickConfig(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     Optional configuration for visual analysis when locating specified content.
+    """
+
+    wait_for_navigation_config: typing_extensions.Annotated[
+        typing.Optional[BrowserWaitNavigationConfig], FieldMetadata(alias="waitForNavigationConfig")
+    ] = pydantic.Field(default=None)
+    """
+    Optional configuration for waiting for navigation to complete after clicking the element.
     """
 
     if IS_PYDANTIC_V2:

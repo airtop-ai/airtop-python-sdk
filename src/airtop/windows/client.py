@@ -85,6 +85,9 @@ class WindowsClient:
                 "waitUntil": wait_until,
                 "waitUntilTimeoutSeconds": wait_until_timeout_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -232,6 +235,9 @@ class WindowsClient:
                 "waitUntil": wait_until,
                 "waitUntilTimeoutSeconds": wait_until_timeout_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -310,6 +316,7 @@ class WindowsClient:
         configuration: typing.Optional[ClickConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
@@ -336,6 +343,9 @@ class WindowsClient:
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -369,6 +379,10 @@ class WindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
+                "waitForNavigation": wait_for_navigation,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -455,6 +469,9 @@ class WindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -634,6 +651,9 @@ class WindowsClient:
                 "prompt": prompt,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -802,6 +822,9 @@ class WindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -890,6 +913,9 @@ class WindowsClient:
                 "prompt": prompt,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -919,6 +945,7 @@ class WindowsClient:
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
@@ -951,6 +978,9 @@ class WindowsClient:
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -986,6 +1016,10 @@ class WindowsClient:
                 "pressEnterKey": press_enter_key,
                 "text": text,
                 "timeThresholdSeconds": time_threshold_seconds,
+                "waitForNavigation": wait_for_navigation,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1072,6 +1106,9 @@ class AsyncWindowsClient:
                 "url": url,
                 "waitUntil": wait_until,
                 "waitUntilTimeoutSeconds": wait_until_timeout_seconds,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1236,6 +1273,9 @@ class AsyncWindowsClient:
                 "waitUntil": wait_until,
                 "waitUntilTimeoutSeconds": wait_until_timeout_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1322,6 +1362,7 @@ class AsyncWindowsClient:
         configuration: typing.Optional[ClickConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
@@ -1348,6 +1389,9 @@ class AsyncWindowsClient:
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1389,6 +1433,10 @@ class AsyncWindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
+                "waitForNavigation": wait_for_navigation,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1483,6 +1531,9 @@ class AsyncWindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1678,6 +1729,9 @@ class AsyncWindowsClient:
                 "prompt": prompt,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1862,6 +1916,9 @@ class AsyncWindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1958,6 +2015,9 @@ class AsyncWindowsClient:
                 "prompt": prompt,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1987,6 +2047,7 @@ class AsyncWindowsClient:
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
@@ -2019,6 +2080,9 @@ class AsyncWindowsClient:
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2062,6 +2126,10 @@ class AsyncWindowsClient:
                 "pressEnterKey": press_enter_key,
                 "text": text,
                 "timeThresholdSeconds": time_threshold_seconds,
+                "waitForNavigation": wait_for_navigation,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
