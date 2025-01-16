@@ -18,6 +18,7 @@ class ProfilesClient:
         self,
         *,
         profile_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        profile_names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProfilesResponse:
         """
@@ -26,7 +27,10 @@ class ProfilesClient:
         Parameters
         ----------
         profile_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A comma-separated list of profile ids.
+            DEPRECATED. Use profileNames.
+
+        profile_names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A comma-separated list of profile names.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -50,6 +54,7 @@ class ProfilesClient:
             method="GET",
             params={
                 "profileIds": profile_ids,
+                "profileNames": profile_names,
             },
             request_options=request_options,
         )
@@ -71,6 +76,7 @@ class ProfilesClient:
         self,
         *,
         profile_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        profile_names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -79,7 +85,10 @@ class ProfilesClient:
         Parameters
         ----------
         profile_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A comma-separated list of profile ids.
+            DEPRECATED. Use profileNames.
+
+        profile_names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A comma-separated list of profile names.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -102,6 +111,7 @@ class ProfilesClient:
             method="DELETE",
             params={
                 "profileIds": profile_ids,
+                "profileNames": profile_names,
             },
             request_options=request_options,
         )
@@ -122,6 +132,7 @@ class AsyncProfilesClient:
         self,
         *,
         profile_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        profile_names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProfilesResponse:
         """
@@ -130,7 +141,10 @@ class AsyncProfilesClient:
         Parameters
         ----------
         profile_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A comma-separated list of profile ids.
+            DEPRECATED. Use profileNames.
+
+        profile_names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A comma-separated list of profile names.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -162,6 +176,7 @@ class AsyncProfilesClient:
             method="GET",
             params={
                 "profileIds": profile_ids,
+                "profileNames": profile_names,
             },
             request_options=request_options,
         )
@@ -183,6 +198,7 @@ class AsyncProfilesClient:
         self,
         *,
         profile_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        profile_names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -191,7 +207,10 @@ class AsyncProfilesClient:
         Parameters
         ----------
         profile_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            A comma-separated list of profile ids.
+            DEPRECATED. Use profileNames.
+
+        profile_names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A comma-separated list of profile names.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -222,6 +241,7 @@ class AsyncProfilesClient:
             method="DELETE",
             params={
                 "profileIds": profile_ids,
+                "profileNames": profile_names,
             },
             request_options=request_options,
         )

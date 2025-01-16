@@ -167,6 +167,9 @@ class SessionsClient:
                     object_=configuration, annotation=SessionConfigV1, direction="write"
                 ),
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -302,7 +305,12 @@ class SessionsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def events(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        last_event_id: typing.Optional[int] = None,
+        all_: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[SessionsEventsResponse]:
         """
         Get a session event stream for a given session ID
@@ -311,6 +319,12 @@ class SessionsClient:
         ----------
         id : str
             ID of the session to get status info for
+
+        last_event_id : typing.Optional[int]
+            last known event id
+
+        all_ : typing.Optional[bool]
+            Get all events
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -323,6 +337,10 @@ class SessionsClient:
         with self._client_wrapper.httpx_client.stream(
             f"sessions/{jsonable_encoder(id)}/events",
             method="GET",
+            params={
+                "lastEventId": last_event_id,
+                "all": all_,
+            },
             request_options=request_options,
         ) as _response:
             try:
@@ -383,7 +401,7 @@ class SessionsClient:
         Parameters
         ----------
         session_id : str
-            ID of the session that owns the window.
+            ID of the session.
 
         profile_name : str
             Name under which to save the profile.
@@ -579,6 +597,9 @@ class AsyncSessionsClient:
                     object_=configuration, annotation=SessionConfigV1, direction="write"
                 ),
             },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -730,7 +751,12 @@ class AsyncSessionsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def events(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        last_event_id: typing.Optional[int] = None,
+        all_: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[SessionsEventsResponse]:
         """
         Get a session event stream for a given session ID
@@ -739,6 +765,12 @@ class AsyncSessionsClient:
         ----------
         id : str
             ID of the session to get status info for
+
+        last_event_id : typing.Optional[int]
+            last known event id
+
+        all_ : typing.Optional[bool]
+            Get all events
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -751,6 +783,10 @@ class AsyncSessionsClient:
         async with self._client_wrapper.httpx_client.stream(
             f"sessions/{jsonable_encoder(id)}/events",
             method="GET",
+            params={
+                "lastEventId": last_event_id,
+                "all": all_,
+            },
             request_options=request_options,
         ) as _response:
             try:
@@ -811,7 +847,7 @@ class AsyncSessionsClient:
         Parameters
         ----------
         session_id : str
-            ID of the session that owns the window.
+            ID of the session.
 
         profile_name : str
             Name under which to save the profile.

@@ -14,7 +14,7 @@ class SessionConfigV1(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Id of a profile to load into the session.
+    Deprecated: Use profileName instead.
     """
 
     extension_ids: typing_extensions.Annotated[
@@ -28,7 +28,14 @@ class SessionConfigV1(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Persist the profile.
+    Deprecated: use Save Profile On Termination API instead.
+    """
+
+    profile_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="profileName")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Name of a profile to load into the session.
     """
 
     proxy: typing.Optional[SessionConfigV1Proxy] = pydantic.Field(default=None)
