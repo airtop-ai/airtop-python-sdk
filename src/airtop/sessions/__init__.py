@@ -3,17 +3,25 @@
 from .types import (
     SessionsEventsResponse,
     SessionsEventsResponseError,
+    SessionsEventsResponseSessionEvent,
     SessionsEventsResponseStatus,
+    SessionsEventsResponseWindowEvent,
     SessionsEventsResponse_Error,
+    SessionsEventsResponse_SessionEvent,
     SessionsEventsResponse_Status,
+    SessionsEventsResponse_WindowEvent,
     SessionsListRequestStatus,
 )
 
 __all__ = [
     "SessionsEventsResponse",
     "SessionsEventsResponseError",
+    "SessionsEventsResponseSessionEvent",
     "SessionsEventsResponseStatus",
+    "SessionsEventsResponseWindowEvent",
     "SessionsEventsResponse_Error",
+    "SessionsEventsResponse_SessionEvent",
     "SessionsEventsResponse_Status",
+    "SessionsEventsResponse_WindowEvent",
     "SessionsListRequestStatus",
 ]

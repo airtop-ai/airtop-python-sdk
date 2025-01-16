@@ -488,6 +488,7 @@ class AirtopWindows(WindowsClient):
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
@@ -546,7 +547,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().type(session_id, window_id, text=text, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().type(session_id, window_id, text=text, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
 
     def click(
         self,
@@ -558,6 +559,7 @@ class AirtopWindows(WindowsClient):
         configuration: typing.Optional[ClickConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
@@ -610,7 +612,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().click(session_id, window_id, element_description=element_description, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().click(session_id, window_id, element_description=element_description, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
 
 
 
@@ -1095,6 +1097,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         configuration: typing.Optional[ClickConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
@@ -1155,7 +1158,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().click(session_id, window_id, element_description=element_description, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().click(session_id, window_id, element_description=element_description, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
 
 
     async def hover(
@@ -1241,6 +1244,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
@@ -1307,4 +1311,4 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().type(session_id, window_id, text=text, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().type(session_id, window_id, text=text, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
