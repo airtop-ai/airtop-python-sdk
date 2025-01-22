@@ -512,7 +512,7 @@ client.windows.hover(
 <dl>
 <dd>
 
-**configuration:** `typing.Optional[ClickConfig]` — Request configuration
+**configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
     
 </dd>
 </dl>
@@ -1205,7 +1205,7 @@ client.windows.type(
 <dl>
 <dd>
 
-**configuration:** `typing.Optional[ClickConfig]` — Request configuration
+**configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
     
 </dd>
 </dl>

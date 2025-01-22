@@ -5,6 +5,7 @@ from .ai_response_envelope import AiResponseEnvelope
 from .browser_wait_navigation_config import BrowserWaitNavigationConfig
 from .browser_wait_navigation_config_wait_until import BrowserWaitNavigationConfigWaitUntil
 from .click_config import ClickConfig
+from .click_config_click_type import ClickConfigClickType
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
 from .custom_proxy import CustomProxy
 from .envelope_default_meta import EnvelopeDefaultMeta
@@ -19,6 +20,7 @@ from .external_session_ai_response_metadata_usage import ExternalSessionAiRespon
 from .external_session_config import ExternalSessionConfig
 from .external_session_with_connection_info import ExternalSessionWithConnectionInfo
 from .issue import Issue
+from .micro_interaction_config import MicroInteractionConfig
 from .operation_outcome import OperationOutcome
 from .operation_outcome_response import OperationOutcomeResponse
 from .page_query_config import PageQueryConfig
@@ -58,6 +60,7 @@ __all__ = [
     "BrowserWaitNavigationConfig",
     "BrowserWaitNavigationConfigWaitUntil",
     "ClickConfig",
+    "ClickConfigClickType",
     "ClientProvidedResponseMetadata",
     "CustomProxy",
     "EnvelopeDefaultMeta",
@@ -72,6 +75,7 @@ __all__ = [
     "ExternalSessionConfig",
     "ExternalSessionWithConnectionInfo",
     "Issue",
+    "MicroInteractionConfig",
     "OperationOutcome",
     "OperationOutcomeResponse",
     "PageQueryConfig",

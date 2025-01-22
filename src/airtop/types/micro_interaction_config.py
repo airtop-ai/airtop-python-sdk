@@ -3,22 +3,14 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing_extensions
 import typing
-from .click_config_click_type import ClickConfigClickType
+from .visual_analysis_config import VisualAnalysisConfig
 from ..core.serialization import FieldMetadata
 import pydantic
-from .visual_analysis_config import VisualAnalysisConfig
 from .browser_wait_navigation_config import BrowserWaitNavigationConfig
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class ClickConfig(UniversalBaseModel):
-    click_type: typing_extensions.Annotated[typing.Optional[ClickConfigClickType], FieldMetadata(alias="clickType")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The type of click to perform. Defaults to left click.
-    """
-
+class MicroInteractionConfig(UniversalBaseModel):
     visual_analysis: typing_extensions.Annotated[
         typing.Optional[VisualAnalysisConfig], FieldMetadata(alias="visualAnalysis")
     ] = pydantic.Field(default=None)
