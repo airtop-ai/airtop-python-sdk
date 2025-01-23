@@ -23,11 +23,12 @@ jobs:
               color: 'danger',
               blocks: [
                 {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": `:x: Python SDK CI failed`
+                  "type": "section",
+                  "text": {
+                      "type": "mrkdwn",
+                      "text": `:x: Python SDK CI failed`
                   },
+                },
                 {
                   "type": "actions",
                   "elements": [
