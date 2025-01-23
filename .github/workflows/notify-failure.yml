@@ -5,6 +5,7 @@ on:
     workflows: ["ci"]
     types:
       - completed
+  workflow_dispatch: {}
 
 jobs:
   notify:
@@ -21,16 +22,16 @@ jobs:
             attachments: [{
               color: 'danger',
               blocks: [
-                  {
-                  "type": "section",
-                  "text": {
-                      "type": "mrkdwn",
-                      "text": `:x: Python SDK CI failed`
+                {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": `:x: Python SDK CI failed`
                   },
-                  {
+                {
                   "type": "actions",
                   "elements": [
-                      {
+                    {
                       "type": "button",
                       "text": {
                           "type": "plain_text",
@@ -39,9 +40,9 @@ jobs:
                       },
                       "style": "primary",
                       "url": `https://github.com/airtop-ai/airtop-python-sdk/actions/runs/${{ github.run_id }}`
-                      }
+                    }
                   ]
-                  }
+                }
               ]
             }]
           }
