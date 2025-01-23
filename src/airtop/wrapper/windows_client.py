@@ -3,7 +3,7 @@ import typing_extensions
 import requests
 
 from airtop.types.click_config import ClickConfig
-from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse
+from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig
 from ..core.request_options import RequestOptions
 from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
 from ..core.serialization import FieldMetadata
@@ -483,7 +483,7 @@ class AirtopWindows(WindowsClient):
         *,
         text: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[ClickConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
@@ -505,7 +505,7 @@ class AirtopWindows(WindowsClient):
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[ClickConfig]
+        configuration : typing.Optional[MicroInteractionConfig]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -521,6 +521,9 @@ class AirtopWindows(WindowsClient):
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -587,6 +590,9 @@ class AirtopWindows(WindowsClient):
 
             This setting does not extend the maximum session duration provided at the time of session creation.
 
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -622,7 +628,7 @@ class AirtopWindows(WindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[ClickConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -639,7 +645,7 @@ class AirtopWindows(WindowsClient):
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[ClickConfig]
+        configuration : typing.Optional[MicroInteractionConfig]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -1125,6 +1131,9 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
             This setting does not extend the maximum session duration provided at the time of session creation.
 
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1167,7 +1176,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[ClickConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -1184,7 +1193,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[ClickConfig]
+        configuration : typing.Optional[MicroInteractionConfig]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -1239,7 +1248,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         *,
         text: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[ClickConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
@@ -1261,7 +1270,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[ClickConfig]
+        configuration : typing.Optional[MicroInteractionConfig]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -1277,6 +1286,9 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
