@@ -7,9 +7,14 @@ from .client import *
 from .environment import *
 from .sessions import *
 from .windows import *
-from .wrapper.sessions_client import *
-from .wrapper.windows_client import *
 from .core import *
 from .core.api_error import *
 from .utils import *
+from .wrapper.sessions_client import *
+from .wrapper.windows_client import *
 from .version import __version__
+
+# Exclude specific types from wildcard imports
+__all__ = [name for name in dir() if not name.startswith('_') and name not in {
+    'SessionConfigV1',
+}]
