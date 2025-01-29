@@ -19,6 +19,7 @@ from ..types.micro_interaction_config import MicroInteractionConfig
 from ..types.page_query_config import PageQueryConfig
 from ..types.paginated_extraction_config import PaginatedExtractionConfig
 from ..types.scrape_response import ScrapeResponse
+from ..types.screenshot_request_config import ScreenshotRequestConfig
 from ..types.summary_config import SummaryConfig
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -41,6 +42,8 @@ class WindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> WindowIdResponse:
         """
+        Creates a new browser window in a session. Optionally, you can specify a url to load on the window upon creation.
+
         Parameters
         ----------
         session_id : str
@@ -117,6 +120,8 @@ class WindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> WindowResponse:
         """
+        Get information about a browser window in a session, including the live view url.
+
         Parameters
         ----------
         session_id : str
@@ -190,6 +195,8 @@ class WindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OperationOutcomeResponse:
         """
+        Loads a specified url on a given window
+
         Parameters
         ----------
         session_id : str
@@ -260,6 +267,8 @@ class WindowsClient:
         self, session_id: str, window_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> WindowIdResponse:
         """
+        Closes a browser window in a session
+
         Parameters
         ----------
         session_id : str
@@ -321,6 +330,8 @@ class WindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Execute a click interaction in a specific browser window
+
         Parameters
         ----------
         session_id : str
@@ -415,6 +426,8 @@ class WindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Execute a hover interaction in a specific browser window
+
         Parameters
         ----------
         session_id : str
@@ -505,6 +518,8 @@ class WindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Submit a prompt that queries the content of a specific browser window. You may extract content from the page, or ask a question about the page and allow the AI to answer it (ex. Is the user logged in?).
+
         Parameters
         ----------
         session_id : str
@@ -596,6 +611,8 @@ class WindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Submit a prompt that queries the content of a specific browser window and paginates through pages to return a list of results.
+
         Parameters
         ----------
         session_id : str
@@ -777,6 +794,8 @@ class WindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ScrapeResponse:
         """
+        Scrape a window and return the content as markdown
+
         Parameters
         ----------
         session_id : str
@@ -835,6 +854,92 @@ class WindowsClient:
                     ScrapeResponse,
                     parse_obj_as(
                         type_=ScrapeResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def screenshot(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ScreenshotRequestConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Take a screenshot of a browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ScreenshotRequestConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.screenshot(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ScreenshotRequestConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -940,16 +1045,20 @@ class WindowsClient:
         window_id: str,
         *,
         text: str,
+        clear_input_field: typing.Optional[bool] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
+        press_tab_key: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Execute a type interaction in a specific browser window
+
         Parameters
         ----------
         session_id : str
@@ -960,6 +1069,9 @@ class WindowsClient:
 
         text : str
             The text to type into the browser window.
+
+        clear_input_field : typing.Optional[bool]
+            If true, and an HTML input field is active, clears the input field before typing the text.
 
         client_request_id : typing.Optional[str]
 
@@ -974,6 +1086,9 @@ class WindowsClient:
 
         press_enter_key : typing.Optional[bool]
             If true, simulates pressing the Enter key after typing the text.
+
+        press_tab_key : typing.Optional[bool]
+            If true, simulates pressing the Tab key after typing the text. Note that the tab key will be pressed after the Enter key if both options are configured.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1008,6 +1123,7 @@ class WindowsClient:
             f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
             method="POST",
             json={
+                "clearInputField": clear_input_field,
                 "clientRequestId": client_request_id,
                 "configuration": convert_and_respect_annotation_metadata(
                     object_=configuration, annotation=MicroInteractionConfig, direction="write"
@@ -1015,6 +1131,7 @@ class WindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "pressEnterKey": press_enter_key,
+                "pressTabKey": press_tab_key,
                 "text": text,
                 "timeThresholdSeconds": time_threshold_seconds,
                 "waitForNavigation": wait_for_navigation,
@@ -1055,6 +1172,8 @@ class AsyncWindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> WindowIdResponse:
         """
+        Creates a new browser window in a session. Optionally, you can specify a url to load on the window upon creation.
+
         Parameters
         ----------
         session_id : str
@@ -1139,6 +1258,8 @@ class AsyncWindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> WindowResponse:
         """
+        Get information about a browser window in a session, including the live view url.
+
         Parameters
         ----------
         session_id : str
@@ -1220,6 +1341,8 @@ class AsyncWindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OperationOutcomeResponse:
         """
+        Loads a specified url on a given window
+
         Parameters
         ----------
         session_id : str
@@ -1298,6 +1421,8 @@ class AsyncWindowsClient:
         self, session_id: str, window_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> WindowIdResponse:
         """
+        Closes a browser window in a session
+
         Parameters
         ----------
         session_id : str
@@ -1367,6 +1492,8 @@ class AsyncWindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Execute a click interaction in a specific browser window
+
         Parameters
         ----------
         session_id : str
@@ -1469,6 +1596,8 @@ class AsyncWindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Execute a hover interaction in a specific browser window
+
         Parameters
         ----------
         session_id : str
@@ -1567,6 +1696,8 @@ class AsyncWindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Submit a prompt that queries the content of a specific browser window. You may extract content from the page, or ask a question about the page and allow the AI to answer it (ex. Is the user logged in?).
+
         Parameters
         ----------
         session_id : str
@@ -1666,6 +1797,8 @@ class AsyncWindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Submit a prompt that queries the content of a specific browser window and paginates through pages to return a list of results.
+
         Parameters
         ----------
         session_id : str
@@ -1863,6 +1996,8 @@ class AsyncWindowsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ScrapeResponse:
         """
+        Scrape a window and return the content as markdown
+
         Parameters
         ----------
         session_id : str
@@ -1929,6 +2064,100 @@ class AsyncWindowsClient:
                     ScrapeResponse,
                     parse_obj_as(
                         type_=ScrapeResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def screenshot(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ScreenshotRequestConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Take a screenshot of a browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ScreenshotRequestConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.screenshot(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ScreenshotRequestConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2042,16 +2271,20 @@ class AsyncWindowsClient:
         window_id: str,
         *,
         text: str,
+        clear_input_field: typing.Optional[bool] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
+        press_tab_key: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
         """
+        Execute a type interaction in a specific browser window
+
         Parameters
         ----------
         session_id : str
@@ -2062,6 +2295,9 @@ class AsyncWindowsClient:
 
         text : str
             The text to type into the browser window.
+
+        clear_input_field : typing.Optional[bool]
+            If true, and an HTML input field is active, clears the input field before typing the text.
 
         client_request_id : typing.Optional[str]
 
@@ -2076,6 +2312,9 @@ class AsyncWindowsClient:
 
         press_enter_key : typing.Optional[bool]
             If true, simulates pressing the Enter key after typing the text.
+
+        press_tab_key : typing.Optional[bool]
+            If true, simulates pressing the Tab key after typing the text. Note that the tab key will be pressed after the Enter key if both options are configured.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -2118,6 +2357,7 @@ class AsyncWindowsClient:
             f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
             method="POST",
             json={
+                "clearInputField": clear_input_field,
                 "clientRequestId": client_request_id,
                 "configuration": convert_and_respect_annotation_metadata(
                     object_=configuration, annotation=MicroInteractionConfig, direction="write"
@@ -2125,6 +2365,7 @@ class AsyncWindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
                 "pressEnterKey": press_enter_key,
+                "pressTabKey": press_tab_key,
                 "text": text,
                 "timeThresholdSeconds": time_threshold_seconds,
                 "waitForNavigation": wait_for_navigation,

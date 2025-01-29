@@ -13,7 +13,6 @@ from .error_body import ErrorBody
 from .error_detail import ErrorDetail
 from .error_message import ErrorMessage
 from .error_model import ErrorModel
-from .external_profile_v1 import ExternalProfileV1
 from .external_session_ai_response_metadata import ExternalSessionAiResponseMetadata
 from .external_session_ai_response_metadata_status import ExternalSessionAiResponseMetadataStatus
 from .external_session_ai_response_metadata_usage import ExternalSessionAiResponseMetadataUsage
@@ -27,12 +26,14 @@ from .page_query_config import PageQueryConfig
 from .page_query_experimental_config import PageQueryExperimentalConfig
 from .paginated_extraction_config import PaginatedExtractionConfig
 from .pagination import Pagination
-from .profiles_response import ProfilesResponse
 from .proxy import Proxy
 from .scrape_response import ScrapeResponse
 from .scrape_response_content import ScrapeResponseContent
 from .scrape_response_envelope import ScrapeResponseEnvelope
 from .scrape_response_output import ScrapeResponseOutput
+from .screenshot_config import ScreenshotConfig
+from .screenshot_metadata import ScreenshotMetadata
+from .screenshot_request_config import ScreenshotRequestConfig
 from .session_config_v1 import SessionConfigV1
 from .session_config_v1proxy import SessionConfigV1Proxy
 from .session_config_v1proxy_item import SessionConfigV1ProxyItem
@@ -68,7 +69,6 @@ __all__ = [
     "ErrorDetail",
     "ErrorMessage",
     "ErrorModel",
-    "ExternalProfileV1",
     "ExternalSessionAiResponseMetadata",
     "ExternalSessionAiResponseMetadataStatus",
     "ExternalSessionAiResponseMetadataUsage",
@@ -82,12 +82,14 @@ __all__ = [
     "PageQueryExperimentalConfig",
     "PaginatedExtractionConfig",
     "Pagination",
-    "ProfilesResponse",
     "Proxy",
     "ScrapeResponse",
     "ScrapeResponseContent",
     "ScrapeResponseEnvelope",
     "ScrapeResponseOutput",
+    "ScreenshotConfig",
+    "ScreenshotMetadata",
+    "ScreenshotRequestConfig",
     "SessionConfigV1",
     "SessionConfigV1Proxy",
     "SessionConfigV1ProxyItem",

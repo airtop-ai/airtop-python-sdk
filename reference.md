@@ -4,6 +4,20 @@
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new browser window in a session. Optionally, you can specify a url to load on the window upon creation.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -91,6 +105,20 @@ client.windows.create(
 <details><summary><code>client.windows.<a href="src/airtop/windows/client.py">get_window_info</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get information about a browser window in a session, including the live view url.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -182,6 +210,20 @@ client.windows.get_window_info(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Loads a specified url on a given window
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -272,6 +314,20 @@ client.windows.load_url(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Closes a browser window in a session
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -336,6 +392,20 @@ client.windows.close(
 <details><summary><code>client.windows.<a href="src/airtop/windows/client.py">click</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Execute a click interaction in a specific browser window
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -455,6 +525,20 @@ This setting does not extend the maximum session duration provided at the time o
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Execute a hover interaction in a specific browser window
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -563,6 +647,20 @@ This setting does not extend the maximum session duration provided at the time o
 <details><summary><code>client.windows.<a href="src/airtop/windows/client.py">page_query</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit a prompt that queries the content of a specific browser window. You may extract content from the page, or ask a question about the page and allow the AI to answer it (ex. Is the user logged in?).
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -681,6 +779,20 @@ This setting does not extend the maximum session duration provided at the time o
 <details><summary><code>client.windows.<a href="src/airtop/windows/client.py">paginated_extraction</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit a prompt that queries the content of a specific browser window and paginates through pages to return a list of results.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -923,6 +1035,20 @@ This setting does not extend the maximum session duration provided at the time o
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Scrape a window and return the content as markdown
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -973,6 +1099,121 @@ client.windows.scrape_content(
 <dd>
 
 **client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">screenshot</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Take a screenshot of a browser window
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.screenshot(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[ScreenshotRequestConfig]` — Request configuration
     
 </dd>
 </dl>
@@ -1139,6 +1380,20 @@ This setting does not extend the maximum session duration provided at the time o
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Execute a type interaction in a specific browser window
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -1197,6 +1452,14 @@ client.windows.type(
 <dl>
 <dd>
 
+**clear_input_field:** `typing.Optional[bool]` — If true, and an HTML input field is active, clears the input field before typing the text.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **client_request_id:** `typing.Optional[str]` 
     
 </dd>
@@ -1237,6 +1500,14 @@ client.windows.type(
 <dl>
 <dd>
 
+**press_tab_key:** `typing.Optional[bool]` — If true, simulates pressing the Tab key after typing the text. Note that the tab key will be pressed after the Enter key if both options are configured.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **time_threshold_seconds:** `typing.Optional[int]` 
 
 A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1270,82 +1541,6 @@ This setting does not extend the maximum session duration provided at the time o
 </details>
 
 ## Profiles
-<details><summary><code>client.profiles.<a href="src/airtop/profiles/client.py">get</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get profiles matching by id
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.profiles.get()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**profile_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — DEPRECATED. Use profileNames.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**profile_names:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — A comma-separated list of profile names.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.profiles.<a href="src/airtop/profiles/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>

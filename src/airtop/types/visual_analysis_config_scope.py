@@ -2,4 +2,4 @@
 
 import typing
 
-VisualAnalysisConfigScope = typing.Union[typing.Literal["viewport", "page"], typing.Any]
+VisualAnalysisConfigScope = typing.Union[typing.Literal["viewport", "page", "scan", "auto"], typing.Any]
