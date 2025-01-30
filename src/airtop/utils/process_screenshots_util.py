@@ -1,6 +1,6 @@
 import re
 import base64
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from airtop import types
 
 class ProcessScreenshotsResponse:
@@ -33,7 +33,7 @@ def process_screenshots(response: types.AiPromptResponse) -> List[ProcessScreens
 
     return processed_screenshots
 
-def extract_mime_and_base64(data_url: str) -> tuple[str, str]:
+def extract_mime_and_base64(data_url: str) -> Tuple[str, str]:
     """Extracts MIME type and Base64 data from a data URL, defaults to image/jpeg."""
     match = re.match(r"data:(image/\w+);base64,(.+)", data_url)
     if match:
