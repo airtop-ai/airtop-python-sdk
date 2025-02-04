@@ -48,6 +48,7 @@ from .summary_config import SummaryConfig
 from .summary_experimental_config import SummaryExperimentalConfig
 from .visual_analysis_config import VisualAnalysisConfig
 from .visual_analysis_config_partition_direction import VisualAnalysisConfigPartitionDirection
+from .visual_analysis_config_result_selection_strategy import VisualAnalysisConfigResultSelectionStrategy
 from .visual_analysis_config_scope import VisualAnalysisConfigScope
 from .window import Window
 from .window_event_message import WindowEventMessage
@@ -104,6 +105,7 @@ __all__ = [
     "SummaryExperimentalConfig",
     "VisualAnalysisConfig",
     "VisualAnalysisConfigPartitionDirection",
+    "VisualAnalysisConfigResultSelectionStrategy",
     "VisualAnalysisConfigScope",
     "Window",
     "WindowEventMessage",

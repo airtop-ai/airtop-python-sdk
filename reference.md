@@ -1907,6 +1907,71 @@ client.sessions.terminate(
 </dl>
 </details>
 
+<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">save_extention_configuration_on_termination</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.sessions.save_extention_configuration_on_termination(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    extension_configuration_name="myExtensionConfiguration",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — ID of the session.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**extension_configuration_name:** `str` — Name under which to save the extension configuration.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">save_profile_on_termination</a>(...)</code></summary>
 <dl>
 <dd>
