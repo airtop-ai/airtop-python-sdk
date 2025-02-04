@@ -8,19 +8,12 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class SessionConfigV1(UniversalBaseModel):
-    extension_configuration_name: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="extensionConfigurationName")
-    ] = pydantic.Field(default=None)
+class AsyncConfig(UniversalBaseModel):
+    webhook_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="webhookUrl")] = pydantic.Field(
+        default=None
+    )
     """
-    -
-    """
-
-    extension_ids: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="extensionIds")
-    ] = pydantic.Field(default=None)
-    """
-    -
+    The URL to send the response to when the request is complete.
     """
 
     if IS_PYDANTIC_V2:

@@ -3,24 +3,37 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing_extensions
 import typing
+import datetime as dt
 from ..core.serialization import FieldMetadata
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class SessionConfigV1(UniversalBaseModel):
-    extension_configuration_name: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="extensionConfigurationName")
-    ] = pydantic.Field(default=None)
+class ExtensionConfigurationOutput(UniversalBaseModel):
+    created_at: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="createdAt")] = (
+        pydantic.Field(default=None)
+    )
     """
-    -
+    The date and time the configuration was created. Might be null for old configurations
     """
 
     extension_ids: typing_extensions.Annotated[
         typing.Optional[typing.List[str]], FieldMetadata(alias="extensionIds")
     ] = pydantic.Field(default=None)
     """
-    -
+    The ids of the extensions in configuration.
+    """
+
+    name: str = pydantic.Field()
+    """
+    Name of the extension configuration.
+    """
+
+    updated_at: typing_extensions.Annotated[typing.Optional[dt.datetime], FieldMetadata(alias="updatedAt")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    The date and time the configuration was last updated. Might be null for configurations not updated recently
     """
 
     if IS_PYDANTIC_V2:

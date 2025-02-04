@@ -8,19 +8,19 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class SessionConfigV1(UniversalBaseModel):
-    extension_configuration_name: typing_extensions.Annotated[
-        typing.Optional[str], FieldMetadata(alias="extensionConfigurationName")
-    ] = pydantic.Field(default=None)
+class IntervalMonitorConfig(UniversalBaseModel):
+    interval_seconds: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="intervalSeconds")] = (
+        pydantic.Field(default=None)
+    )
     """
-    -
+    The interval in seconds between condition checks. Only used when monitorType is 'interval'.
     """
 
-    extension_ids: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="extensionIds")
-    ] = pydantic.Field(default=None)
+    timeout_seconds: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="timeoutSeconds")] = (
+        pydantic.Field(default=None)
+    )
     """
-    -
+    The timeout in seconds after which the monitor will stop checking the condition.
     """
 
     if IS_PYDANTIC_V2:

@@ -6,6 +6,7 @@ import typing
 from ..core.serialization import FieldMetadata
 import pydantic
 from .visual_analysis_config_partition_direction import VisualAnalysisConfigPartitionDirection
+from .visual_analysis_config_result_selection_strategy import VisualAnalysisConfigResultSelectionStrategy
 from .visual_analysis_config_scope import VisualAnalysisConfigScope
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -30,6 +31,13 @@ class VisualAnalysisConfig(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     The direction to partition the screenshot into chunks: 'vertical', 'horizontal', or 'bidirectional'. Defaults to 'vertical', which is recommended for most web pages. For optimal results when partitioning in a single direction, ensure the perpendicular dimension does not exceed 1920 pixels.
+    """
+
+    result_selection_strategy: typing_extensions.Annotated[
+        typing.Optional[VisualAnalysisConfigResultSelectionStrategy], FieldMetadata(alias="resultSelectionStrategy")
+    ] = pydantic.Field(default=None)
+    """
+    [Experimental] The strategy to use for selecting the match using visual analysis. Can be 'first' or bestMatch'. Defaults to 'first'. Use 'first' to select the first visual element that matches the element description. This will favor results that appear higher on the page in the event of multiple matches. Use 'bestMatch' to perform a second round of analysis to select the result that best matches the element description.
     """
 
     scan_scroll_delay: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="scanScrollDelay")] = (
