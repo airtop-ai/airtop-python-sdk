@@ -167,9 +167,6 @@ class SessionsClient:
                     object_=configuration, annotation=SessionConfigV1, direction="write"
                 ),
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -644,9 +641,6 @@ class AsyncSessionsClient:
                 "configuration": convert_and_respect_annotation_metadata(
                     object_=configuration, annotation=SessionConfigV1, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

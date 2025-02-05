@@ -21,14 +21,14 @@ class SessionConfigV1(UniversalBaseModel):
         typing.Optional[str], FieldMetadata(alias="extensionConfigurationName")
     ] = pydantic.Field(default=None)
     """
-    -
+    Name of an extension configuration to load into the session.
     """
 
     extension_ids: typing_extensions.Annotated[
         typing.Optional[typing.List[str]], FieldMetadata(alias="extensionIds")
     ] = pydantic.Field(default=None)
     """
-    -
+    Google Web Store extension IDs to be loaded into the session.
     """
 
     persist_profile: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="persistProfile")] = (
