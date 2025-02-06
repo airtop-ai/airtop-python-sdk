@@ -4,3 +4,5 @@ src/airtop/wrapper/sessions_client.py
 src/airtop/client.py
 src/airtop/__init__.py
 src/airtop/utils/
+.github/workflows/notify-failure.yml
+.github/workflows/ci.yml

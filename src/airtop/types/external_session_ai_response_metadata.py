@@ -5,8 +5,9 @@ import typing_extensions
 import typing
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
 from ..core.serialization import FieldMetadata
-from .external_session_ai_response_metadata_status import ExternalSessionAiResponseMetadataStatus
+from .screenshot_metadata import ScreenshotMetadata
 import pydantic
+from .external_session_ai_response_metadata_status import ExternalSessionAiResponseMetadataStatus
 from .external_session_ai_response_metadata_usage import ExternalSessionAiResponseMetadataUsage
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -16,6 +17,11 @@ class ExternalSessionAiResponseMetadata(UniversalBaseModel):
         typing.Optional[ClientProvidedResponseMetadata], FieldMetadata(alias="clientProvided")
     ] = None
     request_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="requestId")] = None
+    screenshots: typing.Optional[typing.List[ScreenshotMetadata]] = pydantic.Field(default=None)
+    """
+    Array containing any requested screenshots from the operation.
+    """
+
     status: ExternalSessionAiResponseMetadataStatus = pydantic.Field()
     """
     Outcome of the operation.

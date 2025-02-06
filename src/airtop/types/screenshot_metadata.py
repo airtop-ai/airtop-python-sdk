@@ -2,26 +2,18 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing_extensions
+import typing
 from ..core.serialization import FieldMetadata
 import pydantic
-import typing
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class ExternalProfileV1(UniversalBaseModel):
-    profile_id: typing_extensions.Annotated[str, FieldMetadata(alias="profileId")] = pydantic.Field()
+class ScreenshotMetadata(UniversalBaseModel):
+    data_url: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="dataUrl")] = pydantic.Field(
+        default=None
+    )
     """
-    DEPRECATED. Use profileName.
-    """
-
-    profile_name: typing_extensions.Annotated[str, FieldMetadata(alias="profileName")] = pydantic.Field()
-    """
-    Name of the profile.
-    """
-
-    status: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    DEPRECATED.
+    Base64 encoded data URL of screenshot image data
     """
 
     if IS_PYDANTIC_V2:

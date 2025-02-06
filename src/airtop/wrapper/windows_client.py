@@ -3,7 +3,7 @@ import typing_extensions
 import requests
 
 from airtop.types.click_config import ClickConfig
-from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse
+from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig
 from ..core.request_options import RequestOptions
 from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
 from ..core.serialization import FieldMetadata
@@ -482,11 +482,13 @@ class AirtopWindows(WindowsClient):
         window_id: str,
         *,
         text: str,
+        clear_input_field: typing.Optional[bool] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[ClickConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
+        press_tab_key: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -503,9 +505,12 @@ class AirtopWindows(WindowsClient):
         text : str
             The text to type into the browser window.
 
+        clear_input_field : typing.Optional[bool]
+            If true, and an HTML input field is active, clears the input field before typing the text.
+
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[ClickConfig]
+        configuration : typing.Optional[MicroInteractionConfig]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -517,10 +522,16 @@ class AirtopWindows(WindowsClient):
         press_enter_key : typing.Optional[bool]
             If true, simulates pressing the Enter key after typing the text.
 
+        press_tab_key : typing.Optional[bool]
+            If true, simulates pressing the Tab key after typing the text. Note that the tab key will be pressed after the Enter key if both options are configured.
+
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -547,7 +558,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().type(session_id, window_id, text=text, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
+        return super().type(session_id, window_id, text=text, clear_input_field=clear_input_field, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, press_tab_key=press_tab_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
 
     def click(
         self,
@@ -587,6 +598,9 @@ class AirtopWindows(WindowsClient):
 
             This setting does not extend the maximum session duration provided at the time of session creation.
 
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -622,7 +636,7 @@ class AirtopWindows(WindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[ClickConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -639,7 +653,7 @@ class AirtopWindows(WindowsClient):
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[ClickConfig]
+        configuration : typing.Optional[MicroInteractionConfig]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -1125,6 +1139,9 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
             This setting does not extend the maximum session duration provided at the time of session creation.
 
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1167,7 +1184,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[ClickConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -1184,7 +1201,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[ClickConfig]
+        configuration : typing.Optional[MicroInteractionConfig]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -1238,11 +1255,13 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         window_id: str,
         *,
         text: str,
+        clear_input_field: typing.Optional[bool] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[ClickConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
+        press_tab_key: typing.Optional[bool] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         wait_for_navigation: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1259,9 +1278,12 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         text : str
             The text to type into the browser window.
 
+        clear_input_field : typing.Optional[bool]
+            If true, and an HTML input field is active, clears the input field before typing the text.
+
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[ClickConfig]
+        configuration : typing.Optional[MicroInteractionConfig]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -1273,10 +1295,16 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         press_enter_key : typing.Optional[bool]
             If true, simulates pressing the Enter key after typing the text.
 
+        press_tab_key : typing.Optional[bool]
+            If true, simulates pressing the Tab key after typing the text. Note that the tab key will be pressed after the Enter key if both options are configured.
+
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
             This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1311,4 +1339,4 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().type(session_id, window_id, text=text, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
+        return await super().type(session_id, window_id, text=text, clear_input_field=clear_input_field, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, press_tab_key=press_tab_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)

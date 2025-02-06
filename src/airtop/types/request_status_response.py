@@ -2,18 +2,16 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .external_profile_v1 import ExternalProfileV1
-from .issue import Issue
-from .envelope_default_meta import EnvelopeDefaultMeta
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class ProfilesResponse(UniversalBaseModel):
-    data: typing.Optional[typing.List[ExternalProfileV1]] = None
-    errors: typing.Optional[typing.List[Issue]] = None
-    meta: EnvelopeDefaultMeta
-    warnings: typing.Optional[typing.List[Issue]] = None
+class RequestStatusResponse(UniversalBaseModel):
+    response: typing.Optional[typing.Any] = None
+    status: str = pydantic.Field()
+    """
+    The current status of the request (pending, completed, error)
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

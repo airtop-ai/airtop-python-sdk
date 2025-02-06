@@ -394,6 +394,54 @@ class SessionsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def save_extension_configuration_on_termination(
+        self,
+        session_id: str,
+        extension_configuration_name: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Parameters
+        ----------
+        session_id : str
+            ID of the session.
+
+        extension_configuration_name : str
+            Name under which to save the extension configuration.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.sessions.save_extension_configuration_on_termination(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            extension_configuration_name="myExtensionConfiguration",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/save-extension-configuration-on-termination/{jsonable_encoder(extension_configuration_name)}",
+            method="PUT",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def save_profile_on_termination(
         self, session_id: str, profile_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
@@ -839,6 +887,62 @@ class AsyncSessionsClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def save_extension_configuration_on_termination(
+        self,
+        session_id: str,
+        extension_configuration_name: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Parameters
+        ----------
+        session_id : str
+            ID of the session.
+
+        extension_configuration_name : str
+            Name under which to save the extension configuration.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.sessions.save_extension_configuration_on_termination(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                extension_configuration_name="myExtensionConfiguration",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/save-extension-configuration-on-termination/{jsonable_encoder(extension_configuration_name)}",
+            method="PUT",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def save_profile_on_termination(
         self, session_id: str, profile_name: str, *, request_options: typing.Optional[RequestOptions] = None
