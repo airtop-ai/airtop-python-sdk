@@ -3,7 +3,7 @@ import typing_extensions
 import requests
 
 from airtop.types.click_config import ClickConfig
-from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig
+from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig, PaginatedExtractionConfig
 from ..core.request_options import RequestOptions
 from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
 from ..core.serialization import FieldMetadata
@@ -693,6 +693,71 @@ class AirtopWindows(WindowsClient):
             request_options.update({"timeout_in_seconds": 600})
         return super().hover(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
+    def paginated_extraction(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        prompt: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Submit a prompt that queries the content of a specific browser window and paginates through pages to return a list of results.
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PaginatedExtractionConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        prompt : typing.Optional[str]
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.paginated_extraction(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_ßin_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return super().paginated_extraction(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+
 
 class AsyncAirtopWindows(AsyncWindowsClient):
     """
@@ -1340,3 +1405,77 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         return await super().type(session_id, window_id, text=text, clear_input_field=clear_input_field, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, press_tab_key=press_tab_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
+
+
+    async def paginated_extraction(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        prompt: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Submit a prompt that queries the content of a specific browser window and paginates through pages to return a list of results.
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PaginatedExtractionConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        prompt : typing.Optional[str]
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.paginated_extraction(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return await super().paginated_extraction(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
