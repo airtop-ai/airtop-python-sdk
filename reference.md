@@ -1907,7 +1907,7 @@ client.sessions.terminate(
 </dl>
 </details>
 
-<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">save_extention_configuration_on_termination</a>(...)</code></summary>
+<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">save_extension_configuration_on_termination</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1925,7 +1925,7 @@ from airtop import Airtop
 client = Airtop(
     api_key="YOUR_API_KEY",
 )
-client.sessions.save_extention_configuration_on_termination(
+client.sessions.save_extension_configuration_on_termination(
     session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
     extension_configuration_name="myExtensionConfiguration",
 )

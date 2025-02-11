@@ -394,7 +394,7 @@ class SessionsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def save_extention_configuration_on_termination(
+    def save_extension_configuration_on_termination(
         self,
         session_id: str,
         extension_configuration_name: str,
@@ -424,13 +424,13 @@ class SessionsClient:
         client = Airtop(
             api_key="YOUR_API_KEY",
         )
-        client.sessions.save_extention_configuration_on_termination(
+        client.sessions.save_extension_configuration_on_termination(
             session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
             extension_configuration_name="myExtensionConfiguration",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/save-extention-configuration-on-termination/{jsonable_encoder(extension_configuration_name)}",
+            f"sessions/{jsonable_encoder(session_id)}/save-extension-configuration-on-termination/{jsonable_encoder(extension_configuration_name)}",
             method="PUT",
             request_options=request_options,
         )
@@ -888,7 +888,7 @@ class AsyncSessionsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def save_extention_configuration_on_termination(
+    async def save_extension_configuration_on_termination(
         self,
         session_id: str,
         extension_configuration_name: str,
@@ -923,7 +923,7 @@ class AsyncSessionsClient:
 
 
         async def main() -> None:
-            await client.sessions.save_extention_configuration_on_termination(
+            await client.sessions.save_extension_configuration_on_termination(
                 session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
                 extension_configuration_name="myExtensionConfiguration",
             )
@@ -932,7 +932,7 @@ class AsyncSessionsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/save-extention-configuration-on-termination/{jsonable_encoder(extension_configuration_name)}",
+            f"sessions/{jsonable_encoder(session_id)}/save-extension-configuration-on-termination/{jsonable_encoder(extension_configuration_name)}",
             method="PUT",
             request_options=request_options,
         )
