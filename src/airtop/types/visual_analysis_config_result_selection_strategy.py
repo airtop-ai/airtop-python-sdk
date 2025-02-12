@@ -2,4 +2,4 @@
 
 import typing
 
-VisualAnalysisConfigResultSelectionStrategy = typing.Union[typing.Literal["first", "bestMatch"], typing.Any]
+VisualAnalysisConfigResultSelectionStrategy = typing.Union[typing.Literal["first", "bestMatch", "auto"], typing.Any]

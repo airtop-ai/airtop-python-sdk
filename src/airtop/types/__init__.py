@@ -2,12 +2,12 @@
 
 from .ai_prompt_response import AiPromptResponse
 from .ai_response_envelope import AiResponseEnvelope
+from .airtop_proxy_configuration import AirtopProxyConfiguration
 from .browser_wait_navigation_config import BrowserWaitNavigationConfig
 from .browser_wait_navigation_config_wait_until import BrowserWaitNavigationConfigWaitUntil
 from .click_config import ClickConfig
 from .click_config_click_type import ClickConfigClickType
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
-from .custom_proxy import CustomProxy
 from .envelope_default_meta import EnvelopeDefaultMeta
 from .error_body import ErrorBody
 from .error_detail import ErrorDetail
@@ -27,6 +27,8 @@ from .page_query_experimental_config import PageQueryExperimentalConfig
 from .paginated_extraction_config import PaginatedExtractionConfig
 from .pagination import Pagination
 from .proxy import Proxy
+from .proxy_configuration_kind import ProxyConfigurationKind
+from .proxy_credentials import ProxyCredentials
 from .scrape_response import ScrapeResponse
 from .scrape_response_content import ScrapeResponseContent
 from .scrape_response_envelope import ScrapeResponseEnvelope
@@ -36,7 +38,6 @@ from .screenshot_metadata import ScreenshotMetadata
 from .screenshot_request_config import ScreenshotRequestConfig
 from .session_config_v1 import SessionConfigV1
 from .session_config_v1proxy import SessionConfigV1Proxy
-from .session_config_v1proxy_item import SessionConfigV1ProxyItem
 from .session_event_message import SessionEventMessage
 from .session_page_query_handler_request_body import SessionPageQueryHandlerRequestBody
 from .session_response import SessionResponse
@@ -59,12 +60,12 @@ from .window_response import WindowResponse
 __all__ = [
     "AiPromptResponse",
     "AiResponseEnvelope",
+    "AirtopProxyConfiguration",
     "BrowserWaitNavigationConfig",
     "BrowserWaitNavigationConfigWaitUntil",
     "ClickConfig",
     "ClickConfigClickType",
     "ClientProvidedResponseMetadata",
-    "CustomProxy",
     "EnvelopeDefaultMeta",
     "ErrorBody",
     "ErrorDetail",
@@ -84,6 +85,8 @@ __all__ = [
     "PaginatedExtractionConfig",
     "Pagination",
     "Proxy",
+    "ProxyConfigurationKind",
+    "ProxyCredentials",
     "ScrapeResponse",
     "ScrapeResponseContent",
     "ScrapeResponseEnvelope",
@@ -93,7 +96,6 @@ __all__ = [
     "ScreenshotRequestConfig",
     "SessionConfigV1",
     "SessionConfigV1Proxy",
-    "SessionConfigV1ProxyItem",
     "SessionEventMessage",
     "SessionPageQueryHandlerRequestBody",
     "SessionResponse",
