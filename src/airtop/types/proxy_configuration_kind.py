@@ -3,19 +3,15 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing_extensions
 from ..core.serialization import FieldMetadata
-from .custom_proxy import CustomProxy
+from .proxy import Proxy
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
 
 
-class SessionConfigV1ProxyItem(UniversalBaseModel):
-    """
-    You can set multiple proxies. You associate each proxy with a domain pattern. If the domain matches the pattern, the proxy is used. Pattern can contain '?' to match any single character, and '*' to match any sequence of characters. For example, '*.example.com' will match 'www.example.com' and 'sub.example.com'
-    """
-
+class ProxyConfigurationKind(UniversalBaseModel):
     domain_pattern: typing_extensions.Annotated[str, FieldMetadata(alias="domainPattern")]
-    relay: CustomProxy = pydantic.Field()
+    relay: Proxy = pydantic.Field()
     """
     Configuration for a single custom proxy.
     """
