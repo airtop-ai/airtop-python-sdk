@@ -34,7 +34,7 @@ class ExternalSessionWithConnectionInfo(UniversalBaseModel):
 
     configuration: ExternalSessionConfig = pydantic.Field()
     """
-    Session configuration details.
+    Session configuration details. DEPRECATED
     """
 
     current_usage: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="currentUsage")] = (
