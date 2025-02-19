@@ -1,6 +1,6 @@
 from __future__ import annotations
 import asyncio
-from typing import Any, Callable, List, Optional, Awaitable, TYPE_CHECKING
+from typing import Any, Callable, List, Optional, Awaitable, TYPE_CHECKING, Union
 from pyee import EventEmitter
 from airtop import types
 from .types import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperateConfig, BatchOperationError
@@ -11,12 +11,12 @@ DEFAULT_MAX_WINDOWS_PER_SESSION = 1
 DEFAULT_MAX_CONCURRENT_SESSIONS = 30
 
 if TYPE_CHECKING:
-    from airtop.client import AsyncAirtop
+    from airtop.client import AsyncAirtop, Airtop
 
 async def batch_operate(
     urls: List[BatchOperationUrl],
-    operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]],
-    client: AsyncAirtop,
+    operation: Callable[[BatchOperationInput], Union[BatchOperationResponse, Awaitable[BatchOperationResponse]]],
+    client: Union[Airtop, AsyncAirtop],
     config: Optional[BatchOperateConfig] = None
 ) -> List[Any]:
     # Default configurations
@@ -24,7 +24,7 @@ async def batch_operate(
         max_concurrent_sessions = DEFAULT_MAX_CONCURRENT_SESSIONS
         max_windows_per_session = DEFAULT_MAX_WINDOWS_PER_SESSION
         session_config: Optional[types.SessionConfigV1] = None
-        on_error: Optional[Callable[[BatchOperationError], Awaitable[None]]] = None
+        on_error: Optional[Callable[[BatchOperationError], Union[Awaitable[None], None]]] = None
     else:
         max_concurrent_sessions = config.max_concurrent_sessions or DEFAULT_MAX_CONCURRENT_SESSIONS
         max_windows_per_session = config.max_windows_per_session or DEFAULT_MAX_WINDOWS_PER_SESSION

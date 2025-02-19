@@ -8,16 +8,16 @@ import json
 from .types import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperationError
 
 if TYPE_CHECKING:
-    from airtop.client import AsyncAirtop
+    from airtop.client import AsyncAirtop, Airtop
 
 class WindowQueue:
     def __init__(
         self,
         max_windows_per_session: int,
-        client: AsyncAirtop,
+        client: Union[Airtop, AsyncAirtop],
         session_id: str,
-        operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]],
-        on_error: Optional[Callable[[BatchOperationError], Awaitable[None]]] = None,
+        operation: Callable[[BatchOperationInput], Union[BatchOperationResponse, Awaitable[BatchOperationResponse]]],
+        on_error: Optional[Callable[[BatchOperationError], Union[Awaitable[None], None]]] = None,
         run_emitter: Optional[EventEmitter] = None,
         is_halted: bool = False
     ):
@@ -91,7 +91,11 @@ class WindowQueue:
         live_view_url = None
         try:
             self.client.log(f"Creating window for {url_data.url} in session {self.session_id}")
-            create_response = await self.client.windows.create(session_id=self.session_id, url=url_data.url)
+            if asyncio.iscoroutinefunction(self.client.windows.create):
+                create_response = await self.client.windows.create(session_id=self.session_id, url=url_data.url)
+            else:
+                create_response = self.client.windows.create(session_id=self.session_id, url=url_data.url)
+
             window_id = create_response.data.window_id if create_response.data else None
 
             self._handle_error_and_warning_responses(
@@ -106,7 +110,11 @@ class WindowQueue:
                 error_messages = [str(error) for error in (create_response.errors or [])]
                 raise RuntimeError(f"WindowId not found, errors: {json.dumps(error_messages)}")
 
-            get_info_response = await self.client.windows.get_window_info(session_id=self.session_id, window_id=window_id)
+            if asyncio.iscoroutinefunction(self.client.windows.get_window_info):
+                get_info_response = await self.client.windows.get_window_info(session_id=self.session_id, window_id=window_id)
+            else:
+                get_info_response = self.client.windows.get_window_info(session_id=self.session_id, window_id=window_id)
+
             self._handle_error_and_warning_responses(
                 warnings=get_info_response.warnings,
                 errors=get_info_response.errors,
@@ -119,12 +127,17 @@ class WindowQueue:
                 live_view_url = get_info_response.data.live_view_url
 
             self.client.log("Executing user operation")
-            result = await self.operation(BatchOperationInput(
+            operation_input = BatchOperationInput(
                 window_id=window_id,
                 session_id=self.session_id,
                 live_view_url=live_view_url or "",
                 operation_url=url_data
-            ))
+            )
+            if asyncio.iscoroutinefunction(self.operation):
+                result = await self.operation(operation_input)
+            else:
+                result = self.operation(operation_input)
+
             self.client.log("User operation completed")
 
             if result.should_halt_batch and self.run_emitter is not None:
@@ -155,7 +168,11 @@ class WindowQueue:
     async def _safely_terminate_window(self, window_id: str):
         try:
             self.client.log(f"Closing window {window_id}")
-            await self.client.windows.close(session_id=self.session_id, window_id=window_id)
+            if asyncio.iscoroutinefunction(self.client.windows.close):
+                await self.client.windows.close(session_id=self.session_id, window_id=window_id)
+            else:
+                self.client.windows.close(session_id=self.session_id, window_id=window_id)
+
         except Exception as e:
             self.client.error(f"Error closing window {window_id}: {e}")
     
@@ -170,13 +187,17 @@ class WindowQueue:
             return
             
         try:
-            await self.on_error(BatchOperationError(
+            error_data = BatchOperationError(
                 error=self._format_error(original_error),
                 operation_urls=[url],
                 session_id=self.session_id,
                 window_id=window_id,
                 live_view_url=live_view_url
-            ))
+            )
+            if asyncio.iscoroutinefunction(self.on_error):
+                await self.on_error(error_data)
+            else:
+                self.on_error(error_data)
         except Exception as e:
             self.client.error(f"Error in onError callback: {self._format_error(e)}. Original error: {self._format_error(original_error)}")
 

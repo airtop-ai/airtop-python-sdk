@@ -10,18 +10,18 @@ from .helpers import distribute_urls_to_batches
 from .window_queue import WindowQueue
 
 if TYPE_CHECKING:
-    from airtop.client import AsyncAirtop
+    from airtop.client import AsyncAirtop, Airtop
 
 class SessionQueue:
     def __init__(
         self,
         max_concurrent_sessions: int,
-        client: AsyncAirtop,
+        client: Union[Airtop, AsyncAirtop],
         max_windows_per_session: int,
-        operation: Callable[[BatchOperationInput], Awaitable[BatchOperationResponse]],
+        operation: Callable[[BatchOperationInput], Union[BatchOperationResponse, Awaitable[BatchOperationResponse]]],
         initial_batches: List[List[BatchOperationUrl]],
         session_config: Optional[types.SessionConfigV1] = None,
-        on_error: Optional[Callable[[BatchOperationError], Awaitable[None]]] = None,
+        on_error: Optional[Callable[[BatchOperationError], Union[Awaitable[None], None]]] = None,
         run_emitter: Optional[EventEmitter] = None
     ):
         if not isinstance(max_concurrent_sessions, int) or max_concurrent_sessions <= 0:
@@ -125,7 +125,12 @@ class SessionQueue:
 
             if not session_id:
                 self.client.log("Creating session")
-                session_response = await self.client.sessions.create(configuration=self.session_config)
+
+                if asyncio.iscoroutinefunction(self.client.sessions.create):
+                    session_response = await self.client.sessions.create(configuration=self.session_config)
+                else:
+                    session_response = self.client.sessions.create(configuration=self.session_config)
+
                 self._handle_error_and_warning_responses(
                     warnings=session_response.warnings,
                     errors=session_response.errors,
@@ -174,7 +179,11 @@ class SessionQueue:
     async def _safely_terminate_session(self, session_id: str):
         try:
             self.client.log(f"Terminating session {session_id}")
-            await self.client.sessions.terminate(id=session_id)
+
+            if asyncio.iscoroutinefunction(self.client.sessions.terminate):
+                await self.client.sessions.terminate(id=session_id)
+            else:
+                self.client.sessions.terminate(id=session_id)
         except Exception as error:
             self.client.error(f"Error terminating session {session_id}: {self._format_error(error)}")
 
@@ -188,11 +197,15 @@ class SessionQueue:
             return
             
         try:
-            await self.on_error(BatchOperationError(
+            error_data = BatchOperationError(
                 error=self._format_error(error),
                 operation_urls=batch,
                 session_id=session_id
-            ))
+            )
+            if asyncio.iscoroutinefunction(self.on_error):
+                await self.on_error(error_data)
+            else:
+                self.on_error(error_data)
         except Exception as e:
             self.client.error(f"Error in onError callback: {self._format_error(e)}. Original error: {self._format_error(error)}")
 

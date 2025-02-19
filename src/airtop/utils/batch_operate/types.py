@@ -36,4 +36,4 @@ class BatchOperateConfig:
     max_concurrent_sessions: Optional[int] = None
     max_windows_per_session: Optional[int] = None 
     session_config: Optional[types.SessionConfigV1] = None
-    on_error: Optional[Callable[[BatchOperationError], Awaitable[None]]] = None
+    on_error: Optional[Callable[[BatchOperationError], Union[Awaitable[None], None]]] = None
