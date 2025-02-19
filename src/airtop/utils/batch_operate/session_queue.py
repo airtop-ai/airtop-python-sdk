@@ -116,7 +116,7 @@ class SessionQueue:
             self.client.log("Processing halted, skipping batch")
             return
 
-        session_id = None
+        session_id: Optional[str] = None
         try:
             async with self.session_pool_mutex:
                 if len(self.session_pool) > 0:
@@ -142,6 +142,9 @@ class SessionQueue:
                     session_id = session_response.data.id
                 else:
                     raise RuntimeError("Session creation failed: no session ID returned")
+
+            if not session_id:
+                raise RuntimeError("No session ID available")
 
             queue = WindowQueue(
                 max_windows_per_session=self.max_windows_per_session,
