@@ -131,7 +131,8 @@ class WindowQueue:
                 window_id=window_id,
                 session_id=self.session_id,
                 live_view_url=live_view_url or "",
-                operation_url=url_data
+                operation_url=url_data,
+                client=self.client
             )
             if asyncio.iscoroutinefunction(self.operation):
                 result = await self.operation(operation_input)
