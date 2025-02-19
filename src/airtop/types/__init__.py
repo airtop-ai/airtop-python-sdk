@@ -5,6 +5,8 @@ from .ai_response_envelope import AiResponseEnvelope
 from .async_config import AsyncConfig
 from .async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
 from .airtop_proxy_configuration import AirtopProxyConfiguration
+from .async_config import AsyncConfig
+from .async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
 from .browser_wait_navigation_config import BrowserWaitNavigationConfig
 from .browser_wait_navigation_config_wait_until import BrowserWaitNavigationConfigWaitUntil
 from .browser_wait_selector_config import BrowserWaitSelectorConfig
@@ -38,6 +40,8 @@ from .proxy import Proxy
 from .request_status_response import RequestStatusResponse
 from .proxy_configuration_kind import ProxyConfigurationKind
 from .proxy_credentials import ProxyCredentials
+from .request_status_response import RequestStatusResponse
+from .scrape_config import ScrapeConfig
 from .scrape_response import ScrapeResponse
 from .scrape_response_content import ScrapeResponseContent
 from .scrape_response_envelope import ScrapeResponseEnvelope
@@ -45,6 +49,8 @@ from .scrape_response_output import ScrapeResponseOutput
 from .screenshot_config import ScreenshotConfig
 from .screenshot_metadata import ScreenshotMetadata
 from .screenshot_request_config import ScreenshotRequestConfig
+from .scroll_by_config import ScrollByConfig
+from .scroll_to_edge_config import ScrollToEdgeConfig
 from .session_config_v1 import SessionConfigV1
 from .session_config_v1proxy import SessionConfigV1Proxy
 from .session_event_message import SessionEventMessage
@@ -72,6 +78,8 @@ __all__ = [
     "AsyncConfig",
     "AsyncSessionAiResponseEnvelope",
     "AirtopProxyConfiguration",
+    "AsyncConfig",
+    "AsyncSessionAiResponseEnvelope",
     "BrowserWaitNavigationConfig",
     "BrowserWaitNavigationConfigWaitUntil",
     "BrowserWaitSelectorConfig",
@@ -105,6 +113,8 @@ __all__ = [
     "RequestStatusResponse",
     "ProxyConfigurationKind",
     "ProxyCredentials",
+    "RequestStatusResponse",
+    "ScrapeConfig",
     "ScrapeResponse",
     "ScrapeResponseContent",
     "ScrapeResponseEnvelope",
@@ -112,6 +122,8 @@ __all__ = [
     "ScreenshotConfig",
     "ScreenshotMetadata",
     "ScreenshotRequestConfig",
+    "ScrollByConfig",
+    "ScrollToEdgeConfig",
     "SessionConfigV1",
     "SessionConfigV1Proxy",
     "SessionEventMessage",

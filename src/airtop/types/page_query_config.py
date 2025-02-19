@@ -6,6 +6,7 @@ from .page_query_experimental_config import PageQueryExperimentalConfig
 import pydantic
 import typing_extensions
 from ..core.serialization import FieldMetadata
+from .scrape_config import ScrapeConfig
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -20,6 +21,11 @@ class PageQueryConfig(UniversalBaseModel):
     )
     """
     JSON schema defining the structure of the output. If not provided, the format of the output might vary.
+    """
+
+    scrape: typing.Optional[ScrapeConfig] = pydantic.Field(default=None)
+    """
+    Optional configuration to customize and tweak how the web page is scraped.
     """
 
     if IS_PYDANTIC_V2:
