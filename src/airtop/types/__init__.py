@@ -2,8 +2,6 @@
 
 from .ai_prompt_response import AiPromptResponse
 from .ai_response_envelope import AiResponseEnvelope
-from .async_config import AsyncConfig
-from .async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
 from .airtop_proxy_configuration import AirtopProxyConfiguration
 from .async_config import AsyncConfig
 from .async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
@@ -37,7 +35,6 @@ from .page_query_experimental_config import PageQueryExperimentalConfig
 from .paginated_extraction_config import PaginatedExtractionConfig
 from .pagination import Pagination
 from .proxy import Proxy
-from .request_status_response import RequestStatusResponse
 from .proxy_configuration_kind import ProxyConfigurationKind
 from .proxy_credentials import ProxyCredentials
 from .request_status_response import RequestStatusResponse
@@ -75,8 +72,6 @@ from .window_response import WindowResponse
 __all__ = [
     "AiPromptResponse",
     "AiResponseEnvelope",
-    "AsyncConfig",
-    "AsyncSessionAiResponseEnvelope",
     "AirtopProxyConfiguration",
     "AsyncConfig",
     "AsyncSessionAiResponseEnvelope",
@@ -110,7 +105,6 @@ __all__ = [
     "PaginatedExtractionConfig",
     "Pagination",
     "Proxy",
-    "RequestStatusResponse",
     "ProxyConfigurationKind",
     "ProxyCredentials",
     "RequestStatusResponse",
