@@ -14,6 +14,11 @@ class Window(UniversalBaseModel):
     Url for loading a browser window live view that is configured according to the request options like screenResolution, disableResize, etc.
     """
 
+    target_id: typing_extensions.Annotated[str, FieldMetadata(alias="targetId")] = pydantic.Field()
+    """
+    CDP target ID of the browser window
+    """
+
     window_id: typing_extensions.Annotated[str, FieldMetadata(alias="windowId")] = pydantic.Field()
     """
     Airtop window ID of the browser window

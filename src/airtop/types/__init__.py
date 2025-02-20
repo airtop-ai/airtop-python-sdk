@@ -29,6 +29,7 @@ from .pagination import Pagination
 from .proxy import Proxy
 from .proxy_configuration_kind import ProxyConfigurationKind
 from .proxy_credentials import ProxyCredentials
+from .scrape_config import ScrapeConfig
 from .scrape_response import ScrapeResponse
 from .scrape_response_content import ScrapeResponseContent
 from .scrape_response_envelope import ScrapeResponseEnvelope
@@ -87,6 +88,7 @@ __all__ = [
     "Proxy",
     "ProxyConfigurationKind",
     "ProxyCredentials",
+    "ScrapeConfig",
     "ScrapeResponse",
     "ScrapeResponseContent",
     "ScrapeResponseEnvelope",

@@ -5,6 +5,7 @@ import typing_extensions
 import typing
 from ..core.serialization import FieldMetadata
 import pydantic
+from .scrape_config import ScrapeConfig
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -28,6 +29,11 @@ class PaginatedExtractionConfig(UniversalBaseModel):
     )
     """
     The mode to use for pagination. If set to 'auto', Airtop AI will automatically look for pagination links first and then attempt infinite scrolling to load more content. If set to 'paginated', Airtop AI will follow pagination links to load more content. If set to 'infinite-scroll', Airtop AI will scroll the page to load more content.
+    """
+
+    scrape: typing.Optional[ScrapeConfig] = pydantic.Field(default=None)
+    """
+    Optional configuration to customize and tweak how the web page is scraped.
     """
 
     if IS_PYDANTIC_V2:
