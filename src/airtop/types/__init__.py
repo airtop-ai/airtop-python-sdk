@@ -11,6 +11,7 @@ from .browser_wait_selector_config import BrowserWaitSelectorConfig
 from .click_config import ClickConfig
 from .click_config_click_type import ClickConfigClickType
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
+from .create_automation_request_body_configuration import CreateAutomationRequestBodyConfiguration
 from .envelope_default_meta import EnvelopeDefaultMeta
 from .error_body import ErrorBody
 from .error_detail import ErrorDetail
@@ -81,6 +82,7 @@ __all__ = [
     "ClickConfig",
     "ClickConfigClickType",
     "ClientProvidedResponseMetadata",
+    "CreateAutomationRequestBodyConfiguration",
     "EnvelopeDefaultMeta",
     "ErrorBody",
     "ErrorDetail",
