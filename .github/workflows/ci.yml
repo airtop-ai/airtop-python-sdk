@@ -82,7 +82,7 @@ jobs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": `Python SDK v${{ steps.split.outputs.fragment }} released 🚀`
+                      "text": `Python SDK v${{ steps.split.outputs.value }} released 🚀`
                     }
                   }
                 ]
