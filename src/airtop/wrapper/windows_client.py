@@ -638,7 +638,7 @@ class AirtopWindows(WindowsClient):
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        element_description: typing.Optional[str] = OMIT,
+        element_description: str,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -701,7 +701,7 @@ class AirtopWindows(WindowsClient):
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        prompt: typing.Optional[str] = OMIT,
+        prompt: str,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -1251,7 +1251,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        element_description: typing.Optional[str] = OMIT,
+        element_description: str,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -1415,7 +1415,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        prompt: typing.Optional[str] = OMIT,
+        prompt: str,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:

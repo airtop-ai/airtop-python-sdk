@@ -16,6 +16,8 @@ from ..types.monitor_config import MonitorConfig
 from ..types.page_query_config import PageQueryConfig
 from ..types.paginated_extraction_config import PaginatedExtractionConfig
 from ..types.screenshot_request_config import ScreenshotRequestConfig
+from ..types.scroll_by_config import ScrollByConfig
+from ..types.scroll_to_edge_config import ScrollToEdgeConfig
 from ..types.summary_config import SummaryConfig
 from .types.create_window_input_v1body_wait_until import CreateWindowInputV1BodyWaitUntil
 from ..types.window_id_response import WindowIdResponse
@@ -1339,10 +1341,10 @@ class WindowsClient:
         session_id: str,
         window_id: str,
         *,
+        element_description: str,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        element_description: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -1357,6 +1359,9 @@ class WindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        element_description : str
+            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
         client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[MicroInteractionConfig]
@@ -1364,9 +1369,6 @@ class WindowsClient:
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        element_description : typing.Optional[str]
-            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1391,6 +1393,7 @@ class WindowsClient:
         client.windows.hover(
             session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
             window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            element_description="The search box input in the top right corner",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1618,10 +1621,10 @@ class WindowsClient:
         session_id: str,
         window_id: str,
         *,
+        prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -1636,6 +1639,9 @@ class WindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        prompt : str
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
         client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[PaginatedExtractionConfig]
@@ -1643,9 +1649,6 @@ class WindowsClient:
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        prompt : typing.Optional[str]
-            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1670,6 +1673,7 @@ class WindowsClient:
         client.windows.paginated_extraction(
             session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
             window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            prompt="This site contains a list of results about <provide details about the list>. Navigate through 3 pages of results and return the title and <provide details about the data you want to extract> about each result in this list.",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1997,13 +2001,13 @@ class WindowsClient:
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
         scroll_by : typing.Optional[ScrollByConfig]
-            The amount of pixels/percentage to scroll horizontally or vertically relative to the current scroll position. Positive values scroll right and down, negative values scroll left and up. If an element description is provided, the element description will take precedence over the scrollBy values.
+            The amount of pixels/percentage to scroll horizontally or vertically relative to the current scroll position. Positive values scroll right and down, negative values scroll left and up. If a scrollToElement value is provided, scrollBy/scrollToEdge values will be ignored.
 
         scroll_to_edge : typing.Optional[ScrollToEdgeConfig]
-            Scroll to the top or bottom of the page, or to the left or right of the page. If provided these values will take precedence over the scrollBy values. If an element description is provided, the element description will take precedence over the scrollToEdge values.
+            Scroll to the top or bottom of the page, or to the left or right of the page. ScrollToEdge values will take precedence over the scrollBy values, and scrollToEdge will be executed first. If a scrollToElement value is provided, scrollToEdge/scrollBy values will be ignored.
 
         scroll_to_element : typing.Optional[str]
-            A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+            A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found. If provided, scrollToEdge/scrollBy values will be ignored.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -3696,10 +3700,10 @@ class AsyncWindowsClient:
         session_id: str,
         window_id: str,
         *,
+        element_description: str,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        element_description: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -3714,6 +3718,9 @@ class AsyncWindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        element_description : str
+            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
         client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[MicroInteractionConfig]
@@ -3721,9 +3728,6 @@ class AsyncWindowsClient:
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        element_description : typing.Optional[str]
-            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -3753,6 +3757,7 @@ class AsyncWindowsClient:
             await client.windows.hover(
                 session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
                 window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                element_description="The search box input in the top right corner",
             )
 
 
@@ -3999,10 +4004,10 @@ class AsyncWindowsClient:
         session_id: str,
         window_id: str,
         *,
+        prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -4017,6 +4022,9 @@ class AsyncWindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        prompt : str
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
         client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[PaginatedExtractionConfig]
@@ -4024,9 +4032,6 @@ class AsyncWindowsClient:
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        prompt : typing.Optional[str]
-            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -4056,6 +4061,7 @@ class AsyncWindowsClient:
             await client.windows.paginated_extraction(
                 session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
                 window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                prompt="This site contains a list of results about <provide details about the list>. Navigate through 3 pages of results and return the title and <provide details about the data you want to extract> about each result in this list.",
             )
 
 
@@ -4410,13 +4416,13 @@ class AsyncWindowsClient:
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
         scroll_by : typing.Optional[ScrollByConfig]
-            The amount of pixels/percentage to scroll horizontally or vertically relative to the current scroll position. Positive values scroll right and down, negative values scroll left and up. If an element description is provided, the element description will take precedence over the scrollBy values.
+            The amount of pixels/percentage to scroll horizontally or vertically relative to the current scroll position. Positive values scroll right and down, negative values scroll left and up. If a scrollToElement value is provided, scrollBy/scrollToEdge values will be ignored.
 
         scroll_to_edge : typing.Optional[ScrollToEdgeConfig]
-            Scroll to the top or bottom of the page, or to the left or right of the page. If provided these values will take precedence over the scrollBy values. If an element description is provided, the element description will take precedence over the scrollToEdge values.
+            Scroll to the top or bottom of the page, or to the left or right of the page. ScrollToEdge values will take precedence over the scrollBy values, and scrollToEdge will be executed first. If a scrollToElement value is provided, scrollToEdge/scrollBy values will be ignored.
 
         scroll_to_element : typing.Optional[str]
-            A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+            A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found. If provided, scrollToEdge/scrollBy values will be ignored.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
