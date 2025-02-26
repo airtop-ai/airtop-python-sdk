@@ -6,3 +6,4 @@ src/airtop/__init__.py
 src/airtop/utils/
 .github/workflows/notify-failure.yml
 .github/workflows/ci.yml
+.github/workflows/beta-tag.yml
