@@ -1,6 +1,7 @@
 name: ci
 
 on: [push]
+
 jobs:
   compile:
     runs-on: ubuntu-20.04
@@ -59,3 +60,35 @@ jobs:
         env:
           PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
           PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+
+      - name: Split tag
+        env:
+          BRANCH: ${{ github.ref_name }}
+        id: split
+        run: echo "value=${{ github.ref || format('{0}{1}', 'refs/tags/', github.ref) }}" >> $GITHUB_OUTPUT
+  
+      - name: 'Slack notify'
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              username: 'SDK Deployer',
+              icon_emoji: ':octocat:',
+              attachments: [{
+                color: 'good',
+                blocks: [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": `Python SDK v${{ steps.split.outputs.fragment }} released 🚀`
+                    }
+                  }
+                ]
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.AIRTOP_SLACK_WEBHOOK_URL }}
+    
+  
