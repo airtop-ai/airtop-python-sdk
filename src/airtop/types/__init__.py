@@ -37,6 +37,8 @@ from .scrape_response_output import ScrapeResponseOutput
 from .screenshot_config import ScreenshotConfig
 from .screenshot_metadata import ScreenshotMetadata
 from .screenshot_request_config import ScreenshotRequestConfig
+from .scroll_by_config import ScrollByConfig
+from .scroll_to_edge_config import ScrollToEdgeConfig
 from .session_config_v1 import SessionConfigV1
 from .session_config_v1proxy import SessionConfigV1Proxy
 from .session_event_message import SessionEventMessage
@@ -96,6 +98,8 @@ __all__ = [
     "ScreenshotConfig",
     "ScreenshotMetadata",
     "ScreenshotRequestConfig",
+    "ScrollByConfig",
+    "ScrollToEdgeConfig",
     "SessionConfigV1",
     "SessionConfigV1Proxy",
     "SessionEventMessage",

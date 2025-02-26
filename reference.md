@@ -556,6 +556,7 @@ client = Airtop(
 client.windows.hover(
     session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
     window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    element_description="The search box input in the top right corner",
 )
 
 ```
@@ -588,6 +589,14 @@ client.windows.hover(
 <dl>
 <dd>
 
+**element_description:** `str` — A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **client_request_id:** `typing.Optional[str]` 
     
 </dd>
@@ -605,14 +614,6 @@ client.windows.hover(
 <dd>
 
 **cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**element_description:** `typing.Optional[str]` — A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
     
 </dd>
 </dl>
@@ -811,6 +812,7 @@ client = Airtop(
 client.windows.paginated_extraction(
     session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
     window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    prompt="This site contains a list of results about <provide details about the list>. Navigate through 3 pages of results and return the title and <provide details about the data you want to extract> about each result in this list.",
 )
 
 ```
@@ -843,6 +845,14 @@ client.windows.paginated_extraction(
 <dl>
 <dd>
 
+**prompt:** `str` — A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **client_request_id:** `typing.Optional[str]` 
     
 </dd>
@@ -860,14 +870,6 @@ client.windows.paginated_extraction(
 <dd>
 
 **cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**prompt:** `typing.Optional[str]` — A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
     
 </dd>
 </dl>
@@ -1222,6 +1224,145 @@ client.windows.screenshot(
 <dd>
 
 **cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">scroll</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Execute a scroll interaction in a specific browser window
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.scroll(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scroll_by:** `typing.Optional[ScrollByConfig]` — The amount of pixels/percentage to scroll horizontally or vertically relative to the current scroll position. Positive values scroll right and down, negative values scroll left and up. If a scrollToElement value is provided, scrollBy/scrollToEdge values will be ignored.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scroll_to_edge:** `typing.Optional[ScrollToEdgeConfig]` — Scroll to the top or bottom of the page, or to the left or right of the page. ScrollToEdge values will take precedence over the scrollBy values, and scrollToEdge will be executed first. If a scrollToElement value is provided, scrollToEdge/scrollBy values will be ignored.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scroll_to_element:** `typing.Optional[str]` — A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found. If provided, scrollToEdge/scrollBy values will be ignored.
     
 </dd>
 </dl>

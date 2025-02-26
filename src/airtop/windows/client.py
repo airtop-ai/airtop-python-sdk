@@ -20,6 +20,8 @@ from ..types.page_query_config import PageQueryConfig
 from ..types.paginated_extraction_config import PaginatedExtractionConfig
 from ..types.scrape_response import ScrapeResponse
 from ..types.screenshot_request_config import ScreenshotRequestConfig
+from ..types.scroll_by_config import ScrollByConfig
+from ..types.scroll_to_edge_config import ScrollToEdgeConfig
 from ..types.summary_config import SummaryConfig
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -418,10 +420,10 @@ class WindowsClient:
         session_id: str,
         window_id: str,
         *,
+        element_description: str,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        element_description: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -436,6 +438,9 @@ class WindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        element_description : str
+            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
         client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[MicroInteractionConfig]
@@ -443,9 +448,6 @@ class WindowsClient:
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        element_description : typing.Optional[str]
-            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -470,6 +472,7 @@ class WindowsClient:
         client.windows.hover(
             session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
             window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            element_description="The search box input in the top right corner",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -603,10 +606,10 @@ class WindowsClient:
         session_id: str,
         window_id: str,
         *,
+        prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -621,6 +624,9 @@ class WindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        prompt : str
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
         client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[PaginatedExtractionConfig]
@@ -628,9 +634,6 @@ class WindowsClient:
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        prompt : typing.Optional[str]
-            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -655,6 +658,7 @@ class WindowsClient:
         client.windows.paginated_extraction(
             session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
             window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            prompt="This site contains a list of results about <provide details about the list>. Navigate through 3 pages of results and return the title and <provide details about the data you want to extract> about each result in this list.",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -926,6 +930,111 @@ class WindowsClient:
                     object_=configuration, annotation=ScreenshotRequestConfig, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def scroll(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        scroll_by: typing.Optional[ScrollByConfig] = OMIT,
+        scroll_to_edge: typing.Optional[ScrollToEdgeConfig] = OMIT,
+        scroll_to_element: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Execute a scroll interaction in a specific browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MicroInteractionConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        scroll_by : typing.Optional[ScrollByConfig]
+            The amount of pixels/percentage to scroll horizontally or vertically relative to the current scroll position. Positive values scroll right and down, negative values scroll left and up. If a scrollToElement value is provided, scrollBy/scrollToEdge values will be ignored.
+
+        scroll_to_edge : typing.Optional[ScrollToEdgeConfig]
+            Scroll to the top or bottom of the page, or to the left or right of the page. ScrollToEdge values will take precedence over the scrollBy values, and scrollToEdge will be executed first. If a scrollToElement value is provided, scrollToEdge/scrollBy values will be ignored.
+
+        scroll_to_element : typing.Optional[str]
+            A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found. If provided, scrollToEdge/scrollBy values will be ignored.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.scroll(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=MicroInteractionConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "scrollBy": convert_and_respect_annotation_metadata(
+                    object_=scroll_by, annotation=ScrollByConfig, direction="write"
+                ),
+                "scrollToEdge": convert_and_respect_annotation_metadata(
+                    object_=scroll_to_edge, annotation=ScrollToEdgeConfig, direction="write"
+                ),
+                "scrollToElement": scroll_to_element,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
             headers={
@@ -1588,10 +1697,10 @@ class AsyncWindowsClient:
         session_id: str,
         window_id: str,
         *,
+        element_description: str,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MicroInteractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        element_description: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -1606,6 +1715,9 @@ class AsyncWindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        element_description : str
+            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
         client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[MicroInteractionConfig]
@@ -1613,9 +1725,6 @@ class AsyncWindowsClient:
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        element_description : typing.Optional[str]
-            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1645,6 +1754,7 @@ class AsyncWindowsClient:
             await client.windows.hover(
                 session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
                 window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                element_description="The search box input in the top right corner",
             )
 
 
@@ -1789,10 +1899,10 @@ class AsyncWindowsClient:
         session_id: str,
         window_id: str,
         *,
+        prompt: str,
         client_request_id: typing.Optional[str] = OMIT,
         configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        prompt: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -1807,6 +1917,9 @@ class AsyncWindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        prompt : str
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
         client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[PaginatedExtractionConfig]
@@ -1814,9 +1927,6 @@ class AsyncWindowsClient:
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        prompt : typing.Optional[str]
-            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1846,6 +1956,7 @@ class AsyncWindowsClient:
             await client.windows.paginated_extraction(
                 session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
                 window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                prompt="This site contains a list of results about <provide details about the list>. Navigate through 3 pages of results and return the title and <provide details about the data you want to extract> about each result in this list.",
             )
 
 
@@ -2144,6 +2255,119 @@ class AsyncWindowsClient:
                     object_=configuration, annotation=ScreenshotRequestConfig, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def scroll(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        scroll_by: typing.Optional[ScrollByConfig] = OMIT,
+        scroll_to_edge: typing.Optional[ScrollToEdgeConfig] = OMIT,
+        scroll_to_element: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Execute a scroll interaction in a specific browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MicroInteractionConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        scroll_by : typing.Optional[ScrollByConfig]
+            The amount of pixels/percentage to scroll horizontally or vertically relative to the current scroll position. Positive values scroll right and down, negative values scroll left and up. If a scrollToElement value is provided, scrollBy/scrollToEdge values will be ignored.
+
+        scroll_to_edge : typing.Optional[ScrollToEdgeConfig]
+            Scroll to the top or bottom of the page, or to the left or right of the page. ScrollToEdge values will take precedence over the scrollBy values, and scrollToEdge will be executed first. If a scrollToElement value is provided, scrollToEdge/scrollBy values will be ignored.
+
+        scroll_to_element : typing.Optional[str]
+            A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found. If provided, scrollToEdge/scrollBy values will be ignored.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.scroll(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
+            method="POST",
+            json={
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=MicroInteractionConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "scrollBy": convert_and_respect_annotation_metadata(
+                    object_=scroll_by, annotation=ScrollByConfig, direction="write"
+                ),
+                "scrollToEdge": convert_and_respect_annotation_metadata(
+                    object_=scroll_to_edge, annotation=ScrollToEdgeConfig, direction="write"
+                ),
+                "scrollToElement": scroll_to_element,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
             headers={
