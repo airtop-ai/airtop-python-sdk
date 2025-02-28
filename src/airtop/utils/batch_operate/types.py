@@ -1,6 +1,9 @@
 from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional, Awaitable, Union
+from typing import Any, Callable, Dict, List, Optional, Awaitable, Union, TYPE_CHECKING
 from airtop import types
+
+if TYPE_CHECKING:
+    from airtop.client import AsyncAirtop, Airtop
 
 @dataclass
 class BatchOperationUrl:
@@ -16,6 +19,7 @@ class BatchOperationInput:
     session_id: str
     live_view_url: str
     operation_url: BatchOperationUrl
+    client: Union['Airtop', 'AsyncAirtop']
 
 @dataclass
 class BatchOperationResponse:
@@ -36,4 +40,4 @@ class BatchOperateConfig:
     max_concurrent_sessions: Optional[int] = None
     max_windows_per_session: Optional[int] = None 
     session_config: Optional[types.SessionConfigV1] = None
-    on_error: Optional[Callable[[BatchOperationError], Awaitable[None]]] = None
+    on_error: Optional[Callable[[BatchOperationError], Union[Awaitable[None], None]]] = None
