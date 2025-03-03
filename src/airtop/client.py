@@ -8,6 +8,7 @@ from .utils import BatchOperationUrl, BatchOperationInput, BatchOperationRespons
 from .utils.batch_operate.batch_util import batch_operate as batch_operate_util
 from typing import Callable, List, Awaitable, Any, Optional
 import logging
+import asyncio
 from .version import __version__
 class Airtop(BaseClient):
     """
@@ -71,6 +72,9 @@ class Airtop(BaseClient):
     
     def error(self, message: str):
         logging.error(message)
+
+    def batch_operate(self, urls: List[BatchOperationUrl], operation: Callable[[BatchOperationInput], BatchOperationResponse], config: Optional[BatchOperateConfig] = None) -> List[Any]:
+        return asyncio.run(batch_operate_util(urls, operation, self, config))
 
     def get_headers(self) -> typing.Dict[str, str]:
         headers = self._client_wrapper.get_headers()
