@@ -770,6 +770,7 @@ class AirtopWindows(WindowsClient):
         scroll_by: typing.Optional[ScrollByConfig] = OMIT,
         scroll_to_edge: typing.Optional[ScrollToEdgeConfig] = OMIT,
         scroll_to_element: typing.Optional[str] = OMIT,
+        scroll_within: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -801,6 +802,9 @@ class AirtopWindows(WindowsClient):
         scroll_to_element : typing.Optional[str]
             A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found. If provided, scrollToEdge/scrollBy values will be ignored.
 
+        scroll_within : typing.Optional[str]
+            A natural language description of the scrollable area on the web page. This identifies the container or region that should be scrolled. If missing, the entire page will be scrolled. You can also describe a visible reference point inside the container. Note: This is different from scrollToElement, which specifies the target element to scroll to. The target may be located inside the scrollable area defined by scrollWithin.
+
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
@@ -830,7 +834,7 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().scroll(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, scroll_by=scroll_by, scroll_to_edge=scroll_to_edge, scroll_to_element=scroll_to_element, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().scroll(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, scroll_by=scroll_by, scroll_to_edge=scroll_to_edge, scroll_to_element=scroll_to_element, scroll_within=scroll_within, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
 
 class AsyncAirtopWindows(AsyncWindowsClient):
@@ -1565,6 +1569,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         scroll_by: typing.Optional[ScrollByConfig] = OMIT,
         scroll_to_edge: typing.Optional[ScrollToEdgeConfig] = OMIT,
         scroll_to_element: typing.Optional[str] = OMIT,
+        scroll_within: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -1595,6 +1600,9 @@ class AsyncAirtopWindows(AsyncWindowsClient):
 
         scroll_to_element : typing.Optional[str]
             A natural language description of where to scroll (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found. If provided, scrollToEdge/scrollBy values will be ignored.
+
+        scroll_within : typing.Optional[str]
+            A natural language description of the scrollable area on the web page. This identifies the container or region that should be scrolled. If missing, the entire page will be scrolled. You can also describe a visible reference point inside the container. Note: This is different from scrollToElement, which specifies the target element to scroll to. The target may be located inside the scrollable area defined by scrollWithin.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1633,4 +1641,4 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().scroll(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, scroll_by=scroll_by, scroll_to_edge=scroll_to_edge, scroll_to_element=scroll_to_element, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().scroll(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, scroll_by=scroll_by, scroll_to_edge=scroll_to_edge, scroll_to_element=scroll_to_element, scroll_within=scroll_within, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
