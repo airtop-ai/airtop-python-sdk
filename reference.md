@@ -2921,6 +2921,14 @@ client.windows.scroll(
 <dl>
 <dd>
 
+**scroll_within:** `typing.Optional[str]` — A natural language description of the scrollable area on the web page. This identifies the container or region that should be scrolled. If missing, the entire page will be scrolled. You can also describe a visible reference point inside the container. Note: This is different from scrollToElement, which specifies the target element to scroll to. The target may be located inside the scrollable area defined by scrollWithin.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **time_threshold_seconds:** `typing.Optional[int]` 
 
 A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -3776,71 +3784,6 @@ client.sessions.terminate(
 <dd>
 
 **id:** `str` — ID of the session to delete.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">save_extension_configuration_on_termination</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from airtop import Airtop
-
-client = Airtop(
-    api_key="YOUR_API_KEY",
-)
-client.sessions.save_extension_configuration_on_termination(
-    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    extension_configuration_name="myExtensionConfiguration",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` — ID of the session.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**extension_configuration_name:** `str` — Name under which to save the extension configuration.
     
 </dd>
 </dl>
