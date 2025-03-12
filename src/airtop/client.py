@@ -4,6 +4,7 @@ from .environment import AirtopEnvironment
 from .base_client import BaseClient, AsyncBaseClient
 from .wrapper.windows_client import AirtopWindows, AsyncAirtopWindows
 from .wrapper.sessions_client import AirtopSessions, AsyncAirtopSessions
+from .wrapper.requests_client import AirtopRequests, AsyncAirtopRequests
 from .utils import BatchOperationUrl, BatchOperationInput, BatchOperationResponse, BatchOperateConfig
 from .utils.batch_operate.batch_util import batch_operate as batch_operate_util
 from typing import Callable, List, Awaitable, Any, Optional
@@ -61,6 +62,7 @@ class Airtop(BaseClient):
         self._client_wrapper.httpx_client.base_headers = self.get_headers
         self.windows = AirtopWindows(client_wrapper=self._client_wrapper)
         self.sessions = AirtopSessions(client_wrapper=self._client_wrapper)
+        self.requests = AirtopRequests(client_wrapper=self._client_wrapper)
         self.debug = debug
 
     def log(self, message: str):
@@ -69,7 +71,7 @@ class Airtop(BaseClient):
 
     def warn(self, message: str):
         logging.warning(message)
-    
+
     def error(self, message: str):
         logging.error(message)
 
@@ -122,7 +124,7 @@ class AsyncAirtop(AsyncBaseClient):
         api_key="YOUR_API_KEY",
     )
     """
-    
+
     def __init__(
         self,
         *,
@@ -138,6 +140,7 @@ class AsyncAirtop(AsyncBaseClient):
         self._client_wrapper.httpx_client.base_headers = self.get_headers
         self.windows = AsyncAirtopWindows(client_wrapper=self._client_wrapper)
         self.sessions = AsyncAirtopSessions(client_wrapper=self._client_wrapper)
+        self.requests = AsyncAirtopRequests(client_wrapper=self._client_wrapper)
         self.debug = debug
 
     def log(self, message: str):
@@ -146,7 +149,7 @@ class AsyncAirtop(AsyncBaseClient):
 
     def warn(self, message: str):
         logging.warning(message)
-    
+
     def error(self, message: str):
         logging.error(message)
 
