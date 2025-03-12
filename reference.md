@@ -534,6 +534,7 @@ client = Airtop(
 client.windows.async_monitor(
     session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
     window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    condition="Determine if the user appears to be signed in to the website",
 )
 
 ```
@@ -566,6 +567,14 @@ client.windows.async_monitor(
 <dl>
 <dd>
 
+**condition:** `str` — A natural language description of the condition to monitor for in the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
     
 </dd>
@@ -582,14 +591,6 @@ client.windows.async_monitor(
 <dl>
 <dd>
 
-**condition:** `typing.Optional[str]` — A natural language description of the condition to monitor for in the browser window. Required when monitorType is 'interval'.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **configuration:** `typing.Optional[MonitorConfig]` — Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
     
 </dd>
@@ -599,14 +600,6 @@ client.windows.async_monitor(
 <dd>
 
 **cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**selector:** `typing.Optional[str]` — The selector to wait for. Required when monitorType is 'selector'.
     
 </dd>
 </dl>
@@ -2100,6 +2093,7 @@ client = Airtop(
 client.windows.monitor(
     session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
     window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    condition="Determine if the user appears to be signed in to the website",
 )
 
 ```
@@ -2132,7 +2126,7 @@ client.windows.monitor(
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]` 
+**condition:** `str` — A natural language description of the condition to monitor for in the browser window.
     
 </dd>
 </dl>
@@ -2140,7 +2134,7 @@ client.windows.monitor(
 <dl>
 <dd>
 
-**condition:** `typing.Optional[str]` — A natural language description of the condition to monitor for in the browser window. Required when monitorType is 'interval'.
+**client_request_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -2157,14 +2151,6 @@ client.windows.monitor(
 <dd>
 
 **cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**selector:** `typing.Optional[str]` — The selector to wait for. Required when monitorType is 'selector'.
     
 </dd>
 </dl>
@@ -3240,8 +3226,8 @@ This setting does not extend the maximum session duration provided at the time o
 </dl>
 </details>
 
-## ExtensionConfigurations
-<details><summary><code>client.extension_configurations.<a href="src/airtop/extension_configurations/client.py">extension_configuration_delete</a>(...)</code></summary>
+## Automations
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">list_automations</a>()</code></summary>
 <dl>
 <dd>
 
@@ -3253,7 +3239,7 @@ This setting does not extend the maximum session duration provided at the time o
 <dl>
 <dd>
 
-Delete extension configurations matching by name
+List all automations for a given organization
 </dd>
 </dl>
 </dd>
@@ -3273,7 +3259,7 @@ from airtop import Airtop
 client = Airtop(
     api_key="YOUR_API_KEY",
 )
-client.extension_configurations.extension_configuration_delete()
+client.automations.list_automations()
 
 ```
 </dd>
@@ -3289,7 +3275,87 @@ client.extension_configurations.extension_configuration_delete()
 <dl>
 <dd>
 
-**extension_configuration_names:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — A comma-separated list of extension configuration names.
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">update_automation_description</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the description of a specific automation
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.update_automation_description(
+    description="description",
+    id="id",
+    org_id="orgId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**description:** `str` — New description for the automation
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the automation to update
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `str` — Organization ID
     
 </dd>
 </dl>
@@ -3309,6 +3375,147 @@ client.extension_configurations.extension_configuration_delete()
 </dl>
 </details>
 
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">get_automation</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a specific automation by ID
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.get_automation(
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — ID of the automation to retrieve
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">delete_automation</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a specific automation
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.delete_automation(
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — ID of the automation to delete
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ExtensionConfigurations
 <details><summary><code>client.extension_configurations.<a href="src/airtop/extension_configurations/client.py">extension_configuration_get_info</a>(...)</code></summary>
 <dl>
 <dd>

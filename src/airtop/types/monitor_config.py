@@ -7,8 +7,6 @@ from .monitor_config_include_visual_analysis import MonitorConfigIncludeVisualAn
 from ..core.serialization import FieldMetadata
 import pydantic
 from .interval_monitor_config import IntervalMonitorConfig
-from .browser_wait_selector_config import BrowserWaitSelectorConfig
-from .monitor_config_monitor_type import MonitorConfigMonitorType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -22,21 +20,7 @@ class MonitorConfig(UniversalBaseModel):
 
     interval: typing.Optional[IntervalMonitorConfig] = pydantic.Field(default=None)
     """
-    Configuration for the interval monitor. Only used when monitorType is 'interval'.
-    """
-
-    monitor_selector_options: typing_extensions.Annotated[
-        typing.Optional[BrowserWaitSelectorConfig], FieldMetadata(alias="monitorSelectorOptions")
-    ] = pydantic.Field(default=None)
-    """
-    Configuration for the browser wait selector.
-    """
-
-    monitor_type: typing_extensions.Annotated[MonitorConfigMonitorType, FieldMetadata(alias="monitorType")] = (
-        pydantic.Field()
-    )
-    """
-    The type of monitoring to perform. Interval executes the condition check at a regular, specified interval. Selector waits for a selector to be present before completing.
+    Configuration for the interval monitor.
     """
 
     if IS_PYDANTIC_V2:
