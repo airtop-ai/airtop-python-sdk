@@ -17,13 +17,6 @@ class SessionConfigV1(UniversalBaseModel):
     Deprecated: Use profileName instead.
     """
 
-    extension_ids: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="extensionIds")
-    ] = pydantic.Field(default=None)
-    """
-    Google Web Store extension IDs to be loaded into the session.
-    """
-
     persist_profile: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="persistProfile")] = (
         pydantic.Field(default=None)
     )

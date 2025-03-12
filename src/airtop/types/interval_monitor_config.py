@@ -13,7 +13,7 @@ class IntervalMonitorConfig(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    The interval in seconds between condition checks. Only used when monitorType is 'interval'.
+    The interval in seconds between condition checks.
     """
 
     timeout_seconds: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="timeoutSeconds")] = (
