@@ -3,6 +3,8 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
+from json.decoder import JSONDecodeError
+from ..core.api_error import ApiError
 from ..types.extension_configuration_output import ExtensionConfigurationOutput
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
@@ -10,14 +12,58 @@ from ..errors.not_found_error import NotFoundError
 from ..types.error_model import ErrorModel
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..errors.internal_server_error import InternalServerError
-from json.decoder import JSONDecodeError
-from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper
 
 
 class ExtensionConfigurationsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def extension_configuration_delete(
+        self,
+        *,
+        extension_configuration_names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Delete extension configurations matching by name
+
+        Parameters
+        ----------
+        extension_configuration_names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A comma-separated list of extension configuration names.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.extension_configurations.extension_configuration_delete()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "extension-configuration",
+            method="DELETE",
+            params={
+                "extensionConfigurationNames": extension_configuration_names,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def extension_configuration_get_info(
         self, name: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -102,6 +148,60 @@ class ExtensionConfigurationsClient:
 class AsyncExtensionConfigurationsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def extension_configuration_delete(
+        self,
+        *,
+        extension_configuration_names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Delete extension configurations matching by name
+
+        Parameters
+        ----------
+        extension_configuration_names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            A comma-separated list of extension configuration names.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.extension_configurations.extension_configuration_delete()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "extension-configuration",
+            method="DELETE",
+            params={
+                "extensionConfigurationNames": extension_configuration_names,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def extension_configuration_get_info(
         self, name: str, *, request_options: typing.Optional[RequestOptions] = None

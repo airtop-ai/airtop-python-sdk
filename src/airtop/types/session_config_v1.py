@@ -17,6 +17,13 @@ class SessionConfigV1(UniversalBaseModel):
     Deprecated: Use profileName instead.
     """
 
+    extension_configuration_name: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="extensionConfigurationName")
+    ] = pydantic.Field(default=None)
+    """
+    Name of an extension configuration to load into the session.
+    """
+
     extension_ids: typing_extensions.Annotated[
         typing.Optional[typing.List[str]], FieldMetadata(alias="extensionIds")
     ] = pydantic.Field(default=None)
