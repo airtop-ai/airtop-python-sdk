@@ -3,20 +3,51 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing_extensions
 from ..core.serialization import FieldMetadata
+import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
-import pydantic
 
 
 class Pagination(UniversalBaseModel):
-    current_limit: typing_extensions.Annotated[int, FieldMetadata(alias="currentLimit")]
-    current_page: typing_extensions.Annotated[int, FieldMetadata(alias="currentPage")]
-    final_count: typing_extensions.Annotated[int, FieldMetadata(alias="finalCount")]
-    has_more: typing_extensions.Annotated[bool, FieldMetadata(alias="hasMore")]
-    initial_count: typing_extensions.Annotated[int, FieldMetadata(alias="initialCount")]
-    next_offset: typing_extensions.Annotated[int, FieldMetadata(alias="nextOffset")]
-    number_of_pages: typing_extensions.Annotated[int, FieldMetadata(alias="numberOfPages")]
-    total_items: typing_extensions.Annotated[int, FieldMetadata(alias="totalItems")]
+    current_limit: typing_extensions.Annotated[int, FieldMetadata(alias="currentLimit")] = pydantic.Field()
+    """
+    The number of items to return
+    """
+
+    current_page: typing_extensions.Annotated[int, FieldMetadata(alias="currentPage")] = pydantic.Field()
+    """
+    The current page number
+    """
+
+    final_count: typing_extensions.Annotated[int, FieldMetadata(alias="finalCount")] = pydantic.Field()
+    """
+    The final count of items displayed on the current page
+    """
+
+    has_more: typing_extensions.Annotated[bool, FieldMetadata(alias="hasMore")] = pydantic.Field()
+    """
+    Whether there are more items
+    """
+
+    initial_count: typing_extensions.Annotated[int, FieldMetadata(alias="initialCount")] = pydantic.Field()
+    """
+    The initial count of items displayed on the current page
+    """
+
+    next_offset: typing_extensions.Annotated[int, FieldMetadata(alias="nextOffset")] = pydantic.Field()
+    """
+    The number of items to skip
+    """
+
+    number_of_pages: typing_extensions.Annotated[int, FieldMetadata(alias="numberOfPages")] = pydantic.Field()
+    """
+    The total number of pages
+    """
+
+    total_items: typing_extensions.Annotated[int, FieldMetadata(alias="totalItems")] = pydantic.Field()
+    """
+    The total number of items
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
