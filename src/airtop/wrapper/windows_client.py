@@ -3,7 +3,7 @@ import typing_extensions
 import requests
 
 from airtop.types.click_config import ClickConfig
-from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig, PaginatedExtractionConfig, ScrollByConfig, ScrollToEdgeConfig
+from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig, PaginatedExtractionConfig, ScrollByConfig, ScrollToEdgeConfig, MonitorConfig
 from ..core.request_options import RequestOptions
 from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
 from ..core.serialization import FieldMetadata
@@ -836,6 +836,70 @@ class AirtopWindows(WindowsClient):
             request_options.update({"timeout_in_seconds": 600})
         return super().scroll(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, scroll_by=scroll_by, scroll_to_edge=scroll_to_edge, scroll_to_element=scroll_to_element, scroll_within=scroll_within, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
 
+    def monitor(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        condition: str,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MonitorConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        condition : str
+            A natural language description of the condition to monitor for in the browser window. Required when monitorType is 'interval'.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MonitorConfig]
+            Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.monitor(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            condition="Wait for the page to load completely",
+        )
+        """
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return super().monitor(session_id, window_id, condition=condition, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+
 
 class AsyncAirtopWindows(AsyncWindowsClient):
     """
@@ -1642,3 +1706,75 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         return await super().scroll(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, scroll_by=scroll_by, scroll_to_edge=scroll_to_edge, scroll_to_element=scroll_to_element, scroll_within=scroll_within, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+
+    async def monitor(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        condition: str,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MonitorConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        condition : str
+            A natural language description of the condition to monitor for in the browser window. Required when monitorType is 'interval'.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MonitorConfig]
+            Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.monitor(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                condition="Wait for the page to load completely",
+            )
+
+
+        asyncio.run(main())
+        """
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return await super().monitor(session_id, window_id, condition=condition, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)

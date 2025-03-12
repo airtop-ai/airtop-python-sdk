@@ -3,5 +3,5 @@
 import typing
 
 SessionsListRequestStatus = typing.Union[
-    typing.Literal["awaitingCapacity", "initializing", "running", "ended"], typing.Any
+    typing.Literal["awaitingCapacity", "initializing", "running", "ended", "completed", "cancelled", "all"], typing.Any
 ]

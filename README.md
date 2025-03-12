@@ -25,10 +25,8 @@ from airtop import Airtop
 client = Airtop(
     api_key="YOUR_API_KEY",
 )
-client.windows.async_click(
+client.windows.create(
     session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-    element_description="The login button",
 )
 ```
 
@@ -47,10 +45,8 @@ client = AsyncAirtop(
 
 
 async def main() -> None:
-    await client.windows.async_click(
+    await client.windows.create(
         session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
-        window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
-        element_description="The login button",
     )
 
 
@@ -66,7 +62,7 @@ will be thrown.
 from airtop.core.api_error import ApiError
 
 try:
-    client.windows.async_click(...)
+    client.windows.create(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -106,7 +102,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.windows.async_click(..., request_options={
+client.windows.create(..., request_options={
     "max_retries": 1
 })
 ```
@@ -126,7 +122,7 @@ client = Airtop(
 
 
 # Override timeout for a specific method
-client.windows.async_click(..., request_options={
+client.windows.create(..., request_options={
     "timeout_in_seconds": 1
 })
 ```
