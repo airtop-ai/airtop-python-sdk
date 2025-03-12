@@ -431,12 +431,11 @@ class WindowsClient:
         session_id: str,
         window_id: str,
         *,
+        condition: str,
         async_: typing.Optional[AsyncConfig] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
-        condition: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MonitorConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        selector: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncSessionAiResponseEnvelope:
@@ -449,22 +448,19 @@ class WindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        condition : str
+            A natural language description of the condition to monitor for in the browser window.
+
         async_ : typing.Optional[AsyncConfig]
             Async configuration options.
 
         client_request_id : typing.Optional[str]
-
-        condition : typing.Optional[str]
-            A natural language description of the condition to monitor for in the browser window. Required when monitorType is 'interval'.
 
         configuration : typing.Optional[MonitorConfig]
             Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        selector : typing.Optional[str]
-            The selector to wait for. Required when monitorType is 'selector'.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -489,6 +485,7 @@ class WindowsClient:
         client.windows.async_monitor(
             session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
             window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            condition="Determine if the user appears to be signed in to the website",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -504,7 +501,6 @@ class WindowsClient:
                     object_=configuration, annotation=MonitorConfig, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
-                "selector": selector,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
             headers={
@@ -1622,11 +1618,10 @@ class WindowsClient:
         session_id: str,
         window_id: str,
         *,
+        condition: str,
         client_request_id: typing.Optional[str] = OMIT,
-        condition: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MonitorConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        selector: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -1639,19 +1634,16 @@ class WindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
-        client_request_id : typing.Optional[str]
+        condition : str
+            A natural language description of the condition to monitor for in the browser window.
 
-        condition : typing.Optional[str]
-            A natural language description of the condition to monitor for in the browser window. Required when monitorType is 'interval'.
+        client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[MonitorConfig]
             Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        selector : typing.Optional[str]
-            The selector to wait for. Required when monitorType is 'selector'.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -1676,6 +1668,7 @@ class WindowsClient:
         client.windows.monitor(
             session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
             window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            condition="Determine if the user appears to be signed in to the website",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1688,7 +1681,6 @@ class WindowsClient:
                     object_=configuration, annotation=MonitorConfig, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
-                "selector": selector,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
             headers={
@@ -2905,12 +2897,11 @@ class AsyncWindowsClient:
         session_id: str,
         window_id: str,
         *,
+        condition: str,
         async_: typing.Optional[AsyncConfig] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
-        condition: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MonitorConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        selector: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncSessionAiResponseEnvelope:
@@ -2923,22 +2914,19 @@ class AsyncWindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
+        condition : str
+            A natural language description of the condition to monitor for in the browser window.
+
         async_ : typing.Optional[AsyncConfig]
             Async configuration options.
 
         client_request_id : typing.Optional[str]
-
-        condition : typing.Optional[str]
-            A natural language description of the condition to monitor for in the browser window. Required when monitorType is 'interval'.
 
         configuration : typing.Optional[MonitorConfig]
             Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        selector : typing.Optional[str]
-            The selector to wait for. Required when monitorType is 'selector'.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -2968,6 +2956,7 @@ class AsyncWindowsClient:
             await client.windows.async_monitor(
                 session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
                 window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                condition="Determine if the user appears to be signed in to the website",
             )
 
 
@@ -2986,7 +2975,6 @@ class AsyncWindowsClient:
                     object_=configuration, annotation=MonitorConfig, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
-                "selector": selector,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
             headers={
@@ -4200,11 +4188,10 @@ class AsyncWindowsClient:
         session_id: str,
         window_id: str,
         *,
+        condition: str,
         client_request_id: typing.Optional[str] = OMIT,
-        condition: typing.Optional[str] = OMIT,
         configuration: typing.Optional[MonitorConfig] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
-        selector: typing.Optional[str] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AiPromptResponse:
@@ -4217,19 +4204,16 @@ class AsyncWindowsClient:
         window_id : str
             The Airtop window id of the browser window.
 
-        client_request_id : typing.Optional[str]
+        condition : str
+            A natural language description of the condition to monitor for in the browser window.
 
-        condition : typing.Optional[str]
-            A natural language description of the condition to monitor for in the browser window. Required when monitorType is 'interval'.
+        client_request_id : typing.Optional[str]
 
         configuration : typing.Optional[MonitorConfig]
             Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
 
         cost_threshold_credits : typing.Optional[int]
             A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
-        selector : typing.Optional[str]
-            The selector to wait for. Required when monitorType is 'selector'.
 
         time_threshold_seconds : typing.Optional[int]
             A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
@@ -4259,6 +4243,7 @@ class AsyncWindowsClient:
             await client.windows.monitor(
                 session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
                 window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                condition="Determine if the user appears to be signed in to the website",
             )
 
 
@@ -4274,7 +4259,6 @@ class AsyncWindowsClient:
                     object_=configuration, annotation=MonitorConfig, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
-                "selector": selector,
                 "timeThresholdSeconds": time_threshold_seconds,
             },
             headers={
