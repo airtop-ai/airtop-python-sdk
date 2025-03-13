@@ -1,7 +1,6 @@
 # Reference
 
 ## Windows
-
 <details><summary><code>client.windows.<a href="src/airtop/windows/client.py">async_click</a>(...)</code></summary>
 <dl>
 <dd>
@@ -15,7 +14,6 @@
 <dd>
 
 Execute a click interaction in a specific browser window asynchronously
-
 </dd>
 </dl>
 </dd>
@@ -42,7 +40,6 @@ client.windows.async_click(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -57,7 +54,7 @@ client.windows.async_click(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -65,7 +62,7 @@ client.windows.async_click(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
@@ -73,23 +70,23 @@ client.windows.async_click(
 <dd>
 
 **element_description:** `str` — A natural language description of the element to click.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -97,27 +94,27 @@ client.windows.async_click(
 <dd>
 
 **configuration:** `typing.Optional[ClickConfig]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -125,7 +122,7 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **wait_for_navigation:** `typing.Optional[bool]` — If true, Airtop AI will wait for the navigation to complete after clicking the element.
-
+    
 </dd>
 </dl>
 
@@ -133,11 +130,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -156,7 +154,6 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 Create an automation of a browser window asynchronously
-
 </dd>
 </dl>
 </dd>
@@ -182,7 +179,6 @@ client.windows.async_create_automation(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -197,7 +193,7 @@ client.windows.async_create_automation(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -205,23 +201,23 @@ client.windows.async_create_automation(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -229,27 +225,27 @@ client.windows.async_create_automation(
 <dd>
 
 **configuration:** `typing.Optional[CreateAutomationRequestBodyConfiguration]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -257,11 +253,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -280,7 +277,6 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 Execute an automation of a browser window asynchronously
-
 </dd>
 </dl>
 </dd>
@@ -307,7 +303,6 @@ client.windows.async_execute_automation(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -322,7 +317,7 @@ client.windows.async_execute_automation(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -330,7 +325,7 @@ client.windows.async_execute_automation(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
@@ -338,31 +333,31 @@ client.windows.async_execute_automation(
 <dd>
 
 **automation_id:** `str` — The ID of the automation to execute
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
@@ -370,19 +365,19 @@ client.windows.async_execute_automation(
 <dd>
 
 **parameters:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Optional parameters to pass to the automation execution
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -390,11 +385,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -425,7 +421,6 @@ client.windows.async_hover(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -440,7 +435,7 @@ client.windows.async_hover(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -448,7 +443,7 @@ client.windows.async_hover(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
@@ -456,23 +451,23 @@ client.windows.async_hover(
 <dd>
 
 **element_description:** `str` — A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -480,27 +475,27 @@ client.windows.async_hover(
 <dd>
 
 **configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -508,11 +503,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -543,7 +539,6 @@ client.windows.async_monitor(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -558,7 +553,7 @@ client.windows.async_monitor(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -566,7 +561,7 @@ client.windows.async_monitor(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
@@ -574,23 +569,23 @@ client.windows.async_monitor(
 <dd>
 
 **condition:** `str` — A natural language description of the condition to monitor for in the browser window.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -598,27 +593,27 @@ client.windows.async_monitor(
 <dd>
 
 **configuration:** `typing.Optional[MonitorConfig]` — Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -626,11 +621,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -661,7 +657,6 @@ client.windows.async_page_query(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -676,7 +671,7 @@ client.windows.async_page_query(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -684,7 +679,7 @@ client.windows.async_page_query(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
@@ -692,23 +687,23 @@ client.windows.async_page_query(
 <dd>
 
 **prompt:** `str` — The prompt to submit about the content in the browser window.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -716,15 +711,15 @@ client.windows.async_page_query(
 <dd>
 
 **configuration:** `typing.Optional[PageQueryConfig]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
@@ -732,19 +727,19 @@ client.windows.async_page_query(
 <dd>
 
 **follow_pagination_links:** `typing.Optional[bool]` — Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -752,11 +747,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -787,7 +783,6 @@ client.windows.async_paginated_extraction(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -802,7 +797,7 @@ client.windows.async_paginated_extraction(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -810,7 +805,7 @@ client.windows.async_paginated_extraction(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
@@ -818,23 +813,23 @@ client.windows.async_paginated_extraction(
 <dd>
 
 **prompt:** `str` — A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -842,27 +837,27 @@ client.windows.async_paginated_extraction(
 <dd>
 
 **configuration:** `typing.Optional[PaginatedExtractionConfig]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -870,11 +865,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -893,7 +889,6 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 This endpoint is deprecated. Please use the `pageQuery` endpoint instead.
-
 </dd>
 </dl>
 </dd>
@@ -920,7 +915,6 @@ client.windows.async_prompt_content(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -935,7 +929,7 @@ client.windows.async_prompt_content(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -943,7 +937,7 @@ client.windows.async_prompt_content(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
@@ -951,23 +945,23 @@ client.windows.async_prompt_content(
 <dd>
 
 **prompt:** `str` — The prompt to submit about the content in the browser window.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -975,15 +969,15 @@ client.windows.async_prompt_content(
 <dd>
 
 **configuration:** `typing.Optional[PageQueryConfig]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
@@ -991,19 +985,19 @@ client.windows.async_prompt_content(
 <dd>
 
 **follow_pagination_links:** `typing.Optional[bool]` — Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -1011,11 +1005,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1034,7 +1029,6 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 Take a screenshot of the current viewport of a browser window asynchronously
-
 </dd>
 </dl>
 </dd>
@@ -1060,7 +1054,6 @@ client.windows.async_screenshot(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -1075,7 +1068,7 @@ client.windows.async_screenshot(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -1083,23 +1076,23 @@ client.windows.async_screenshot(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -1107,27 +1100,27 @@ client.windows.async_screenshot(
 <dd>
 
 **configuration:** `typing.Optional[ScreenshotRequestConfig]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -1135,11 +1128,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1158,7 +1152,6 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 This endpoint is deprecated. Please use the `pageQuery` endpoint and ask for a summary in the prompt instead.
-
 </dd>
 </dl>
 </dd>
@@ -1184,7 +1177,6 @@ client.windows.async_summarize_content(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -1199,7 +1191,7 @@ client.windows.async_summarize_content(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -1207,23 +1199,23 @@ client.windows.async_summarize_content(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window to summarize.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -1231,15 +1223,15 @@ client.windows.async_summarize_content(
 <dd>
 
 **configuration:** `typing.Optional[SummaryConfig]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
@@ -1247,19 +1239,19 @@ client.windows.async_summarize_content(
 <dd>
 
 **prompt:** `typing.Optional[str]` — An optional prompt providing the Airtop AI model with additional direction or constraints about the summary (such as desired length).
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -1267,11 +1259,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1302,7 +1295,6 @@ client.windows.async_type(
 )
 
 ```
-
 </dd>
 </dl>
 </dd>
@@ -1317,7 +1309,7 @@ client.windows.async_type(
 <dd>
 
 **session_id:** `str` — The session id for the window.
-
+    
 </dd>
 </dl>
 
@@ -1325,7 +1317,7 @@ client.windows.async_type(
 <dd>
 
 **window_id:** `str` — The Airtop window id of the browser window.
-
+    
 </dd>
 </dl>
 
@@ -1333,15 +1325,15 @@ client.windows.async_type(
 <dd>
 
 **text:** `str` — The text to type into the browser window.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**async\_:** `typing.Optional[AsyncConfig]` — Async configuration options.
-
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
 </dd>
 </dl>
 
@@ -1349,15 +1341,15 @@ client.windows.async_type(
 <dd>
 
 **clear_input_field:** `typing.Optional[bool]` — If true, and an HTML input field is active, clears the input field before typing the text.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**client_request_id:** `typing.Optional[str]`
-
+**client_request_id:** `typing.Optional[str]` 
+    
 </dd>
 </dl>
 
@@ -1365,15 +1357,15 @@ client.windows.async_type(
 <dd>
 
 **configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
-
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
 </dd>
 </dl>
 
@@ -1381,7 +1373,7 @@ client.windows.async_type(
 <dd>
 
 **element_description:** `typing.Optional[str]` — A natural language description of where to type (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
-
+    
 </dd>
 </dl>
 
@@ -1389,7 +1381,7 @@ client.windows.async_type(
 <dd>
 
 **press_enter_key:** `typing.Optional[bool]` — If true, simulates pressing the Enter key after typing the text.
-
+    
 </dd>
 </dl>
 
@@ -1397,19 +1389,19 @@ client.windows.async_type(
 <dd>
 
 **press_tab_key:** `typing.Optional[bool]` — If true, simulates pressing the Tab key after typing the text. Note that the tab key will be pressed after the Enter key if both options are configured.
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**time_threshold_seconds:** `typing.Optional[int]`
+**time_threshold_seconds:** `typing.Optional[int]` 
 
-A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is _not_ a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
 
 This setting does not extend the maximum session duration provided at the time of session creation.
-
+    
 </dd>
 </dl>
 
@@ -1417,7 +1409,7 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **wait_for_navigation:** `typing.Optional[bool]` — If true, Airtop AI will wait for the navigation to complete after clicking the element.
-
+    
 </dd>
 </dl>
 
@@ -1425,11 +1417,12 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3679,6 +3672,366 @@ client.extension_configurations.extension_configuration_get_info(
 </dl>
 </dd>
 </dl>
+
+</dd>
+</dl>
+</details>
+
+## Automations
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">list_automations</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all automations for a given organization
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.list_automations()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">update_automation_description</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the description of a specific automation
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.update_automation_description(
+    description="description",
+    id="id",
+    org_id="orgId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**description:** `str` — New description for the automation
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the automation to update
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `str` — Organization ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">get_automation</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a specific automation by ID
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.get_automation(
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — ID of the automation to retrieve
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">delete_automation</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a specific automation
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.delete_automation(
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — ID of the automation to delete
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ExtensionConfigurations
+<details><summary><code>client.extension_configurations.<a href="src/airtop/extension_configurations/client.py">extension_configuration_get_info</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get an extension configuration by name
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.extension_configurations.extension_configuration_get_info(
+    name="my-configuration",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — Name of the extension configuration to get
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
