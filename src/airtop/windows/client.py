@@ -15,12 +15,13 @@ from ..types.operation_outcome_response import OperationOutcomeResponse
 from ..types.click_config import ClickConfig
 from ..types.ai_prompt_response import AiPromptResponse
 from ..core.serialization import convert_and_respect_annotation_metadata
-from ..types.micro_interaction_config import MicroInteractionConfig
+from ..types.micro_interaction_config_with_experimental import MicroInteractionConfigWithExperimental
 from ..types.monitor_config import MonitorConfig
 from ..types.page_query_config import PageQueryConfig
 from ..types.paginated_extraction_config import PaginatedExtractionConfig
 from ..types.scrape_response import ScrapeResponse
 from ..types.screenshot_request_config import ScreenshotRequestConfig
+from ..types.micro_interaction_config import MicroInteractionConfig
 from ..types.scroll_by_config import ScrollByConfig
 from ..types.scroll_to_edge_config import ScrollToEdgeConfig
 from ..types.summary_config import SummaryConfig
@@ -423,7 +424,7 @@ class WindowsClient:
         *,
         element_description: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -444,7 +445,7 @@ class WindowsClient:
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[MicroInteractionConfig]
+        configuration : typing.Optional[MicroInteractionConfigWithExperimental]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -482,7 +483,7 @@ class WindowsClient:
             json={
                 "clientRequestId": client_request_id,
                 "configuration": convert_and_respect_annotation_metadata(
-                    object_=configuration, annotation=MicroInteractionConfig, direction="write"
+                    object_=configuration, annotation=MicroInteractionConfigWithExperimental, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
@@ -1252,7 +1253,7 @@ class WindowsClient:
         text: str,
         clear_input_field: typing.Optional[bool] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
@@ -1280,7 +1281,7 @@ class WindowsClient:
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[MicroInteractionConfig]
+        configuration : typing.Optional[MicroInteractionConfigWithExperimental]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -1331,7 +1332,7 @@ class WindowsClient:
                 "clearInputField": clear_input_field,
                 "clientRequestId": client_request_id,
                 "configuration": convert_and_respect_annotation_metadata(
-                    object_=configuration, annotation=MicroInteractionConfig, direction="write"
+                    object_=configuration, annotation=MicroInteractionConfigWithExperimental, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
@@ -1795,7 +1796,7 @@ class AsyncWindowsClient:
         *,
         element_description: str,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         time_threshold_seconds: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1816,7 +1817,7 @@ class AsyncWindowsClient:
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[MicroInteractionConfig]
+        configuration : typing.Optional[MicroInteractionConfigWithExperimental]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -1862,7 +1863,7 @@ class AsyncWindowsClient:
             json={
                 "clientRequestId": client_request_id,
                 "configuration": convert_and_respect_annotation_metadata(
-                    object_=configuration, annotation=MicroInteractionConfig, direction="write"
+                    object_=configuration, annotation=MicroInteractionConfigWithExperimental, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,
@@ -2696,7 +2697,7 @@ class AsyncWindowsClient:
         text: str,
         clear_input_field: typing.Optional[bool] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
@@ -2724,7 +2725,7 @@ class AsyncWindowsClient:
 
         client_request_id : typing.Optional[str]
 
-        configuration : typing.Optional[MicroInteractionConfig]
+        configuration : typing.Optional[MicroInteractionConfigWithExperimental]
             Request configuration
 
         cost_threshold_credits : typing.Optional[int]
@@ -2783,7 +2784,7 @@ class AsyncWindowsClient:
                 "clearInputField": clear_input_field,
                 "clientRequestId": client_request_id,
                 "configuration": convert_and_respect_annotation_metadata(
-                    object_=configuration, annotation=MicroInteractionConfig, direction="write"
+                    object_=configuration, annotation=MicroInteractionConfigWithExperimental, direction="write"
                 ),
                 "costThresholdCredits": cost_threshold_credits,
                 "elementDescription": element_description,

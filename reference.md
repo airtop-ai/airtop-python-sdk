@@ -605,7 +605,7 @@ client.windows.hover(
 <dl>
 <dd>
 
-**configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
+**configuration:** `typing.Optional[MicroInteractionConfigWithExperimental]` — Request configuration
     
 </dd>
 </dl>
@@ -1727,7 +1727,7 @@ client.windows.type(
 <dl>
 <dd>
 
-**configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
+**configuration:** `typing.Optional[MicroInteractionConfigWithExperimental]` — Request configuration
     
 </dd>
 </dl>
