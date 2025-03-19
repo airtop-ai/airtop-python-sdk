@@ -8,19 +8,12 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class IntervalMonitorConfig(UniversalBaseModel):
-    interval_seconds: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="intervalSeconds")] = (
+class PaginatedExtractionExperimentalConfig(UniversalBaseModel):
+    scroll_within: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="scrollWithin")] = (
         pydantic.Field(default=None)
     )
     """
-    The interval in seconds between condition checks. Defaults to 5 seconds.
-    """
-
-    timeout_seconds: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="timeoutSeconds")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    The timeout in seconds after which the monitor will stop checking the condition. Defaults to 30 seconds.
+    A natural language description of the scrollable area on the web page. This identifies the container or region that should be scrolled to access pagination controls. If missing, the entire page will be scrolled. You can also describe a visible reference point inside the container.
     """
 
     if IS_PYDANTIC_V2:

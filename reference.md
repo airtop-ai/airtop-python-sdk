@@ -474,7 +474,7 @@ client.windows.async_hover(
 <dl>
 <dd>
 
-**configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
+**configuration:** `typing.Optional[MicroInteractionConfigWithExperimental]` — Request configuration
     
 </dd>
 </dl>
@@ -1356,7 +1356,7 @@ client.windows.async_type(
 <dl>
 <dd>
 
-**configuration:** `typing.Optional[MicroInteractionConfig]` — Request configuration
+**configuration:** `typing.Optional[MicroInteractionConfigWithExperimental]` — Request configuration
     
 </dd>
 </dl>

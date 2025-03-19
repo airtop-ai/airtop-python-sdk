@@ -29,6 +29,8 @@ from .interval_monitor_config import IntervalMonitorConfig
 from .issue import Issue
 from .list_automations_output import ListAutomationsOutput
 from .micro_interaction_config import MicroInteractionConfig
+from .micro_interaction_config_with_experimental import MicroInteractionConfigWithExperimental
+from .micro_interaction_experimental_config import MicroInteractionExperimentalConfig
 from .monitor_config import MonitorConfig
 from .monitor_config_include_visual_analysis import MonitorConfigIncludeVisualAnalysis
 from .operation_outcome import OperationOutcome
@@ -36,6 +38,7 @@ from .operation_outcome_response import OperationOutcomeResponse
 from .page_query_config import PageQueryConfig
 from .page_query_experimental_config import PageQueryExperimentalConfig
 from .paginated_extraction_config import PaginatedExtractionConfig
+from .paginated_extraction_experimental_config import PaginatedExtractionExperimentalConfig
 from .pagination import Pagination
 from .proxy import Proxy
 from .proxy_configuration_kind import ProxyConfigurationKind
@@ -102,6 +105,8 @@ __all__ = [
     "Issue",
     "ListAutomationsOutput",
     "MicroInteractionConfig",
+    "MicroInteractionConfigWithExperimental",
+    "MicroInteractionExperimentalConfig",
     "MonitorConfig",
     "MonitorConfigIncludeVisualAnalysis",
     "OperationOutcome",
@@ -109,6 +114,7 @@ __all__ = [
     "PageQueryConfig",
     "PageQueryExperimentalConfig",
     "PaginatedExtractionConfig",
+    "PaginatedExtractionExperimentalConfig",
     "Pagination",
     "Proxy",
     "ProxyConfigurationKind",
