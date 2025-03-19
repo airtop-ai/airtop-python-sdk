@@ -19,7 +19,7 @@ jobs:
 
       - name: tag
         run: |
-          AIRTOP_VERSION=$(print(tomli.load(open('pyproject.toml', mode='rb'))['tool']['poetry']['version']))
+          AIRTOP_VERSION=$(python -c "import tomli; print(tomli.load(open('pyproject.toml', mode='rb'))['tool']['poetry']['version'])")
           echo "AIRTOP_VERSION: $AIRTOP_VERSION"
           # git tag "$AIRTOP_VERSION" 
           # git push origin "$AIRTOP_VERSION"
