@@ -3,7 +3,7 @@ import typing_extensions
 import requests
 
 from airtop.types.click_config import ClickConfig
-from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig, PaginatedExtractionConfig, ScrollByConfig, ScrollToEdgeConfig, MonitorConfig
+from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig, PaginatedExtractionConfig, ScrollByConfig, ScrollToEdgeConfig, MonitorConfig, MicroInteractionConfigWithExperimental
 from ..core.request_options import RequestOptions
 from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
 from ..core.serialization import FieldMetadata
@@ -484,7 +484,7 @@ class AirtopWindows(WindowsClient):
         text: str,
         clear_input_field: typing.Optional[bool] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
@@ -636,7 +636,7 @@ class AirtopWindows(WindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: str,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -1391,7 +1391,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         window_id: str,
         *,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: str,
         time_threshold_seconds: typing.Optional[int] = OMIT,
@@ -1464,7 +1464,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         text: str,
         clear_input_field: typing.Optional[bool] = OMIT,
         client_request_id: typing.Optional[str] = OMIT,
-        configuration: typing.Optional[MicroInteractionConfig] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
         cost_threshold_credits: typing.Optional[int] = OMIT,
         element_description: typing.Optional[str] = OMIT,
         press_enter_key: typing.Optional[bool] = OMIT,
