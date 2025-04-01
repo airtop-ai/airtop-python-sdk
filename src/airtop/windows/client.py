@@ -2,19 +2,22 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.create_window_input_v1body_wait_until import CreateWindowInputV1BodyWaitUntil
+from ..types.async_config import AsyncConfig
+from ..types.create_automation_request_body_configuration import CreateAutomationRequestBodyConfiguration
 from ..core.request_options import RequestOptions
-from ..types.window_id_response import WindowIdResponse
+from ..types.async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
 from ..core.jsonable_encoder import jsonable_encoder
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from .types.create_window_input_v1body_wait_until import CreateWindowInputV1BodyWaitUntil
+from ..types.window_id_response import WindowIdResponse
 from ..types.window_response import WindowResponse
 from .types.window_load_url_v1body_wait_until import WindowLoadUrlV1BodyWaitUntil
 from ..types.operation_outcome_response import OperationOutcomeResponse
 from ..types.click_config import ClickConfig
 from ..types.ai_prompt_response import AiPromptResponse
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..types.micro_interaction_config_with_experimental import MicroInteractionConfigWithExperimental
 from ..types.monitor_config import MonitorConfig
 from ..types.page_query_config import PageQueryConfig
@@ -34,6 +37,382 @@ OMIT = typing.cast(typing.Any, ...)
 class WindowsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def async_create_automation(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[CreateAutomationRequestBodyConfiguration] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Create an automation of a browser window asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[CreateAutomationRequestBodyConfiguration]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_create_automation(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_create_form_filler(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[CreateAutomationRequestBodyConfiguration] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Create a form filler automation asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[CreateAutomationRequestBodyConfiguration]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_create_form_filler(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_execute_automation(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        automation_id: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Execute an automation of a browser window asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        automation_id : str
+            The ID of the automation to execute
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Optional parameters to pass to the automation execution
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_execute_automation(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            automation_id="automationId",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "automationId": automation_id,
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "parameters": parameters,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_fill_form(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        automation_id: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Fill a form of a browser window asynchronously using a form-filler automation
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        automation_id : str
+            The ID of the automation to execute
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Optional parameters to pass to the automation execution
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_fill_form(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            automation_id="automationId",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "automationId": automation_id,
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "parameters": parameters,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def create(
         self,
@@ -396,6 +775,194 @@ class WindowsClient:
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
                 "waitForNavigation": wait_for_navigation,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def create_form_filler(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[CreateAutomationRequestBodyConfiguration] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Create a form-filler automation synchronously for the form loaded in the browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[CreateAutomationRequestBodyConfiguration]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.create_form_filler(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def fill_form(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        automation_id: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Fill a form of a browser window synchronously using a form-filler automation
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        automation_id : str
+            The ID of the automation to execute
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Optional parameters to pass to the automation execution
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.fill_form(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            automation_id="automationId",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "automationId": automation_id,
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "parameters": parameters,
+                "timeThresholdSeconds": time_threshold_seconds,
             },
             headers={
                 "content-type": "application/json",
@@ -1367,6 +1934,414 @@ class AsyncWindowsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    async def async_create_automation(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[CreateAutomationRequestBodyConfiguration] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Create an automation of a browser window asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[CreateAutomationRequestBodyConfiguration]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_create_automation(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_create_form_filler(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[CreateAutomationRequestBodyConfiguration] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Create a form filler automation asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[CreateAutomationRequestBodyConfiguration]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_create_form_filler(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_execute_automation(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        automation_id: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Execute an automation of a browser window asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        automation_id : str
+            The ID of the automation to execute
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Optional parameters to pass to the automation execution
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_execute_automation(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                automation_id="automationId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "automationId": automation_id,
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "parameters": parameters,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_fill_form(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        automation_id: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Fill a form of a browser window asynchronously using a form-filler automation
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        automation_id : str
+            The ID of the automation to execute
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Optional parameters to pass to the automation execution
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_fill_form(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                automation_id="automationId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "automationId": automation_id,
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "parameters": parameters,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def create(
         self,
         session_id: str,
@@ -1768,6 +2743,210 @@ class AsyncWindowsClient:
                 "elementDescription": element_description,
                 "timeThresholdSeconds": time_threshold_seconds,
                 "waitForNavigation": wait_for_navigation,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def create_form_filler(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[CreateAutomationRequestBodyConfiguration] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Create a form-filler automation synchronously for the form loaded in the browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[CreateAutomationRequestBodyConfiguration]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.create_form_filler(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": configuration,
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AiPromptResponse,
+                    parse_obj_as(
+                        type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def fill_form(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        automation_id: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Fill a form of a browser window synchronously using a form-filler automation
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        automation_id : str
+            The ID of the automation to execute
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Optional parameters to pass to the automation execution
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.fill_form(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                automation_id="automationId",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "automationId": automation_id,
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "parameters": parameters,
+                "timeThresholdSeconds": time_threshold_seconds,
             },
             headers={
                 "content-type": "application/json",

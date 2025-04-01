@@ -1,5 +1,515 @@
 # Reference
 ## Windows
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">async_create_automation</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create an automation of a browser window asynchronously
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.async_create_automation(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[CreateAutomationRequestBodyConfiguration]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">async_create_form_filler</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a form filler automation asynchronously
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.async_create_form_filler(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[CreateAutomationRequestBodyConfiguration]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">async_execute_automation</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Execute an automation of a browser window asynchronously
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.async_execute_automation(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — The ID of the automation to execute
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Optional parameters to pass to the automation execution
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">async_fill_form</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fill a form of a browser window asynchronously using a form-filler automation
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.async_fill_form(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — The ID of the automation to execute
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Optional parameters to pass to the automation execution
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.windows.<a href="src/airtop/windows/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
@@ -502,6 +1012,261 @@ This setting does not extend the maximum session duration provided at the time o
 <dd>
 
 **wait_for_navigation:** `typing.Optional[bool]` — If true, Airtop AI will wait for the navigation to complete after clicking the element.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">create_form_filler</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a form-filler automation synchronously for the form loaded in the browser window
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.create_form_filler(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**configuration:** `typing.Optional[CreateAutomationRequestBodyConfiguration]` — Request configuration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.windows.<a href="src/airtop/windows/client.py">fill_form</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fill a form of a browser window synchronously using a form-filler automation
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.windows.fill_form(
+    session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**session_id:** `str` — The session id for the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**window_id:** `str` — The Airtop window id of the browser window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — The ID of the automation to execute
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**async_:** `typing.Optional[AsyncConfig]` — Async configuration options.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_request_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cost_threshold_credits:** `typing.Optional[int]` — A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parameters:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Optional parameters to pass to the automation execution
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_threshold_seconds:** `typing.Optional[int]` 
+
+A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+This setting does not extend the maximum session duration provided at the time of session creation.
     
 </dd>
 </dl>
@@ -1799,6 +2564,295 @@ This setting does not extend the maximum session duration provided at the time o
 </dl>
 </details>
 
+## Automations
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">list</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all automations for a given organization
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the description of a specific automation
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.update(
+    description="description",
+    id="id",
+    org_id="orgId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**description:** `str` — New description for the automation
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the automation to update
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**org_id:** `str` — Organization ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">get</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a specific automation by ID
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.get(
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — ID of the automation to retrieve
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.automations.<a href="src/airtop/automations/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a specific automation
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+client.automations.delete(
+    automation_id="automationId",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**automation_id:** `str` — ID of the automation to delete
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Profiles
 <details><summary><code>client.profiles.<a href="src/airtop/profiles/client.py">delete</a>(...)</code></summary>
 <dl>
@@ -1946,7 +3000,7 @@ client.requests.get_request_status(
 <dl>
 <dd>
 
-Get a list of sessions by ID
+Get a paginated list of sessions filtered by ID or status
 </dd>
 </dl>
 </dd>
@@ -2204,6 +3258,96 @@ client.sessions.terminate(
 <dd>
 
 **id:** `str` — ID of the session to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sessions.<a href="src/airtop/sessions/client.py">events</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a session event stream for a given session ID
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from airtop import Airtop
+
+client = Airtop(
+    api_key="YOUR_API_KEY",
+)
+response = client.sessions.events(
+    id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    last_event_id=0,
+    all_=True,
+)
+for chunk in response:
+    yield chunk
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — ID of the session to get status info for
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_event_id:** `typing.Optional[int]` — last known event id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**all_:** `typing.Optional[bool]` — Get all events
     
 </dd>
 </dl>

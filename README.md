@@ -25,8 +25,9 @@ from airtop import Airtop
 client = Airtop(
     api_key="YOUR_API_KEY",
 )
-client.windows.create(
+client.windows.async_create_automation(
     session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
 )
 ```
 
@@ -45,8 +46,9 @@ client = AsyncAirtop(
 
 
 async def main() -> None:
-    await client.windows.create(
+    await client.windows.async_create_automation(
         session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+        window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
     )
 
 
@@ -62,7 +64,7 @@ will be thrown.
 from airtop.core.api_error import ApiError
 
 try:
-    client.windows.create(...)
+    client.windows.async_create_automation(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -79,7 +81,9 @@ client = Airtop(
     api_key="YOUR_API_KEY",
 )
 response = client.sessions.events(
-    id="string",
+    id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+    last_event_id=0,
+    all_=True,
 )
 for chunk in response:
     yield chunk
@@ -102,7 +106,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.windows.create(..., request_options={
+client.windows.async_create_automation(..., request_options={
     "max_retries": 1
 })
 ```
@@ -122,7 +126,7 @@ client = Airtop(
 
 
 # Override timeout for a specific method
-client.windows.create(..., request_options={
+client.windows.async_create_automation(..., request_options={
     "timeout_in_seconds": 1
 })
 ```
