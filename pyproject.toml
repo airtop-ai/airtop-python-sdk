@@ -3,7 +3,7 @@ name = "airtop"
 
 [tool.poetry]
 name = "airtop"
-version = "0.0.45"
+version = "0.0.46b0"
 description = "SDK for Airtop cloud browsers"
 readme = "README.md"
 authors = []
