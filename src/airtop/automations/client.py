@@ -26,7 +26,7 @@ class AutomationsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list_automations(self, *, request_options: typing.Optional[RequestOptions] = None) -> ListAutomationsOutput:
+    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> ListAutomationsOutput:
         """
         List all automations for a given organization
 
@@ -47,7 +47,7 @@ class AutomationsClient:
         client = Airtop(
             api_key="YOUR_API_KEY",
         )
-        client.automations.list_automations()
+        client.automations.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "automations",
@@ -68,7 +68,7 @@ class AutomationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def update_automation_description(
+    def update(
         self, *, description: str, id: str, org_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AutomationOutput:
         """
@@ -100,7 +100,7 @@ class AutomationsClient:
         client = Airtop(
             api_key="YOUR_API_KEY",
         )
-        client.automations.update_automation_description(
+        client.automations.update(
             description="description",
             id="id",
             org_id="orgId",
@@ -184,9 +184,7 @@ class AutomationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_automation(
-        self, automation_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AutomationOutput:
+    def get(self, automation_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AutomationOutput:
         """
         Get a specific automation by ID
 
@@ -210,7 +208,7 @@ class AutomationsClient:
         client = Airtop(
             api_key="YOUR_API_KEY",
         )
-        client.automations.get_automation(
+        client.automations.get(
             automation_id="automationId",
         )
         """
@@ -283,7 +281,7 @@ class AutomationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete_automation(
+    def delete(
         self, automation_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteAutomationOutputWrapperBody:
         """
@@ -309,7 +307,7 @@ class AutomationsClient:
         client = Airtop(
             api_key="YOUR_API_KEY",
         )
-        client.automations.delete_automation(
+        client.automations.delete(
             automation_id="automationId",
         )
         """
@@ -387,9 +385,7 @@ class AsyncAutomationsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list_automations(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ListAutomationsOutput:
+    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> ListAutomationsOutput:
         """
         List all automations for a given organization
 
@@ -415,7 +411,7 @@ class AsyncAutomationsClient:
 
 
         async def main() -> None:
-            await client.automations.list_automations()
+            await client.automations.list()
 
 
         asyncio.run(main())
@@ -439,7 +435,7 @@ class AsyncAutomationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def update_automation_description(
+    async def update(
         self, *, description: str, id: str, org_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AutomationOutput:
         """
@@ -476,7 +472,7 @@ class AsyncAutomationsClient:
 
 
         async def main() -> None:
-            await client.automations.update_automation_description(
+            await client.automations.update(
                 description="description",
                 id="id",
                 org_id="orgId",
@@ -563,7 +559,7 @@ class AsyncAutomationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_automation(
+    async def get(
         self, automation_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AutomationOutput:
         """
@@ -594,7 +590,7 @@ class AsyncAutomationsClient:
 
 
         async def main() -> None:
-            await client.automations.get_automation(
+            await client.automations.get(
                 automation_id="automationId",
             )
 
@@ -670,7 +666,7 @@ class AsyncAutomationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete_automation(
+    async def delete(
         self, automation_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteAutomationOutputWrapperBody:
         """
@@ -701,7 +697,7 @@ class AsyncAutomationsClient:
 
 
         async def main() -> None:
-            await client.automations.delete_automation(
+            await client.automations.delete(
                 automation_id="automationId",
             )
 

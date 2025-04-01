@@ -6,14 +6,12 @@ import httpx
 from .core.client_wrapper import SyncClientWrapper
 from .windows.client import WindowsClient
 from .automations.client import AutomationsClient
-from .extension_configurations.client import ExtensionConfigurationsClient
 from .profiles.client import ProfilesClient
 from .requests.client import RequestsClient
 from .sessions.client import SessionsClient
 from .core.client_wrapper import AsyncClientWrapper
 from .windows.client import AsyncWindowsClient
 from .automations.client import AsyncAutomationsClient
-from .extension_configurations.client import AsyncExtensionConfigurationsClient
 from .profiles.client import AsyncProfilesClient
 from .requests.client import AsyncRequestsClient
 from .sessions.client import AsyncSessionsClient
@@ -79,7 +77,6 @@ class BaseClient:
         )
         self.windows = WindowsClient(client_wrapper=self._client_wrapper)
         self.automations = AutomationsClient(client_wrapper=self._client_wrapper)
-        self.extension_configurations = ExtensionConfigurationsClient(client_wrapper=self._client_wrapper)
         self.profiles = ProfilesClient(client_wrapper=self._client_wrapper)
         self.requests = RequestsClient(client_wrapper=self._client_wrapper)
         self.sessions = SessionsClient(client_wrapper=self._client_wrapper)
@@ -145,7 +142,6 @@ class AsyncBaseClient:
         )
         self.windows = AsyncWindowsClient(client_wrapper=self._client_wrapper)
         self.automations = AsyncAutomationsClient(client_wrapper=self._client_wrapper)
-        self.extension_configurations = AsyncExtensionConfigurationsClient(client_wrapper=self._client_wrapper)
         self.profiles = AsyncProfilesClient(client_wrapper=self._client_wrapper)
         self.requests = AsyncRequestsClient(client_wrapper=self._client_wrapper)
         self.sessions = AsyncSessionsClient(client_wrapper=self._client_wrapper)

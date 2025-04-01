@@ -8,7 +8,6 @@ from .async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
 from .automation_output import AutomationOutput
 from .browser_wait_navigation_config import BrowserWaitNavigationConfig
 from .browser_wait_navigation_config_wait_until import BrowserWaitNavigationConfigWaitUntil
-from .browser_wait_selector_config import BrowserWaitSelectorConfig
 from .click_config import ClickConfig
 from .click_config_click_type import ClickConfigClickType
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
@@ -19,7 +18,6 @@ from .error_body import ErrorBody
 from .error_detail import ErrorDetail
 from .error_message import ErrorMessage
 from .error_model import ErrorModel
-from .extension_configuration_output import ExtensionConfigurationOutput
 from .external_session_ai_response_metadata import ExternalSessionAiResponseMetadata
 from .external_session_ai_response_metadata_status import ExternalSessionAiResponseMetadataStatus
 from .external_session_ai_response_metadata_usage import ExternalSessionAiResponseMetadataUsage
@@ -84,7 +82,6 @@ __all__ = [
     "AutomationOutput",
     "BrowserWaitNavigationConfig",
     "BrowserWaitNavigationConfigWaitUntil",
-    "BrowserWaitSelectorConfig",
     "ClickConfig",
     "ClickConfigClickType",
     "ClientProvidedResponseMetadata",
@@ -95,7 +92,6 @@ __all__ = [
     "ErrorDetail",
     "ErrorMessage",
     "ErrorModel",
-    "ExtensionConfigurationOutput",
     "ExternalSessionAiResponseMetadata",
     "ExternalSessionAiResponseMetadataStatus",
     "ExternalSessionAiResponseMetadataUsage",
