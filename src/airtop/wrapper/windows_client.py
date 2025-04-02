@@ -3,36 +3,57 @@ import typing_extensions
 import requests
 
 from airtop.types.click_config import ClickConfig
-from ..windows.client import WindowsClient, AsyncWindowsClient, AiPromptResponse, ScrapeResponse, MicroInteractionConfig, PaginatedExtractionConfig, ScrollByConfig, ScrollToEdgeConfig, MonitorConfig, MicroInteractionConfigWithExperimental
+from ..windows.client import (
+    WindowsClient,
+    AsyncWindowsClient,
+    AiPromptResponse,
+    ScrapeResponse,
+    MicroInteractionConfig,
+    PaginatedExtractionConfig,
+    ScrollByConfig,
+    ScrollToEdgeConfig,
+    MonitorConfig,
+    MicroInteractionConfigWithExperimental,
+    AsyncConfig,
+    CreateAutomationRequestBodyConfiguration,
+)
+
 from ..core.request_options import RequestOptions
-from ..types import ExternalSessionWithConnectionInfo, SummaryConfig as SummaryConfigBase, PageQueryConfig as PageQueryConfigBase
+from ..types import (
+    ExternalSessionWithConnectionInfo,
+    SummaryConfig as SummaryConfigBase,
+    PageQueryConfig as PageQueryConfigBase,
+)
 from ..core.serialization import FieldMetadata
 import json
 import pydantic
 
 OMIT = typing.cast(typing.Any, ...)
 
+
 # Disable assignment error for the following classes
 # mypy: disable-error-code="assignment"
 class SummaryConfig(SummaryConfigBase):
-    output_schema: typing_extensions.Annotated[typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")] = (  
-        pydantic.Field(default=None)
-    ) 
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs) 
-
-class PageQueryConfig(PageQueryConfigBase):
-    output_schema: typing_extensions.Annotated[typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")] = (
-        pydantic.Field(default=None)
-    ) 
+    output_schema: typing_extensions.Annotated[
+        typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")
+    ] = pydantic.Field(default=None)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    
 
-def convert_page_query_output_schema_to_str(config_object: typing.Optional[PageQueryConfigBase]) -> typing.Any:
+class PageQueryConfig(PageQueryConfigBase):
+    output_schema: typing_extensions.Annotated[
+        typing.Optional[typing.Union[str, typing.Dict]], FieldMetadata(alias="outputSchema")
+    ] = pydantic.Field(default=None)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+def convert_page_query_output_schema_to_str(
+    config_object: typing.Optional[PageQueryConfigBase],
+) -> typing.Any:
     if not config_object or config_object is ...:
         return config_object
     if isinstance(config_object, dict):
@@ -43,7 +64,7 @@ def convert_page_query_output_schema_to_str(config_object: typing.Optional[PageQ
             return config_object
         if isinstance(config_object, dict):
             return {**config_object, "output_schema": json.dumps(output_schema)}
-    # Assumed to be a PageQueryConfig object    
+    # Assumed to be a PageQueryConfig object
     output_schema = config_object.output_schema
     if not output_schema:
         return config_object
@@ -51,6 +72,7 @@ def convert_page_query_output_schema_to_str(config_object: typing.Optional[PageQ
         return config_object
     # We assume that the output schema is an object, and convert it to a string JSON string
     return config_object.model_copy(update={"output_schema": json.dumps(output_schema)})
+
 
 def convert_summary_output_schema_to_str(config_object: typing.Optional[SummaryConfigBase]) -> typing.Any:
     if not config_object or config_object is ...:
@@ -63,7 +85,7 @@ def convert_summary_output_schema_to_str(config_object: typing.Optional[SummaryC
             return config_object
         if isinstance(config_object, dict):
             return {**config_object, "output_schema": json.dumps(output_schema)}
-    # Assumed to be a SummaryConfig object    
+    # Assumed to be a SummaryConfig object
     output_schema = config_object.output_schema
     if not output_schema:
         return config_object
@@ -72,12 +94,12 @@ def convert_summary_output_schema_to_str(config_object: typing.Optional[SummaryC
     # We assume that the output schema is an object, and convert it to a string JSON string
     return config_object.model_copy(update={"output_schema": json.dumps(output_schema)})
 
+
 # ... existing code ...
 class AirtopWindows(WindowsClient):
     """
     AirtopWindows client that extends the WindowsClient functionality.
     """
-
 
     def page_query(
         self,
@@ -146,8 +168,17 @@ class AirtopWindows(WindowsClient):
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         configuration = convert_page_query_output_schema_to_str(configuration)
-        return super().page_query(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
-        
+        return super().page_query(
+            session_id,
+            window_id,
+            prompt=prompt,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            follow_pagination_links=follow_pagination_links,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     def prompt_content(
         self,
@@ -218,7 +249,17 @@ class AirtopWindows(WindowsClient):
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         configuration = convert_page_query_output_schema_to_str(configuration)
-        return super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().prompt_content(
+            session_id,
+            window_id,
+            prompt=prompt,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            follow_pagination_links=follow_pagination_links,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     def scrape_content(
         self,
@@ -273,7 +314,14 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().scrape_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().scrape_content(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     def summarize_content(
         self,
@@ -337,9 +385,16 @@ class AirtopWindows(WindowsClient):
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         configuration = convert_summary_output_schema_to_str(configuration)
-        return super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
-
-
+        return super().summarize_content(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            prompt=prompt,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     def _get_playwright_target_id(self, playwright_page):
         """
@@ -379,16 +434,10 @@ class AirtopWindows(WindowsClient):
         chromedriver_session_url = f"{session.chromedriver_url}/session/{selenium_driver.session_id}/chromium/send_command_and_get_result"
         response = requests.post(
             chromedriver_session_url,
-            headers={
-                'Content-Type': 'application/json',
-                'Authorization': f'Bearer {airtop_api_key}'
-            },
-            json={
-                'cmd': 'Target.getTargetInfo',
-                'params': {}
-            }
+            headers={"Content-Type": "application/json", "Authorization": f"Bearer {airtop_api_key}"},
+            json={"cmd": "Target.getTargetInfo", "params": {}},
         )
-        return response.json().get('value', {}).get('targetInfo', {}).get('targetId', None)
+        return response.json().get("value", {}).get("targetInfo", {}).get("targetId", None)
 
     def get_window_info_for_playwright_page(
         self,
@@ -430,7 +479,7 @@ class AirtopWindows(WindowsClient):
             include_navigation_bar=include_navigation_bar,
             disable_resize=disable_resize,
             screen_resolution=screen_resolution,
-            request_options=request_options
+            request_options=request_options,
         )
 
     def get_window_info_for_selenium_driver(
@@ -473,9 +522,9 @@ class AirtopWindows(WindowsClient):
             include_navigation_bar=include_navigation_bar,
             disable_resize=disable_resize,
             screen_resolution=screen_resolution,
-            request_options=request_options
+            request_options=request_options,
         )
-    
+
     def type(
         self,
         session_id: str,
@@ -558,7 +607,21 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().type(session_id, window_id, text=text, clear_input_field=clear_input_field, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, press_tab_key=press_tab_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
+        return super().type(
+            session_id,
+            window_id,
+            text=text,
+            clear_input_field=clear_input_field,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            element_description=element_description,
+            press_enter_key=press_enter_key,
+            press_tab_key=press_tab_key,
+            time_threshold_seconds=time_threshold_seconds,
+            wait_for_navigation=wait_for_navigation,
+            request_options=request_options,
+        )
 
     def click(
         self,
@@ -626,9 +689,17 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().click(session_id, window_id, element_description=element_description, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
-
-
+        return super().click(
+            session_id,
+            window_id,
+            element_description=element_description,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            wait_for_navigation=wait_for_navigation,
+            request_options=request_options,
+        )
 
     def hover(
         self,
@@ -691,7 +762,16 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().hover(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().hover(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            element_description=element_description,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     def paginated_extraction(
         self,
@@ -754,10 +834,18 @@ class AirtopWindows(WindowsClient):
         """
         if request_options is None:
             request_options = RequestOptions(timeout_in_seconds=600)
-        elif request_options.get("timeout_ßin_seconds") is None:
+        elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().paginated_extraction(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
-    
+        return super().paginated_extraction(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            prompt=prompt,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     def scroll(
         self,
@@ -834,7 +922,19 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().scroll(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, scroll_by=scroll_by, scroll_to_edge=scroll_to_edge, scroll_to_element=scroll_to_element, scroll_within=scroll_within, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().scroll(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            scroll_by=scroll_by,
+            scroll_to_edge=scroll_to_edge,
+            scroll_to_element=scroll_to_element,
+            scroll_within=scroll_within,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     def monitor(
         self,
@@ -898,7 +998,170 @@ class AirtopWindows(WindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return super().monitor(session_id, window_id, condition=condition, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return super().monitor(
+            session_id,
+            window_id,
+            condition=condition,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
+
+    def fill_form(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        automation_id: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Fill a form of a browser window synchronously using a form-filler automation
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        automation_id : str
+            The ID of the automation to execute
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Optional parameters to pass to the automation execution
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.fill_form(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            automation_id="automationId",
+        )
+        """
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return super().fill_form(
+            session_id,
+            window_id,
+            automation_id=automation_id,
+            async_=async_,
+            client_request_id=client_request_id,
+            cost_threshold_credits=cost_threshold_credits,
+            parameters=parameters,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
+
+    def create_form_filler(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[CreateAutomationRequestBodyConfiguration] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Create a form-filler automation synchronously for the form loaded in the browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[CreateAutomationRequestBodyConfiguration]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.create_form_filler(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return super().create_form_filler(
+            session_id,
+            window_id,
+            async_=async_,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
 
 class AsyncAirtopWindows(AsyncWindowsClient):
@@ -981,9 +1244,17 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         configuration = convert_page_query_output_schema_to_str(configuration)
-        return await super().page_query(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
-
-
+        return await super().page_query(
+            session_id,
+            window_id,
+            prompt=prompt,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            follow_pagination_links=follow_pagination_links,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     async def prompt_content(
         self,
@@ -1062,7 +1333,17 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         configuration = convert_page_query_output_schema_to_str(configuration)
-        return await super().prompt_content(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, follow_pagination_links=follow_pagination_links, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().prompt_content(
+            session_id,
+            window_id,
+            prompt=prompt,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            follow_pagination_links=follow_pagination_links,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     async def scrape_content(
         self,
@@ -1125,7 +1406,14 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().scrape_content(session_id, window_id, client_request_id=client_request_id, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().scrape_content(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     async def summarize_content(
         self,
@@ -1197,8 +1485,16 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         configuration = convert_summary_output_schema_to_str(configuration)
-        return await super().summarize_content(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, prompt=prompt, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
-
+        return await super().summarize_content(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            prompt=prompt,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     async def _get_playwright_target_id(self, playwright_page):
         cdp_session = await playwright_page.context.new_cdp_session(playwright_page)
@@ -1210,16 +1506,10 @@ class AsyncAirtopWindows(AsyncWindowsClient):
         chromedriver_session_url = f"{session.chromedriver_url}/session/{selenium_driver.session_id}/chromium/send_command_and_get_result"
         response = requests.post(
             chromedriver_session_url,
-            headers={
-                'Content-Type': 'application/json',
-                'Authorization': f'Bearer {airtop_api_key}'
-            },
-            json={
-                'cmd': 'Target.getTargetInfo',
-                'params': {}
-            }
+            headers={"Content-Type": "application/json", "Authorization": f"Bearer {airtop_api_key}"},
+            json={"cmd": "Target.getTargetInfo", "params": {}},
         )
-        return response.json().get('value', {}).get('targetInfo', {}).get('targetId', None)
+        return response.json().get("value", {}).get("targetInfo", {}).get("targetId", None)
 
     async def get_window_info_for_playwright_page(
         self,
@@ -1262,7 +1552,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             include_navigation_bar=include_navigation_bar,
             disable_resize=disable_resize,
             screen_resolution=screen_resolution,
-            request_options=request_options
+            request_options=request_options,
         )
 
     async def get_window_info_for_selenium_driver(
@@ -1305,7 +1595,7 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             include_navigation_bar=include_navigation_bar,
             disable_resize=disable_resize,
             screen_resolution=screen_resolution,
-            request_options=request_options
+            request_options=request_options,
         )
 
     async def click(
@@ -1382,8 +1672,17 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().click(session_id, window_id, element_description=element_description, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
-
+        return await super().click(
+            session_id,
+            window_id,
+            element_description=element_description,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            wait_for_navigation=wait_for_navigation,
+            request_options=request_options,
+        )
 
     async def hover(
         self,
@@ -1454,7 +1753,16 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().hover(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().hover(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            element_description=element_description,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     async def type(
         self,
@@ -1546,8 +1854,21 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().type(session_id, window_id, text=text, clear_input_field=clear_input_field, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, element_description=element_description, press_enter_key=press_enter_key, press_tab_key=press_tab_key, time_threshold_seconds=time_threshold_seconds, wait_for_navigation=wait_for_navigation, request_options=request_options)
-
+        return await super().type(
+            session_id,
+            window_id,
+            text=text,
+            clear_input_field=clear_input_field,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            element_description=element_description,
+            press_enter_key=press_enter_key,
+            press_tab_key=press_tab_key,
+            time_threshold_seconds=time_threshold_seconds,
+            wait_for_navigation=wait_for_navigation,
+            request_options=request_options,
+        )
 
     async def paginated_extraction(
         self,
@@ -1620,7 +1941,16 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().paginated_extraction(session_id, window_id, prompt=prompt, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().paginated_extraction(
+            session_id,
+            window_id,
+            prompt=prompt,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     async def scroll(
         self,
@@ -1705,7 +2035,19 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().scroll(session_id, window_id, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, scroll_by=scroll_by, scroll_to_edge=scroll_to_edge, scroll_to_element=scroll_to_element, scroll_within=scroll_within, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().scroll(
+            session_id,
+            window_id,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            scroll_by=scroll_by,
+            scroll_to_edge=scroll_to_edge,
+            scroll_to_element=scroll_to_element,
+            scroll_within=scroll_within,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
 
     async def monitor(
         self,
@@ -1777,4 +2119,183 @@ class AsyncAirtopWindows(AsyncWindowsClient):
             request_options = RequestOptions(timeout_in_seconds=600)
         elif request_options.get("timeout_in_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
-        return await super().monitor(session_id, window_id, condition=condition, client_request_id=client_request_id, configuration=configuration, cost_threshold_credits=cost_threshold_credits, time_threshold_seconds=time_threshold_seconds, request_options=request_options)
+        return await super().monitor(
+            session_id,
+            window_id,
+            condition=condition,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
+
+    async def fill_form(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        automation_id: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        parameters: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Fill a form of a browser window synchronously using a form-filler automation
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        automation_id : str
+            The ID of the automation to execute
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        parameters : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Optional parameters to pass to the automation execution
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.fill_form(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                automation_id="automationId",
+            )
+
+
+        asyncio.run(main())
+        """
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return await super().fill_form(
+            session_id,
+            window_id,
+            automation_id=automation_id,
+            async_=async_,
+            client_request_id=client_request_id,
+            cost_threshold_credits=cost_threshold_credits,
+            parameters=parameters,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
+
+    async def create_form_filler(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[CreateAutomationRequestBodyConfiguration] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AiPromptResponse:
+        """
+        Create a form-filler automation synchronously for the form loaded in the browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[CreateAutomationRequestBodyConfiguration]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AiPromptResponse
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.create_form_filler(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        if request_options is None:
+            request_options = RequestOptions(timeout_in_seconds=600)
+        elif request_options.get("timeout_in_seconds") is None:
+            request_options.update({"timeout_in_seconds": 600})
+        return await super().create_form_filler(
+            session_id,
+            window_id,
+            async_=async_,
+            client_request_id=client_request_id,
+            configuration=configuration,
+            cost_threshold_credits=cost_threshold_credits,
+            time_threshold_seconds=time_threshold_seconds,
+            request_options=request_options,
+        )
