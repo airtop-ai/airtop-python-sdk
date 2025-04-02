@@ -4,7 +4,7 @@ import typing
 import httpx
 from .http_client import HttpClient
 from .http_client import AsyncHttpClient
-from airtop.version import __version__
+
 
 class BaseClientWrapper:
     def __init__(
@@ -22,7 +22,7 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "airtop",
-            "X-Fern-SDK-Version": __version__,
+            "X-Fern-SDK-Version": "0.0.45",
         }
         headers["Authorization"] = f"Bearer {self._get_api_key()}"
         return headers

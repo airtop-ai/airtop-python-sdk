@@ -39,7 +39,7 @@ class SessionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SessionsResponse:
         """
-        Get a list of sessions by ID
+        Get a paginated list of sessions filtered by ID or status
 
         Parameters
         ----------
@@ -333,6 +333,21 @@ class SessionsClient:
         ------
         typing.Iterator[SessionsEventsResponse]
             OK
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        response = client.sessions.events(
+            id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            last_event_id=0,
+            all_=True,
+        )
+        for chunk in response:
+            yield chunk
         """
         with self._client_wrapper.httpx_client.stream(
             f"sessions/{jsonable_encoder(id)}/events",
@@ -453,7 +468,7 @@ class AsyncSessionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SessionsResponse:
         """
-        Get a list of sessions by ID
+        Get a paginated list of sessions filtered by ID or status
 
         Parameters
         ----------
@@ -779,6 +794,29 @@ class AsyncSessionsClient:
         ------
         typing.AsyncIterator[SessionsEventsResponse]
             OK
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            response = await client.sessions.events(
+                id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                last_event_id=0,
+                all_=True,
+            )
+            async for chunk in response:
+                yield chunk
+
+
+        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"sessions/{jsonable_encoder(id)}/events",
