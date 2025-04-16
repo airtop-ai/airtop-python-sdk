@@ -8,21 +8,36 @@ from .async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
 from .automation_output import AutomationOutput
 from .browser_wait_navigation_config import BrowserWaitNavigationConfig
 from .browser_wait_navigation_config_wait_until import BrowserWaitNavigationConfigWaitUntil
+from .captcha_event_message import CaptchaEventMessage
+from .captcha_event_message_status import CaptchaEventMessageStatus
 from .click_config import ClickConfig
 from .click_config_click_type import ClickConfigClickType
 from .client_provided_response_metadata import ClientProvidedResponseMetadata
 from .create_automation_request_body_configuration import CreateAutomationRequestBodyConfiguration
+from .create_file_v1 import CreateFileV1
+from .create_file_v1file_type import CreateFileV1FileType
+from .create_file_v1status import CreateFileV1Status
 from .delete_automation_output_wrapper_body import DeleteAutomationOutputWrapperBody
+from .envelope_create_file_v1envelope_default_meta import EnvelopeCreateFileV1EnvelopeDefaultMeta
 from .envelope_default_meta import EnvelopeDefaultMeta
+from .envelope_get_file_v1envelope_default_meta import EnvelopeGetFileV1EnvelopeDefaultMeta
 from .error_body import ErrorBody
 from .error_detail import ErrorDetail
 from .error_message import ErrorMessage
 from .error_model import ErrorModel
+from .external_file import ExternalFile
 from .external_session_ai_response_metadata import ExternalSessionAiResponseMetadata
 from .external_session_ai_response_metadata_status import ExternalSessionAiResponseMetadataStatus
 from .external_session_ai_response_metadata_usage import ExternalSessionAiResponseMetadataUsage
 from .external_session_config import ExternalSessionConfig
 from .external_session_with_connection_info import ExternalSessionWithConnectionInfo
+from .file_event_message import FileEventMessage
+from .file_event_message_status import FileEventMessageStatus
+from .files_response import FilesResponse
+from .files_with_pagination import FilesWithPagination
+from .get_file_v1 import GetFileV1
+from .get_file_v1file_type import GetFileV1FileType
+from .get_file_v1status import GetFileV1Status
 from .interval_monitor_config import IntervalMonitorConfig
 from .issue import Issue
 from .list_automations_output import ListAutomationsOutput
@@ -82,21 +97,36 @@ __all__ = [
     "AutomationOutput",
     "BrowserWaitNavigationConfig",
     "BrowserWaitNavigationConfigWaitUntil",
+    "CaptchaEventMessage",
+    "CaptchaEventMessageStatus",
     "ClickConfig",
     "ClickConfigClickType",
     "ClientProvidedResponseMetadata",
     "CreateAutomationRequestBodyConfiguration",
+    "CreateFileV1",
+    "CreateFileV1FileType",
+    "CreateFileV1Status",
     "DeleteAutomationOutputWrapperBody",
+    "EnvelopeCreateFileV1EnvelopeDefaultMeta",
     "EnvelopeDefaultMeta",
+    "EnvelopeGetFileV1EnvelopeDefaultMeta",
     "ErrorBody",
     "ErrorDetail",
     "ErrorMessage",
     "ErrorModel",
+    "ExternalFile",
     "ExternalSessionAiResponseMetadata",
     "ExternalSessionAiResponseMetadataStatus",
     "ExternalSessionAiResponseMetadataUsage",
     "ExternalSessionConfig",
     "ExternalSessionWithConnectionInfo",
+    "FileEventMessage",
+    "FileEventMessageStatus",
+    "FilesResponse",
+    "FilesWithPagination",
+    "GetFileV1",
+    "GetFileV1FileType",
+    "GetFileV1Status",
     "IntervalMonitorConfig",
     "Issue",
     "ListAutomationsOutput",
