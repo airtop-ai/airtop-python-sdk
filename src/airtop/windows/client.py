@@ -3,7 +3,7 @@
 import typing
 from ..core.client_wrapper import SyncClientWrapper
 from ..types.async_config import AsyncConfig
-from ..types.create_automation_request_body_configuration import CreateAutomationRequestBodyConfiguration
+from ..types.click_config import ClickConfig
 from ..core.request_options import RequestOptions
 from ..types.async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
 from ..core.jsonable_encoder import jsonable_encoder
@@ -11,23 +11,24 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.create_automation_request_body_configuration import CreateAutomationRequestBodyConfiguration
+from ..types.micro_interaction_config_with_experimental import MicroInteractionConfigWithExperimental
+from ..types.monitor_config import MonitorConfig
+from ..types.page_query_config import PageQueryConfig
+from ..types.paginated_extraction_config import PaginatedExtractionConfig
+from ..types.screenshot_request_config import ScreenshotRequestConfig
+from ..types.summary_config import SummaryConfig
 from .types.create_window_input_v1body_wait_until import CreateWindowInputV1BodyWaitUntil
 from ..types.window_id_response import WindowIdResponse
 from ..types.window_response import WindowResponse
 from .types.window_load_url_v1body_wait_until import WindowLoadUrlV1BodyWaitUntil
 from ..types.operation_outcome_response import OperationOutcomeResponse
-from ..types.click_config import ClickConfig
 from ..types.ai_prompt_response import AiPromptResponse
-from ..types.micro_interaction_config_with_experimental import MicroInteractionConfigWithExperimental
-from ..types.monitor_config import MonitorConfig
-from ..types.page_query_config import PageQueryConfig
-from ..types.paginated_extraction_config import PaginatedExtractionConfig
+from ..types.async_operator_prompt_response_envelope import AsyncOperatorPromptResponseEnvelope
 from ..types.scrape_response import ScrapeResponse
-from ..types.screenshot_request_config import ScreenshotRequestConfig
 from ..types.micro_interaction_config import MicroInteractionConfig
 from ..types.scroll_by_config import ScrollByConfig
 from ..types.scroll_to_edge_config import ScrollToEdgeConfig
-from ..types.summary_config import SummaryConfig
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -37,6 +38,110 @@ OMIT = typing.cast(typing.Any, ...)
 class WindowsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def async_click(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        element_description: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ClickConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Execute a click interaction in a specific browser window asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        element_description : str
+            A natural language description of the element to click.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ClickConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_click(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            element_description="The login button",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ClickConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "timeThresholdSeconds": time_threshold_seconds,
+                "waitForNavigation": wait_for_navigation,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def async_create_automation(
         self,
@@ -393,6 +498,816 @@ class WindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "parameters": parameters,
                 "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_hover(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        element_description: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        element_description : str
+            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MicroInteractionConfigWithExperimental]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_hover(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            element_description="The search box input in the top right corner",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=MicroInteractionConfigWithExperimental, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_monitor(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        condition: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MonitorConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        condition : str
+            A natural language description of the condition to monitor for in the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MonitorConfig]
+            Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_monitor(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            condition="Determine if the user appears to be signed in to the website",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "condition": condition,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=MonitorConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_page_query(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PageQueryConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        follow_pagination_links: typing.Optional[bool] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        prompt : str
+            The prompt to submit about the content in the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PageQueryConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        follow_pagination_links : typing.Optional[bool]
+            Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_page_query(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            prompt="What is the main idea of this page?",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=PageQueryConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "followPaginationLinks": follow_pagination_links,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_paginated_extraction(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        prompt : str
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PaginatedExtractionConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_paginated_extraction(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            prompt="This site contains a list of results about <provide details about the list>. Navigate through 3 pages of results and return the title and <provide details about the data you want to extract> about each result in this list.",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=PaginatedExtractionConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_prompt_content(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PageQueryConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        follow_pagination_links: typing.Optional[bool] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        This endpoint is deprecated. Please use the `pageQuery` endpoint instead.
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        prompt : str
+            The prompt to submit about the content in the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PageQueryConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        follow_pagination_links : typing.Optional[bool]
+            Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_prompt_content(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            prompt="What is the main idea of this page?",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=PageQueryConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "followPaginationLinks": follow_pagination_links,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_screenshot(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ScreenshotRequestConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Take a screenshot of the current viewport of a browser window asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ScreenshotRequestConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_screenshot(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ScreenshotRequestConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_summarize_content(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[SummaryConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        prompt: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        This endpoint is deprecated. Please use the `pageQuery` endpoint and ask for a summary in the prompt instead.
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window to summarize.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[SummaryConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        prompt : typing.Optional[str]
+            An optional prompt providing the Airtop AI model with additional direction or constraints about the summary (such as desired length).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_summarize_content(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=SummaryConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def async_type(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        text: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        clear_input_field: typing.Optional[bool] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        element_description: typing.Optional[str] = OMIT,
+        press_enter_key: typing.Optional[bool] = OMIT,
+        press_tab_key: typing.Optional[bool] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        text : str
+            The text to type into the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        clear_input_field : typing.Optional[bool]
+            If true, and an HTML input field is active, clears the input field before typing the text.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MicroInteractionConfigWithExperimental]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        element_description : typing.Optional[str]
+            A natural language description of where to type (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
+        press_enter_key : typing.Optional[bool]
+            If true, simulates pressing the Enter key after typing the text.
+
+        press_tab_key : typing.Optional[bool]
+            If true, simulates pressing the Tab key after typing the text. Note that the tab key will be pressed after the Enter key if both options are configured.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.async_type(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            text="Example text",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clearInputField": clear_input_field,
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=MicroInteractionConfigWithExperimental, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "pressEnterKey": press_enter_key,
+                "pressTabKey": press_tab_key,
+                "text": text,
+                "timeThresholdSeconds": time_threshold_seconds,
+                "waitForNavigation": wait_for_navigation,
             },
             headers={
                 "content-type": "application/json",
@@ -1158,6 +2073,98 @@ class WindowsClient:
                     AiPromptResponse,
                     parse_obj_as(
                         type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def operator_prompt(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncOperatorPromptResponseEnvelope:
+        """
+        Prompt OpenAI Operator
+
+        Parameters
+        ----------
+        session_id : str
+            ID of the session that owns the window.
+
+        window_id : str
+            Airtop window ID of the browser window.
+
+        prompt : str
+            prompt to ask operator
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncOperatorPromptResponseEnvelope
+            OK
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.operator_prompt(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="7334da2a-91b0-42c5-6156-76a5eba87430",
+            prompt="What is the latest news about OpenAI?",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/operator",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncOperatorPromptResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncOperatorPromptResponseEnvelope,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1934,6 +2941,118 @@ class AsyncWindowsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    async def async_click(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        element_description: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ClickConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Execute a click interaction in a specific browser window asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        element_description : str
+            A natural language description of the element to click.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ClickConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_click(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                element_description="The login button",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ClickConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "timeThresholdSeconds": time_threshold_seconds,
+                "waitForNavigation": wait_for_navigation,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def async_create_automation(
         self,
         session_id: str,
@@ -2321,6 +3440,880 @@ class AsyncWindowsClient:
                 "costThresholdCredits": cost_threshold_credits,
                 "parameters": parameters,
                 "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_hover(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        element_description: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        element_description : str
+            A natural language description of where to hover (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MicroInteractionConfigWithExperimental]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_hover(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                element_description="The search box input in the top right corner",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=MicroInteractionConfigWithExperimental, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_monitor(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        condition: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MonitorConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        condition : str
+            A natural language description of the condition to monitor for in the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MonitorConfig]
+            Monitor configuration. If not specified, defaults to an interval monitor with a 5 second interval.
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_monitor(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                condition="Determine if the user appears to be signed in to the website",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "condition": condition,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=MonitorConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_page_query(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PageQueryConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        follow_pagination_links: typing.Optional[bool] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        prompt : str
+            The prompt to submit about the content in the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PageQueryConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        follow_pagination_links : typing.Optional[bool]
+            Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_page_query(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                prompt="What is the main idea of this page?",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=PageQueryConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "followPaginationLinks": follow_pagination_links,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_paginated_extraction(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PaginatedExtractionConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        prompt : str
+            A prompt providing the Airtop AI model with additional direction or constraints about the page and the details you want to extract from the page.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PaginatedExtractionConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_paginated_extraction(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                prompt="This site contains a list of results about <provide details about the list>. Navigate through 3 pages of results and return the title and <provide details about the data you want to extract> about each result in this list.",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=PaginatedExtractionConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_prompt_content(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[PageQueryConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        follow_pagination_links: typing.Optional[bool] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        This endpoint is deprecated. Please use the `pageQuery` endpoint instead.
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        prompt : str
+            The prompt to submit about the content in the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[PageQueryConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        follow_pagination_links : typing.Optional[bool]
+            Make a best effort attempt to load more content items than are originally displayed on the page, e.g. by following pagination links, clicking controls to load more content, utilizing infinite scrolling, etc. This can be quite a bit more costly, but may be necessary for sites that require additional interaction to show the needed results. You can provide constraints in your prompt (e.g. on the total number of pages or results to consider).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_prompt_content(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                prompt="What is the main idea of this page?",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=PageQueryConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "followPaginationLinks": follow_pagination_links,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_screenshot(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[ScreenshotRequestConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Take a screenshot of the current viewport of a browser window asynchronously
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[ScreenshotRequestConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_screenshot(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=ScreenshotRequestConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_summarize_content(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[SummaryConfig] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        prompt: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        This endpoint is deprecated. Please use the `pageQuery` endpoint and ask for a summary in the prompt instead.
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window to summarize.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[SummaryConfig]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        prompt : typing.Optional[str]
+            An optional prompt providing the Airtop AI model with additional direction or constraints about the summary (such as desired length).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_summarize_content(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=SummaryConfig, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def async_type(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        text: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        clear_input_field: typing.Optional[bool] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        configuration: typing.Optional[MicroInteractionConfigWithExperimental] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        element_description: typing.Optional[str] = OMIT,
+        press_enter_key: typing.Optional[bool] = OMIT,
+        press_tab_key: typing.Optional[bool] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        wait_for_navigation: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        text : str
+            The text to type into the browser window.
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        clear_input_field : typing.Optional[bool]
+            If true, and an HTML input field is active, clears the input field before typing the text.
+
+        client_request_id : typing.Optional[str]
+
+        configuration : typing.Optional[MicroInteractionConfigWithExperimental]
+            Request configuration
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        element_description : typing.Optional[str]
+            A natural language description of where to type (e.g. 'the search box', 'username field'). The interaction will be aborted if the target element cannot be found.
+
+        press_enter_key : typing.Optional[bool]
+            If true, simulates pressing the Enter key after typing the text.
+
+        press_tab_key : typing.Optional[bool]
+            If true, simulates pressing the Tab key after typing the text. Note that the tab key will be pressed after the Enter key if both options are configured.
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        wait_for_navigation : typing.Optional[bool]
+            If true, Airtop AI will wait for the navigation to complete after clicking the element.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            Created
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.async_type(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                text="Example text",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clearInputField": clear_input_field,
+                "clientRequestId": client_request_id,
+                "configuration": convert_and_respect_annotation_metadata(
+                    object_=configuration, annotation=MicroInteractionConfigWithExperimental, direction="write"
+                ),
+                "costThresholdCredits": cost_threshold_credits,
+                "elementDescription": element_description,
+                "pressEnterKey": press_enter_key,
+                "pressTabKey": press_tab_key,
+                "text": text,
+                "timeThresholdSeconds": time_threshold_seconds,
+                "waitForNavigation": wait_for_navigation,
             },
             headers={
                 "content-type": "application/json",
@@ -3158,6 +5151,106 @@ class AsyncWindowsClient:
                     AiPromptResponse,
                     parse_obj_as(
                         type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def operator_prompt(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncOperatorPromptResponseEnvelope:
+        """
+        Prompt OpenAI Operator
+
+        Parameters
+        ----------
+        session_id : str
+            ID of the session that owns the window.
+
+        window_id : str
+            Airtop window ID of the browser window.
+
+        prompt : str
+            prompt to ask operator
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncOperatorPromptResponseEnvelope
+            OK
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.operator_prompt(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="7334da2a-91b0-42c5-6156-76a5eba87430",
+                prompt="What is the latest news about OpenAI?",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/operator",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncOperatorPromptResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncOperatorPromptResponseEnvelope,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
