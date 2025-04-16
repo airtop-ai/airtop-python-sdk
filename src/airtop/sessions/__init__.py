@@ -2,11 +2,15 @@
 
 from .types import (
     SessionsEventsResponse,
+    SessionsEventsResponseCaptchaEvent,
     SessionsEventsResponseError,
+    SessionsEventsResponseFileEvent,
     SessionsEventsResponseSessionEvent,
     SessionsEventsResponseStatus,
     SessionsEventsResponseWindowEvent,
+    SessionsEventsResponse_CaptchaEvent,
     SessionsEventsResponse_Error,
+    SessionsEventsResponse_FileEvent,
     SessionsEventsResponse_SessionEvent,
     SessionsEventsResponse_Status,
     SessionsEventsResponse_WindowEvent,
@@ -15,11 +19,15 @@ from .types import (
 
 __all__ = [
     "SessionsEventsResponse",
+    "SessionsEventsResponseCaptchaEvent",
     "SessionsEventsResponseError",
+    "SessionsEventsResponseFileEvent",
     "SessionsEventsResponseSessionEvent",
     "SessionsEventsResponseStatus",
     "SessionsEventsResponseWindowEvent",
+    "SessionsEventsResponse_CaptchaEvent",
     "SessionsEventsResponse_Error",
+    "SessionsEventsResponse_FileEvent",
     "SessionsEventsResponse_SessionEvent",
     "SessionsEventsResponse_Status",
     "SessionsEventsResponse_WindowEvent",

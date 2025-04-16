@@ -834,7 +834,7 @@ class AirtopWindows(WindowsClient):
         """
         if request_options is None:
             request_options = RequestOptions(timeout_in_seconds=600)
-        elif request_options.get("timeout_in_seconds") is None:
+        elif request_options.get("timeout_ßin_seconds") is None:
             request_options.update({"timeout_in_seconds": 600})
         return super().paginated_extraction(
             session_id,

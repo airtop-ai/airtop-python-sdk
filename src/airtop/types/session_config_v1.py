@@ -43,6 +43,13 @@ class SessionConfigV1(UniversalBaseModel):
     Proxy configuration.
     """
 
+    solve_captcha: typing_extensions.Annotated[typing.Optional[bool], FieldMetadata(alias="solveCaptcha")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Automatically solve captcha challenges.
+    """
+
     timeout_minutes: typing_extensions.Annotated[typing.Optional[int], FieldMetadata(alias="timeoutMinutes")] = (
         pydantic.Field(default=None)
     )
