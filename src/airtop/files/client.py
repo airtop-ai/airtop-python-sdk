@@ -64,7 +64,7 @@ class FilesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "files",
+            "v1/files",
             method="GET",
             params={
                 "sessionIds": session_ids,
@@ -131,7 +131,7 @@ class FilesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "files",
+            "v1/files",
             method="POST",
             json={
                 "fileName": file_name,
@@ -188,7 +188,7 @@ class FilesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"files/{jsonable_encoder(id)}",
+            f"v1/files/{jsonable_encoder(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -232,7 +232,7 @@ class FilesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"files/{jsonable_encoder(id)}",
+            f"v1/files/{jsonable_encoder(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -300,7 +300,7 @@ class AsyncFilesClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "files",
+            "v1/files",
             method="GET",
             params={
                 "sessionIds": session_ids,
@@ -375,7 +375,7 @@ class AsyncFilesClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "files",
+            "v1/files",
             method="POST",
             json={
                 "fileName": file_name,
@@ -440,7 +440,7 @@ class AsyncFilesClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"files/{jsonable_encoder(id)}",
+            f"v1/files/{jsonable_encoder(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -492,7 +492,7 @@ class AsyncFilesClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"files/{jsonable_encoder(id)}",
+            f"v1/files/{jsonable_encoder(id)}",
             method="DELETE",
             request_options=request_options,
         )

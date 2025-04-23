@@ -98,7 +98,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -189,7 +189,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -285,7 +285,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -382,7 +382,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -464,7 +464,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows",
             method="POST",
             json={
                 "screenResolution": screen_resolution,
@@ -544,7 +544,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="GET",
             params={
                 "includeNavigationBar": include_navigation_bar,
@@ -619,7 +619,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="POST",
             json={
                 "url": url,
@@ -681,7 +681,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -764,7 +764,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -856,7 +856,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -952,7 +952,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -1045,7 +1045,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1135,7 +1135,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1231,7 +1231,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1321,7 +1321,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1417,7 +1417,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1498,7 +1498,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scrape-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scrape-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1581,7 +1581,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1683,7 +1683,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1781,7 +1781,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1893,7 +1893,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
             method="POST",
             json={
                 "clearInputField": clear_input_field,
@@ -2002,7 +2002,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -2101,7 +2101,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -2205,7 +2205,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -2310,7 +2310,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -2400,7 +2400,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows",
             method="POST",
             json={
                 "screenResolution": screen_resolution,
@@ -2488,7 +2488,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="GET",
             params={
                 "includeNavigationBar": include_navigation_bar,
@@ -2571,7 +2571,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="POST",
             json={
                 "url": url,
@@ -2641,7 +2641,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -2732,7 +2732,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2832,7 +2832,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -2936,7 +2936,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3037,7 +3037,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3135,7 +3135,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3239,7 +3239,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3337,7 +3337,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3441,7 +3441,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3530,7 +3530,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scrape-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scrape-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3621,7 +3621,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3731,7 +3731,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3837,7 +3837,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -3957,7 +3957,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
             method="POST",
             json={
                 "clearInputField": clear_input_field,
