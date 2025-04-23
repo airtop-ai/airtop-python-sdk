@@ -7,6 +7,11 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class RequestStatusResponse(UniversalBaseModel):
+    error: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The error message, if available
+    """
+
     response: typing.Optional[typing.Any] = None
     status: str = pydantic.Field()
     """

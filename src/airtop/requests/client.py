@@ -44,7 +44,7 @@ class RequestsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"requests/{jsonable_encoder(request_id)}/status",
+            f"v1/requests/{jsonable_encoder(request_id)}/status",
             method="GET",
             request_options=request_options,
         )
@@ -104,7 +104,7 @@ class AsyncRequestsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"requests/{jsonable_encoder(request_id)}/status",
+            f"v1/requests/{jsonable_encoder(request_id)}/status",
             method="GET",
             request_options=request_options,
         )

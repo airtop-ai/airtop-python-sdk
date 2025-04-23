@@ -108,7 +108,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -203,7 +203,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -294,7 +294,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -390,7 +390,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -487,7 +487,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -582,7 +582,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -679,7 +679,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -780,7 +780,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -878,7 +878,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -981,7 +981,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -1076,7 +1076,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -1173,7 +1173,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -1290,7 +1290,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -1379,7 +1379,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows",
             method="POST",
             json={
                 "screenResolution": screen_resolution,
@@ -1459,7 +1459,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="GET",
             params={
                 "includeNavigationBar": include_navigation_bar,
@@ -1534,7 +1534,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="POST",
             json={
                 "url": url,
@@ -1596,7 +1596,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -1679,7 +1679,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -1771,7 +1771,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -1867,7 +1867,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -1960,7 +1960,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2050,7 +2050,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2142,7 +2142,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/operator",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/operator",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -2238,7 +2238,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2328,7 +2328,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2424,7 +2424,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2505,7 +2505,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scrape-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scrape-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2588,7 +2588,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2690,7 +2690,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2788,7 +2788,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -2900,7 +2900,7 @@ class WindowsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
             method="POST",
             json={
                 "clearInputField": clear_input_field,
@@ -2928,6 +2928,510 @@ class WindowsClient:
                     AiPromptResponse,
                     parse_obj_as(
                         type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def act(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        job_id: str,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        node_handle_id: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Perform actions in a specific browser window based on a prompt
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        job_id : str
+            The id of the job to which this operation belongs
+
+        prompt : str
+            Prompt describing what action to perform on the page
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        node_handle_id : typing.Optional[str]
+            Optional: The handle id of the node to act on
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.act(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            job_id="123",
+            prompt="Click the login button",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/act",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "jobId": job_id,
+                "nodeHandleId": node_handle_id,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def extract(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        job_id: str,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        node_handle_id: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Extract data from a specific browser window based on a prompt
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        job_id : str
+            The id of the job to which this operation belongs
+
+        prompt : str
+            Prompt describing what to extract from the page
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        node_handle_id : typing.Optional[str]
+            Optional: The handle id of the node to extract from
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.extract(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            job_id="123",
+            prompt="Extract all product prices from this page",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/extract",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "jobId": job_id,
+                "nodeHandleId": node_handle_id,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def find_many(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        job_id: str,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        node_handle_id: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Find multiple elements in a browser window based on a prompt
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        job_id : str
+            The id of the job to which this operation belongs
+
+        prompt : str
+            Prompt describing what elements to find on the page
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        node_handle_id : typing.Optional[str]
+            Optional: The handle id of the node to search within
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.find_many(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            job_id="123",
+            prompt="Find all the news articles",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/find-many",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "jobId": job_id,
+                "nodeHandleId": node_handle_id,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def find_one(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        job_id: str,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        node_handle_id: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Find a specific element in a browser window based on a prompt
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        job_id : str
+            The id of the job to which this operation belongs
+
+        prompt : str
+            Prompt describing what element to find on the page
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        node_handle_id : typing.Optional[str]
+            Optional: The handle id of the node to search within
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.find_one(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            job_id="123",
+            prompt="Find the login button",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/find-one",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "jobId": job_id,
+                "nodeHandleId": node_handle_id,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def llm(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Send a prompt to an LLM with context from the browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        prompt : str
+            Prompt for the LLM to respond to
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        from airtop import Airtop
+
+        client = Airtop(
+            api_key="YOUR_API_KEY",
+        )
+        client.windows.llm(
+            session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+            window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+            prompt="Tell me about this webpage",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/llm",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -3018,7 +3522,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3121,7 +3625,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-automation",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3220,7 +3724,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3324,7 +3828,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/execute-automation",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3429,7 +3933,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3532,7 +4036,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3637,7 +4141,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3746,7 +4250,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3852,7 +4356,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -3963,7 +4467,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -4066,7 +4570,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -4171,7 +4675,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -4296,7 +4800,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            f"v1/async/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -4393,7 +4897,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows",
             method="POST",
             json={
                 "screenResolution": screen_resolution,
@@ -4481,7 +4985,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="GET",
             params={
                 "includeNavigationBar": include_navigation_bar,
@@ -4564,7 +5068,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="POST",
             json={
                 "url": url,
@@ -4634,7 +5138,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -4725,7 +5229,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/click",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -4825,7 +5329,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/create-form-filler",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -4929,7 +5433,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/fill-form",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -5030,7 +5534,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/hover",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -5128,7 +5632,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/monitor",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -5228,7 +5732,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/operator",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/operator",
             method="POST",
             json={
                 "async": convert_and_respect_annotation_metadata(
@@ -5332,7 +5836,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/page-query",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -5430,7 +5934,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/paginated-extraction",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -5534,7 +6038,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/prompt-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -5623,7 +6127,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scrape-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scrape-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -5714,7 +6218,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/screenshot",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -5824,7 +6328,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/scroll",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -5930,7 +6434,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/summarize-content",
             method="POST",
             json={
                 "clientRequestId": client_request_id,
@@ -6050,7 +6554,7 @@ class AsyncWindowsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
+            f"v1/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/type",
             method="POST",
             json={
                 "clearInputField": clear_input_field,
@@ -6078,6 +6582,550 @@ class AsyncWindowsClient:
                     AiPromptResponse,
                     parse_obj_as(
                         type_=AiPromptResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def act(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        job_id: str,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        node_handle_id: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Perform actions in a specific browser window based on a prompt
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        job_id : str
+            The id of the job to which this operation belongs
+
+        prompt : str
+            Prompt describing what action to perform on the page
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        node_handle_id : typing.Optional[str]
+            Optional: The handle id of the node to act on
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.act(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                job_id="123",
+                prompt="Click the login button",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/act",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "jobId": job_id,
+                "nodeHandleId": node_handle_id,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def extract(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        job_id: str,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        node_handle_id: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Extract data from a specific browser window based on a prompt
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        job_id : str
+            The id of the job to which this operation belongs
+
+        prompt : str
+            Prompt describing what to extract from the page
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        node_handle_id : typing.Optional[str]
+            Optional: The handle id of the node to extract from
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.extract(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                job_id="123",
+                prompt="Extract all product prices from this page",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/extract",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "jobId": job_id,
+                "nodeHandleId": node_handle_id,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def find_many(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        job_id: str,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        node_handle_id: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Find multiple elements in a browser window based on a prompt
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        job_id : str
+            The id of the job to which this operation belongs
+
+        prompt : str
+            Prompt describing what elements to find on the page
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        node_handle_id : typing.Optional[str]
+            Optional: The handle id of the node to search within
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.find_many(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                job_id="123",
+                prompt="Find all the news articles",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/find-many",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "jobId": job_id,
+                "nodeHandleId": node_handle_id,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def find_one(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        job_id: str,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        node_handle_id: typing.Optional[str] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Find a specific element in a browser window based on a prompt
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        job_id : str
+            The id of the job to which this operation belongs
+
+        prompt : str
+            Prompt describing what element to find on the page
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        node_handle_id : typing.Optional[str]
+            Optional: The handle id of the node to search within
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.find_one(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                job_id="123",
+                prompt="Find the login button",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/find-one",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "jobId": job_id,
+                "nodeHandleId": node_handle_id,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def llm(
+        self,
+        session_id: str,
+        window_id: str,
+        *,
+        prompt: str,
+        async_: typing.Optional[AsyncConfig] = OMIT,
+        client_request_id: typing.Optional[str] = OMIT,
+        cost_threshold_credits: typing.Optional[int] = OMIT,
+        time_threshold_seconds: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncSessionAiResponseEnvelope:
+        """
+        Send a prompt to an LLM with context from the browser window
+
+        Parameters
+        ----------
+        session_id : str
+            The session id for the window.
+
+        window_id : str
+            The Airtop window id of the browser window.
+
+        prompt : str
+            Prompt for the LLM to respond to
+
+        async_ : typing.Optional[AsyncConfig]
+            Async configuration options.
+
+        client_request_id : typing.Optional[str]
+
+        cost_threshold_credits : typing.Optional[int]
+            A credit threshold that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+        time_threshold_seconds : typing.Optional[int]
+            A time threshold in seconds that, once exceeded, will cause the operation to be cancelled. Note that this is *not* a hard limit, but a threshold that is checked periodically during the course of fulfilling the request. A default threshold is used if not specified, but you can use this option to increase or decrease as needed. Set to 0 to disable this feature entirely (not recommended).
+
+            This setting does not extend the maximum session duration provided at the time of session creation.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncSessionAiResponseEnvelope
+            OK
+
+        Examples
+        --------
+        import asyncio
+
+        from airtop import AsyncAirtop
+
+        client = AsyncAirtop(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.windows.llm(
+                session_id="6aac6f73-bd89-4a76-ab32-5a6c422e8b0b",
+                window_id="0334da2a-91b0-42c5-6156-76a5eba87430",
+                prompt="Tell me about this webpage",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/sessions/{jsonable_encoder(session_id)}/windows/{jsonable_encoder(window_id)}/llm",
+            method="POST",
+            json={
+                "async": convert_and_respect_annotation_metadata(
+                    object_=async_, annotation=AsyncConfig, direction="write"
+                ),
+                "clientRequestId": client_request_id,
+                "costThresholdCredits": cost_threshold_credits,
+                "prompt": prompt,
+                "timeThresholdSeconds": time_threshold_seconds,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AsyncSessionAiResponseEnvelope,
+                    parse_obj_as(
+                        type_=AsyncSessionAiResponseEnvelope,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

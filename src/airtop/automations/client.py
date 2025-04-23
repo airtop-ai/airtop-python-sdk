@@ -50,7 +50,7 @@ class AutomationsClient:
         client.automations.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "automations",
+            "v1/automations",
             method="GET",
             request_options=request_options,
         )
@@ -107,7 +107,7 @@ class AutomationsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "automations/description",
+            "v1/automations/description",
             method="PUT",
             json={
                 "description": description,
@@ -213,7 +213,7 @@ class AutomationsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"automations/{jsonable_encoder(automation_id)}",
+            f"v1/automations/{jsonable_encoder(automation_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -312,7 +312,7 @@ class AutomationsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"automations/{jsonable_encoder(automation_id)}",
+            f"v1/automations/{jsonable_encoder(automation_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -417,7 +417,7 @@ class AsyncAutomationsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "automations",
+            "v1/automations",
             method="GET",
             request_options=request_options,
         )
@@ -482,7 +482,7 @@ class AsyncAutomationsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "automations/description",
+            "v1/automations/description",
             method="PUT",
             json={
                 "description": description,
@@ -598,7 +598,7 @@ class AsyncAutomationsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"automations/{jsonable_encoder(automation_id)}",
+            f"v1/automations/{jsonable_encoder(automation_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -705,7 +705,7 @@ class AsyncAutomationsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"automations/{jsonable_encoder(automation_id)}",
+            f"v1/automations/{jsonable_encoder(automation_id)}",
             method="DELETE",
             request_options=request_options,
         )

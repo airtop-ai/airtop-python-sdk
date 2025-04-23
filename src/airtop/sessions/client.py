@@ -76,7 +76,7 @@ class SessionsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "sessions",
+            "v1/sessions",
             method="GET",
             params={
                 "sessionIds": session_ids,
@@ -160,7 +160,7 @@ class SessionsClient:
         client.sessions.create()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "sessions",
+            "v1/sessions",
             method="POST",
             json={
                 "configuration": convert_and_respect_annotation_metadata(
@@ -216,7 +216,7 @@ class SessionsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(id)}",
+            f"v1/sessions/{jsonable_encoder(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -292,7 +292,7 @@ class SessionsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(id)}",
+            f"v1/sessions/{jsonable_encoder(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -350,7 +350,7 @@ class SessionsClient:
             yield chunk
         """
         with self._client_wrapper.httpx_client.stream(
-            f"sessions/{jsonable_encoder(id)}/events",
+            f"v1/sessions/{jsonable_encoder(id)}/events",
             method="GET",
             params={
                 "lastEventId": last_event_id,
@@ -441,7 +441,7 @@ class SessionsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/save-profile-on-termination/{jsonable_encoder(profile_name)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/save-profile-on-termination/{jsonable_encoder(profile_name)}",
             method="PUT",
             request_options=request_options,
         )
@@ -513,7 +513,7 @@ class AsyncSessionsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "sessions",
+            "v1/sessions",
             method="GET",
             params={
                 "sessionIds": session_ids,
@@ -605,7 +605,7 @@ class AsyncSessionsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "sessions",
+            "v1/sessions",
             method="POST",
             json={
                 "configuration": convert_and_respect_annotation_metadata(
@@ -669,7 +669,7 @@ class AsyncSessionsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(id)}",
+            f"v1/sessions/{jsonable_encoder(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -753,7 +753,7 @@ class AsyncSessionsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(id)}",
+            f"v1/sessions/{jsonable_encoder(id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -819,7 +819,7 @@ class AsyncSessionsClient:
         asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
-            f"sessions/{jsonable_encoder(id)}/events",
+            f"v1/sessions/{jsonable_encoder(id)}/events",
             method="GET",
             params={
                 "lastEventId": last_event_id,
@@ -918,7 +918,7 @@ class AsyncSessionsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"sessions/{jsonable_encoder(session_id)}/save-profile-on-termination/{jsonable_encoder(profile_name)}",
+            f"v1/sessions/{jsonable_encoder(session_id)}/save-profile-on-termination/{jsonable_encoder(profile_name)}",
             method="PUT",
             request_options=request_options,
         )

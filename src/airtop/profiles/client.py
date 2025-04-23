@@ -47,7 +47,7 @@ class ProfilesClient:
         client.profiles.delete()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "profiles",
+            "v1/profiles",
             method="DELETE",
             params={
                 "profileIds": profile_ids,
@@ -111,7 +111,7 @@ class AsyncProfilesClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "profiles",
+            "v1/profiles",
             method="DELETE",
             params={
                 "profileIds": profile_ids,

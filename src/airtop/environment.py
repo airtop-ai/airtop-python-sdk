@@ -4,4 +4,4 @@ import enum
 
 
 class AirtopEnvironment(enum.Enum):
-    DEFAULT = "https://api.airtop.ai/api/v1"
+    DEFAULT = "https://api.airtop.ai/api"
