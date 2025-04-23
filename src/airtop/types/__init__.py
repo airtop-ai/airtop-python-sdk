@@ -4,6 +4,7 @@ from .ai_prompt_response import AiPromptResponse
 from .ai_response_envelope import AiResponseEnvelope
 from .airtop_proxy_configuration import AirtopProxyConfiguration
 from .async_config import AsyncConfig
+from .async_operator_prompt_response_envelope import AsyncOperatorPromptResponseEnvelope
 from .async_session_ai_response_envelope import AsyncSessionAiResponseEnvelope
 from .automation_output import AutomationOutput
 from .browser_wait_navigation_config import BrowserWaitNavigationConfig
@@ -93,6 +94,7 @@ __all__ = [
     "AiResponseEnvelope",
     "AirtopProxyConfiguration",
     "AsyncConfig",
+    "AsyncOperatorPromptResponseEnvelope",
     "AsyncSessionAiResponseEnvelope",
     "AutomationOutput",
     "BrowserWaitNavigationConfig",
